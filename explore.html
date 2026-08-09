@@ -246,20 +246,14 @@
 .wt-explore-head { max-width: 900px; margin: 0 auto 8px; padding: 0 56px; }
 .wt-map { width: 100%; margin-top: 44px; }
 .wm-surface {
-  position: relative; width: 100%; height: 62vh; min-height: 440px; max-height: 620px;
+  position: relative; width: 100%; aspect-ratio: 2 / 1; max-height: 620px; margin: 0 auto;
   background: radial-gradient(ellipse at 50% 0%, rgba(201,94,24,0.16) 0%, transparent 60%), #100b04;
   overflow: hidden;
 }
-.wm-grid {
-  position: absolute; inset: 0;
-  background-image: radial-gradient(rgba(240,233,218,0.14) 1px, transparent 1.5px);
-  background-size: 26px 26px;
-  opacity: 0.5;
+.wm-basemap {
+  position: absolute; inset: 0; width: 100%; height: 100%; object-fit: fill;
+  color: var(--wx-orange); opacity: 0.6;
 }
-.wm-landmass { position: absolute; border-radius: 50%; filter: blur(60px); opacity: 0.5; }
-.wm-landmass-1 { width: 30%; height: 65%; left: 6%; top: 18%; background: rgba(201,94,24,0.16); }
-.wm-landmass-2 { width: 34%; height: 55%; left: 40%; top: 8%; background: rgba(224,112,48,0.14); }
-.wm-landmass-3 { width: 26%; height: 50%; left: 76%; top: 20%; background: rgba(201,94,24,0.13); }
 .wm-pin {
   position: absolute; transform: translate(-50%, -50%);
   display: flex; flex-direction: column; align-items: center; gap: 8px;

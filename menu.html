@@ -68,6 +68,7 @@
   }
   </script>
   <link rel="stylesheet" href="css/style.css?v=6" />
+  <script defer src="assets/data/world-data.js"></script>
   <script type="application/ld+json">{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Home","item":"https://www.urbanbreadco.com/"},{"@type":"ListItem","position":2,"name":"Menu","item":"https://www.urbanbreadco.com/menu.html"}]}</script>
   <script type="application/ld+json">{"@context":"https://schema.org","@type":"Menu","name":"Urban Bread Co Menu","description":"82 handcrafted artisan bread varieties across four collections.","hasMenuSection":[{"@type":"MenuSection","name":"Classic","description":"Traditional breads — banana, cornbread, zucchini, and more.","offers":{"@type":"Offer","priceCurrency":"USD","lowPrice":"10","highPrice":"20"}},{"@type":"MenuSection","name":"Specialty","description":"Glazed dessert-style breads with bold flavor combinations.","offers":{"@type":"Offer","priceCurrency":"USD","lowPrice":"13","highPrice":"23"}},{"@type":"MenuSection","name":"International","description":"Dutch-inspired breads — stroopwafel, advocaat custard, and more.","offers":{"@type":"Offer","priceCurrency":"USD","lowPrice":"15","highPrice":"25"}},{"@type":"MenuSection","name":"Premium","description":"Layered, filled, and indulgent signature creations.","offers":{"@type":"Offer","priceCurrency":"USD","lowPrice":"15","highPrice":"25"}}]}</script>
 </head>
@@ -776,6 +777,13 @@
 .urban-bread-menu-wrapper .bread-row.featured-row:hover { background: #dce4f5; }
 .urban-bread-menu-wrapper .bread-number { font-family:'Syne',sans-serif; font-weight:800; font-size:0.6rem; color:rgba(201,94,24,.45); letter-spacing:1px; }
 .urban-bread-menu-wrapper .bread-name { font-family:'Syne',sans-serif; font-weight:700; font-size:0.85rem; color:var(--ink); letter-spacing:-.2px; line-height:1.25; }
+.bread-origin-badge {
+  display:inline-flex; align-items:center; gap:4px; margin-left:8px;
+  font-family:'Outfit',sans-serif; font-weight:500; font-size:0.62rem; letter-spacing:0.3px;
+  color:var(--orange); text-decoration:none; border:1px solid var(--rule); border-radius:3px;
+  padding:2px 7px; white-space:nowrap; vertical-align:middle; transition:background 0.2s, border-color 0.2s;
+}
+.bread-origin-badge:hover { background:var(--orange-dim); border-color:var(--orange); }
 .urban-bread-menu-wrapper .bread-description { font-family:'Outfit',sans-serif; font-weight:300; font-size:0.76rem; color:var(--muted); line-height:1.6; }
 .urban-bread-menu-wrapper .bread-features-compact { display:flex; gap:4px; flex-wrap:wrap; }
 .urban-bread-menu-wrapper .feature-tag-compact { padding:3px 7px; background:var(--soft); font-family:'Outfit',sans-serif; font-weight:400; font-size:0.5rem; letter-spacing:1px; text-transform:uppercase; color:var(--muted); border-radius:0; }
@@ -1115,6 +1123,15 @@ window.urbanBreadApp = (function() {
     }
   }
 
+  function ubcOriginBadge(breadId) {
+    if (!window.UBC_WORLD) return '';
+    var countryId = window.UBC_WORLD.breadCountry[breadId];
+    if (!countryId) return '';
+    var c = window.UBC_WORLD.countries.find(function(x){ return x.id === countryId; });
+    if (!c) return '';
+    return '<a href="countries/' + c.id + '.html" class="bread-origin-badge" title="Inspired by ' + c.name + '">' + c.flag + ' ' + c.name.replace('USA — ', '') + '</a>';
+  }
+
   function renderBreads(breads) {
     const tableBody = document.getElementById('breadTableBody2');
     const noResults = document.getElementById('noResultsCompact2');
@@ -1129,7 +1146,7 @@ window.urbanBreadApp = (function() {
       const isFeatured = bread.category === 'featured';
       return '<div class="bread-row' + (isFeatured ? ' featured-row' : '') + '">' +
         '<div class="bread-number">' + (isFeatured ? '★' : bread.id) + '</div>' +
-        '<div class="bread-name">' + bread.name + '</div>' +
+        '<div class="bread-name">' + bread.name + ubcOriginBadge(bread.id) + '</div>' +
         '<div class="bread-description">' + bread.description + '</div>' +
         '<div class="bread-features-compact">' + bread.features.map(function(f) { return '<span class="feature-tag-compact">' + f + '</span>'; }).join('') + '</div>' +
         '<div class="bread-category category-' + bread.category + '">' + (isFeatured ? 'Featured' : bread.category) + '</div>' +
@@ -2736,12 +2753,21 @@ button, .frequency-option, .add-bread-btn, .category-filter, .back-btn, .continu
     renderBreadGrid(filtered);
   }
 
+  function ubcOriginBadge(breadId) {
+    if (!window.UBC_WORLD) return '';
+    var countryId = window.UBC_WORLD.breadCountry[breadId];
+    if (!countryId) return '';
+    var c = window.UBC_WORLD.countries.find(function(x){ return x.id === countryId; });
+    if (!c) return '';
+    return '<a href="countries/' + c.id + '.html" class="bread-origin-badge" title="Inspired by ' + c.name + '">' + c.flag + ' ' + c.name.replace('USA — ', '') + '</a>';
+  }
+
   function renderBreadGrid(breads) {
     const grid = document.getElementById('breadGrid');
     if (!grid) return;
     grid.innerHTML = breads.map(bread => `
       <div class="bread-card">
-        <div class="bread-card-name">${bread.name}</div>
+        <div class="bread-card-name">${bread.name}${ubcOriginBadge(bread.id)}</div>
         <span class="bread-card-category category-${bread.category}">${bread.category}</span>
         <div class="bread-card-description">${bread.description}</div>
         <div class="bread-card-features">${bread.features.map(f => `<span class="bread-feature-tag">${f}</span>`).join('')}</div>
