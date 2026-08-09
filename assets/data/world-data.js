@@ -29,6 +29,10 @@ window.UBC_WORLD = {
       cardImage: "https://images.unsplash.com/photo-1512470876302-972faa2aa9a4?auto=format&fit=crop&w=800&q=80",
       story: "Dutch baking runs on caramel, spice, and a stubborn sweet tooth — stroopwafels cooling on windowsills, hagelslag on breakfast toast, advocaat poured a little too generously into dessert. It's a tradition built on small, deliberate indulgences. When Urban Bread Co. started digging into Dutch flavors, it wasn't research — it turned into an entire wing of the menu, seven loaves deep and still growing.",
       region: "Northern Europe",
+      /* map position, as % of the map width/height, left-to-right / top-to-bottom */
+      mapX: 48, mapY: 24,
+      addedYear: "2024",
+      blurb: "Added in 2024 — what started as one Stroopwafel-inspired loaf grew into seven Dutch breads.",
       ingredients: ["Stroopwafel caramel", "Hazelnut praline", "Dutch chocolate sprinkles", "Advocaat custard", "Brown sugar rum glaze", "Almond paste"],
       breadIds: [65, 66, 67, 68, 69, 70, 71]
     },
@@ -42,6 +46,9 @@ window.UBC_WORLD = {
       cardImage: "https://images.unsplash.com/photo-1509440159596-0249088772ff?auto=format&fit=crop&w=800&q=80",
       story: "Quesadilla salvadoreña isn't a quesadilla at all — it's a dense, faintly sweet cheese bread that shows up at Salvadoran breakfast tables, church gatherings, and bakeries on every corner, usually with a cup of coffee close by. It's one of the first international loaves Urban Bread Co. ever baked, born from a conversation about the breads people grew up on and missed. It's stayed on the menu ever since.",
       region: "Central America",
+      mapX: 22, mapY: 52,
+      addedYear: "2023",
+      blurb: "One of Urban Bread Co's very first international breads — on the menu since the early days.",
       ingredients: ["Quesillo cheese", "Toasted sesame seeds", "Crema", "Rice flour"],
       breadIds: [9]
     },
@@ -54,6 +61,9 @@ window.UBC_WORLD = {
       cardImage: "https://images.unsplash.com/photo-1584269600464-37b1b58a9fe7?auto=format&fit=crop&w=800&q=80",
       story: "We're actively sourcing ingredients and inspiration for a Mexican bread lineup — read where that trip stands on the Journal.",
       region: "North America",
+      mapX: 16, mapY: 42,
+      addedYear: "In Progress",
+      blurb: "Currently in development, ahead of a planned trip to source ingredients in person.",
       ingredients: ["Mexican chocolate", "Cinnamon (canela)", "Vanilla", "Chile ancho"],
       breadIds: []
     },
@@ -66,6 +76,9 @@ window.UBC_WORLD = {
       cardImage: "https://images.unsplash.com/photo-1517433670267-08bbd4be890f?auto=format&fit=crop&w=800&q=80",
       story: "In development — an Italian lineup built around espresso, citrus, and olive oil is on our bake list.",
       region: "Southern Europe",
+      mapX: 53, mapY: 33,
+      addedYear: "Planned",
+      blurb: "On the roadmap — an espresso-and-citrus lineup is still in early recipe testing.",
       ingredients: ["Espresso", "Blood orange", "Olive oil", "Mascarpone"],
       breadIds: []
     },
@@ -78,6 +91,9 @@ window.UBC_WORLD = {
       cardImage: "https://images.unsplash.com/photo-1490474418585-ba9bad8fd0ea?auto=format&fit=crop&w=800&q=80",
       story: "In development — a Japanese milk bread lineup exploring matcha, yuzu, and black sesame.",
       region: "East Asia",
+      mapX: 85, mapY: 35,
+      addedYear: "Planned",
+      blurb: "On the roadmap — a matcha and yuzu milk bread lineup is still in early recipe testing.",
       ingredients: ["Matcha", "Yuzu", "Black sesame", "Red bean (anko)"],
       breadIds: []
     }
@@ -147,4 +163,68 @@ window.UBC_WORLD = {
       inspiration: "Inspired by advocaat, the thick Dutch egg liqueur usually eaten with a spoon, not a straw."
     }
   }
+};
+
+/*
+ * Renders the interactive "world map" — pins positioned over a stylized
+ * (not literal-cartographic) map background. Used on the homepage and on
+ * /explore.html so both share one implementation.
+ *
+ * containerId: id of an empty <div> to render into.
+ * opts.pathPrefix: "" on root pages, "../" on pages one folder deep.
+ */
+window.UBC_WORLD.renderMap = function (containerId, opts) {
+  opts = opts || {};
+  var prefix = opts.pathPrefix || "";
+  var data = window.UBC_WORLD;
+  var root = document.getElementById(containerId);
+  if (!root) return;
+
+  var pins = data.countries.map(function (c) {
+    var soon = c.status === "coming-soon";
+    return '<button type="button" class="wm-pin' + (soon ? " is-soon" : "") + '" style="left:' + c.mapX + '%;top:' + c.mapY + '%;" data-id="' + c.id + '" aria-label="' + c.name + '">' +
+      '<span class="wm-pin-dot"></span>' +
+      '<span class="wm-pin-label">' + c.flag + ' ' + c.name + '</span>' +
+    '</button>';
+  }).join('');
+
+  root.innerHTML =
+    '<div class="wm-surface">' +
+      '<div class="wm-landmass wm-landmass-1"></div>' +
+      '<div class="wm-landmass wm-landmass-2"></div>' +
+      '<div class="wm-landmass wm-landmass-3"></div>' +
+      '<div class="wm-grid"></div>' +
+      pins +
+    '</div>' +
+    '<div class="wm-caption" id="wmCaption"></div>';
+
+  function paintCaption(c) {
+    var caption = document.getElementById("wmCaption");
+    if (!caption) return;
+    var soon = c.status === "coming-soon";
+    caption.innerHTML =
+      '<span class="wm-caption-flag">' + c.flag + '</span>' +
+      '<div class="wm-caption-body">' +
+        '<div class="wm-caption-name">' + c.name + ' <span class="wm-caption-year">— ' + c.addedYear + '</span></div>' +
+        '<div class="wm-caption-blurb">' + c.blurb + '</div>' +
+      '</div>' +
+      (soon
+        ? '<span class="wm-caption-cta wm-caption-soon">Coming Soon</span>'
+        : '<a class="wm-caption-cta" href="' + prefix + 'countries/' + c.id + '.html">Discover ' + c.name + ' →</a>');
+  }
+
+  var defaultCountry = data.countries.find(function (c) { return c.id === data.currentlyExploring; }) || data.countries[0];
+  paintCaption(defaultCountry);
+
+  root.querySelectorAll('.wm-pin').forEach(function (pin) {
+    var c = data.countries.find(function (x) { return x.id === pin.getAttribute('data-id'); });
+    if (!c) return;
+    pin.addEventListener('mouseenter', function () { paintCaption(c); });
+    pin.addEventListener('click', function () {
+      paintCaption(c);
+      if (c.status !== 'coming-soon') {
+        window.location.href = prefix + 'countries/' + c.id + '.html';
+      }
+    });
+  });
 };
