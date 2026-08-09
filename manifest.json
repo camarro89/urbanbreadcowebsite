@@ -1,0 +1,19 @@
+﻿{
+  "name": "Urban Bread Co",
+  "short_name": "Urban Bread",
+  "description": "Artisan bakery in Thornton, CO — 82+ handcrafted breads baked fresh daily",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#0D0900",
+  "theme_color": "#FF6B35",
+  "icons": [
+    {
+      "src": "images/2025/10/Urban-Bread-Co-2026-Logo-150x150.png",
+      "sizes": "150x150",
+      "type": "image/png"
+    }
+  ],
+  "categories": ["food", "shopping", "lifestyle"],
+  "lang": "en-US",
+  "orientation": "portrait"
+}

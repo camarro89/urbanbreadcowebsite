@@ -1,0 +1,413 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <link rel="icon" type="image/png" href="images/2025/10/Urban-Bread-Co-2026-Logo-150x150.png" />
+  <link rel="icon" type="image/svg+xml" href="favicon.svg" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Gallery | Urban Bread Co — Thornton, CO</title>
+  <meta name="description" content="A look at our handcrafted breads — real photos of the loaves, glazes, and toppings baked fresh at Urban Bread Co." />
+  <link rel="canonical" href="https://www.urbanbreadco.com/gallery.html" />
+  <meta property="og:title" content="Gallery | Urban Bread Co" />
+  <meta property="og:description" content="A look at our handcrafted breads — real photos baked fresh in Thornton, CO." />
+  <meta property="og:url" content="https://www.urbanbreadco.com/gallery.html" />
+  <meta property="og:type" content="website" />
+  <meta property="og:image" content="https://www.urbanbreadco.com/images/2026/03/IMG_0018-scaled.jpg" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="Gallery | Urban Bread Co" />
+  <meta name="twitter:description" content="A look at our handcrafted breads — real photos baked fresh in Thornton, CO." />
+  <meta name="twitter:image" content="https://www.urbanbreadco.com/images/2026/03/IMG_0018-scaled.jpg" />
+  <link rel="stylesheet" href="css/style.css?v=5" />
+  <script type="application/ld+json">{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Home","item":"https://www.urbanbreadco.com/"},{"@type":"ListItem","position":2,"name":"Gallery","item":"https://www.urbanbreadco.com/gallery.html"}]}</script>
+  <style>
+    body { background: #FAF7F2; }
+
+    /* ── HERO ── */
+    .gal-hero {
+      position: relative; height: 75vh; min-height: 520px; overflow: hidden;
+      display: flex; align-items: flex-end;
+    }
+    .gal-hero-bg {
+      position: absolute; inset: 0;
+      background-image: url('images/2026/03/IMG_0031-scaled.jpg');
+      background-size: cover; background-position: center 35%;
+      transform: scale(1.05);
+      transition: transform 10s ease;
+    }
+    .gal-hero:hover .gal-hero-bg { transform: scale(1.0); }
+    .gal-hero-overlay {
+      position: absolute; inset: 0;
+      background: linear-gradient(to bottom,
+        rgba(8,5,0,0.18) 0%,
+        rgba(8,5,0,0.05) 30%,
+        rgba(8,5,0,0.72) 65%,
+        rgba(8,5,0,0.97) 100%);
+    }
+    .gal-hero-content {
+      position: relative; z-index: 2;
+      padding: 0 56px 72px; max-width: 1200px; width: 100%;
+    }
+    .gal-hero-eyebrow {
+      display: flex; align-items: center; gap: 12px; margin-bottom: 18px;
+    }
+    .gal-hero-eyebrow-line { width: 32px; height: 1.5px; background: var(--orange); flex-shrink: 0; }
+    .gal-hero-eyebrow span {
+      font-family: 'Outfit', sans-serif; font-weight: 500; font-size: 0.6rem;
+      letter-spacing: 4px; text-transform: uppercase; color: var(--orange);
+    }
+    .gal-hero-title {
+      font-family: 'Syne', sans-serif; font-weight: 800;
+      font-size: clamp(2.8rem, 6vw, 5.5rem); color: var(--white);
+      line-height: 0.95; letter-spacing: -2.5px; margin-bottom: 16px;
+    }
+    .gal-hero-title em {
+      font-family: 'Playfair Display', serif; font-style: italic;
+      font-weight: 400; color: rgba(255,210,160,0.9);
+    }
+    .gal-hero-sub {
+      font-family: 'Outfit', sans-serif; font-weight: 300; font-size: 1rem;
+      color: rgba(240,233,218,0.7); max-width: 500px; line-height: 1.8;
+    }
+
+    /* ── GRID (CSS masonry like LMJ) ── */
+    .gal-section { background: #FAF7F2; padding: 0; }
+    .gal-intro {
+      padding: 52px 56px 0;
+      display: flex; align-items: baseline; gap: 24px;
+      border-top: 3px solid var(--black);
+    }
+    .gal-intro-title {
+      font-family: 'Syne', sans-serif; font-weight: 800; font-size: 0.58rem;
+      letter-spacing: 5px; text-transform: uppercase; color: var(--black);
+    }
+    .gal-intro-count {
+      font-family: 'Outfit', sans-serif; font-weight: 300; font-size: 0.82rem;
+      color: #888; letter-spacing: 0.5px;
+    }
+
+    @keyframes galFadeUp {
+      from { opacity: 0; transform: translateY(22px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+
+    .gal-grid {
+      column-count: 4;
+      column-gap: 14px;
+      padding: 36px 56px 72px;
+      background: #FAF7F2;
+    }
+    .gal-item {
+      width: 100%;
+      margin-bottom: 14px;
+      position: relative;
+      border-radius: 10px;
+      overflow: hidden;
+      break-inside: avoid;
+      cursor: pointer;
+      box-shadow: 0 6px 24px rgba(0,0,0,0.14);
+      opacity: 0;
+      animation: galFadeUp 0.65s ease forwards;
+    }
+    .gal-item:nth-child(2n) { animation-delay: 0.08s; }
+    .gal-item:nth-child(3n) { animation-delay: 0.16s; }
+    .gal-item:nth-child(4n) { animation-delay: 0.24s; }
+    .gal-item:nth-child(5n) { animation-delay: 0.12s; }
+    .gal-item:nth-child(6n) { animation-delay: 0.20s; }
+    .gal-item:hover {
+      box-shadow: 0 14px 40px rgba(201,94,24,0.28);
+    }
+    .gal-item img {
+      width: 100%; display: block;
+      transition: transform 0.55s ease, filter 0.55s ease;
+      filter: saturate(1.06) contrast(1.02);
+    }
+    .gal-item:hover img {
+      transform: scale(1.06);
+      filter: brightness(0.72) saturate(1.25);
+    }
+    .gal-item-overlay {
+      position: absolute; inset: 0;
+      display: flex; flex-direction: column;
+      justify-content: flex-end; align-items: flex-start;
+      padding: 22px 20px 20px;
+      background: linear-gradient(to top,
+        rgba(6,3,0,0.88) 0%, rgba(6,3,0,0.3) 40%, transparent 68%);
+      opacity: 0; transition: opacity 0.4s ease;
+    }
+    .gal-item:hover .gal-item-overlay { opacity: 1; }
+    .gal-item-accent {
+      width: 22px; height: 2px; background: var(--orange); margin-bottom: 8px;
+      transform: scaleX(0); transform-origin: left;
+      transition: transform 0.36s cubic-bezier(.16,1,.3,1) 0.04s;
+    }
+    .gal-item:hover .gal-item-accent { transform: scaleX(1); }
+    .gal-item-name {
+      font-family: 'Outfit', sans-serif; font-weight: 400; font-size: 0.77rem;
+      color: #fff; line-height: 1.45;
+    }
+
+    /* ── CTA STRIP ── */
+    .gal-cta {
+      padding: 80px 52px; text-align: center; background: var(--black);
+    }
+    .gal-cta-title {
+      font-family: 'Syne', sans-serif; font-weight: 800;
+      font-size: clamp(1.8rem, 3.5vw, 2.8rem); color: var(--white);
+      letter-spacing: -0.5px; margin-bottom: 14px;
+    }
+    .gal-cta-title em {
+      font-family: 'Playfair Display', serif; font-style: italic;
+      font-weight: 400; color: var(--orange);
+    }
+    .gal-cta-sub {
+      font-family: 'Outfit', sans-serif; font-weight: 300; font-size: 1rem;
+      color: rgba(200,188,170,0.8); margin-bottom: 32px;
+    }
+    .gal-cta-btn {
+      display: inline-flex; align-items: center; gap: 12px;
+      font-family: 'Outfit', sans-serif; font-weight: 500; font-size: 0.65rem; letter-spacing: 2.5px;
+      text-transform: uppercase; text-decoration: none; color: #fff;
+      background: var(--orange); padding: 18px 40px;
+      transition: background 0.25s, gap 0.25s;
+    }
+    .gal-cta-btn:hover { background: var(--orange-lt); gap: 18px; }
+
+    /* ── LIGHTBOX ── */
+    .gal-lightbox {
+      position: fixed; inset: 0; z-index: 9999; display: none; align-items: center; justify-content: center;
+      background: rgba(6,3,0,0.97); padding: 40px 20px;
+    }
+    .gal-lightbox.is-active { display: flex; }
+    .gal-lightbox-inner { position: relative; max-width: 700px; width: 100%; }
+    .gal-lightbox-img { width: 100%; max-height: 80vh; object-fit: contain; display: block; }
+    .gal-lightbox-caption {
+      font-family: 'Outfit', sans-serif; font-weight: 300; font-size: 0.85rem;
+      letter-spacing: 0.5px; color: rgba(240,233,218,0.65);
+      text-align: center; margin-top: 22px;
+    }
+    .gal-lightbox-close {
+      position: absolute; top: -52px; right: 0; width: 40px; height: 40px;
+      background: none; border: none; color: var(--white); opacity: 0.5;
+      font-size: 1.8rem; line-height: 1; cursor: pointer; transition: opacity 0.2s;
+    }
+    .gal-lightbox-close:hover { opacity: 1; }
+
+    /* ── RESPONSIVE ── */
+    @media (max-width: 992px) {
+      .gal-grid { column-count: 3; padding: 24px 28px 48px; column-gap: 12px; }
+      .gal-item { margin-bottom: 12px; }
+      .gal-intro { padding: 40px 28px 0; }
+      .gal-hero-content { padding: 0 28px 52px; }
+    }
+    @media (max-width: 640px) {
+      .gal-hero { height: 60vh; }
+      .gal-grid { column-count: 2; padding: 14px 14px 40px; column-gap: 10px; }
+      .gal-item { margin-bottom: 10px; }
+      .gal-intro { padding: 28px 16px 0; }
+      .gal-cta { padding: 60px 24px; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ── NAV ── -->
+  <header>
+    <nav class="ubc-site-nav" id="ubc-nav" aria-label="Main navigation">
+      <a href="index.html" class="ubc-nav-logo" aria-label="Urban Bread Co — home"><img src="images/2025/10/Urban-Bread-Co-2026-Logo-whitetext-300x300.png" alt="Urban Bread Co" class="ubc-nav-logo-img"></a>
+      <ul class="ubc-nav-links">
+        <li><a href="index.html">Home</a></li>
+        <li><a href="menu.html">Menu</a></li>
+        <li><a href="about.html">About</a></li>
+        <li><a href="gallery.html">Gallery</a></li>
+        <li><a href="catering.html">Catering</a></li>
+        <li><a href="events.html">Events</a></li>
+        <li><a href="reviews.html">Reviews</a></li>
+        <li><a href="game.html">Win a Discount</a></li>
+        <li><a href="vendor.html">Vendors</a></li>
+        <li><a href="contact.html">Contact</a></li>
+      </ul>
+      <a href="menu.html#browse-menu" class="ubc-nav-cta">Order Now</a>
+      <button class="ubc-hamburger" id="ubc-hamburger" aria-label="Open menu" aria-expanded="false">
+        <span></span><span></span><span></span>
+      </button>
+    </nav>
+    <nav class="ubc-mobile-nav" id="ubc-mobile-nav" aria-label="Mobile navigation">
+      <a href="index.html">Home</a>
+      <a href="menu.html">Menu</a>
+      <a href="about.html">About</a>
+      <a href="gallery.html">Gallery</a>
+      <a href="catering.html">Catering</a>
+      <a href="events.html">Events</a>
+      <a href="reviews.html">Reviews</a>
+      <a href="game.html">Win a Discount</a>
+      <a href="vendor.html">Vendors</a>
+      <a href="contact.html">Contact</a>
+      <a href="menu.html#browse-menu" class="ubc-nav-cta">Order Now →</a>
+    </nav>
+  </header>
+  <nav class="ubc-breadcrumb" aria-label="Breadcrumb">
+    <div class="ubc-breadcrumb-inner">
+      <a href="index.html">Home</a>
+      <span class="ubc-breadcrumb-sep">/</span>
+      <span class="ubc-breadcrumb-current">Gallery</span>
+    </div>
+  </nav>
+
+  <!-- ── HERO ── -->
+  <section class="gal-hero">
+    <div class="gal-hero-bg"></div>
+    <div class="gal-hero-overlay"></div>
+    <div class="gal-hero-content">
+      <div class="gal-hero-eyebrow">
+        <div class="gal-hero-eyebrow-line"></div>
+        <span>Urban Bread Co · Thornton, CO</span>
+      </div>
+      <h1 class="gal-hero-title">Fresh from<br><em>the oven.</em></h1>
+      <p class="gal-hero-sub">Real photos. No filters. Just the bread — exactly as it comes out and lands in your hands.</p>
+    </div>
+  </section>
+
+  <!-- ── GRID ── -->
+  <section class="gal-section">
+    <div class="gal-intro">
+      <span class="gal-intro-title">Fresh From the Oven</span>
+      <span class="gal-intro-count">24 breads · Click any photo to enlarge</span>
+    </div>
+    <div class="gal-grid" id="galGrid"></div>
+  </section>
+
+  <!-- ── CTA ── -->
+  <div class="gal-cta">
+    <h2 class="gal-cta-title">Hungry yet? Order <em>fresh today.</em></h2>
+    <p class="gal-cta-sub">82 breads baked to order in Thornton, Colorado.</p>
+    <a href="menu.html#browse-menu" class="gal-cta-btn">Browse the Full Menu →</a>
+  </div>
+
+  <div class="gal-lightbox" id="galLightbox">
+    <div class="gal-lightbox-inner">
+      <button class="gal-lightbox-close" id="galLightboxClose" aria-label="Close photo">×</button>
+      <img class="gal-lightbox-img" id="galLightboxImg" src="" alt="">
+      <div class="gal-lightbox-caption" id="galLightboxCaption"></div>
+    </div>
+  </div>
+
+  <!-- ── FOOTER ── -->
+  <footer class="ubc-site-footer">
+    <div class="ubc-footer-grid">
+      <div class="ubc-footer-brand">
+        <div class="ubc-footer-logo"><img src="images/2025/10/Urban-Bread-Co-2026-Logo-whitetext-150x150.png" alt="Urban Bread Co" class="ubc-footer-logo-img">Urban <span>Bread</span> Co</div>
+        <p class="ubc-footer-tagline">"Bread that tells a story."</p>
+        <p style="font-size:0.88rem;line-height:1.7;margin-bottom:20px;">Small-batch artisan bakery in Thornton, CO. 82+ unique loaves baked fresh daily.</p>
+        <div class="ubc-footer-social">
+          <a href="https://instagram.com/urbanbreadco" target="_blank" rel="noopener" aria-label="Instagram">ig</a>
+          <a href="https://facebook.com/itsurbanbreadco" target="_blank" rel="noopener" aria-label="Facebook">fb</a>
+          <a href="https://linktr.ee/urbanbreadco" target="_blank" rel="noopener" aria-label="Linktree">lt</a>
+        </div>
+      </div>
+      <div class="ubc-footer-col">
+        <h4>Explore</h4>
+        <ul>
+          <li><a href="menu.html#browse-menu">Full Menu</a></li>
+          <li><a href="menu.html#build-bread">Build Custom</a></li>
+          <li><a href="menu.html#bread-club">Bread Club</a></li>
+          <li><a href="game.html">Win a Discount</a></li>
+        </ul>
+      </div>
+      <div class="ubc-footer-col">
+        <h4>Company</h4>
+        <ul>
+          <li><a href="about.html">About Us</a></li>
+          <li><a href="gallery.html">Gallery</a></li>
+          <li><a href="artist-feature.html">Artist Feature</a></li>
+          <li><a href="events.html">Events</a></li>
+          <li><a href="reviews.html">Reviews</a></li>
+        </ul>
+      </div>
+      <div class="ubc-footer-col">
+        <h4>Visit Us</h4>
+        <p class="ubc-footer-info">
+          <strong>Thornton, CO</strong><br>
+          Mon–Fri 8am–8pm<br>Sat 9am–7pm · Sun 10am–6pm<br><br>
+          <a href="tel:7202668231" style="color:var(--orange);">720-266-8231</a><br><br>
+          <a href="contact.html" style="color:var(--orange);">Contact Us →</a>
+        </p>
+      </div>
+    </div>
+    <div class="ubc-footer-bottom">
+      <span>© 2026 Urban Bread Co. All rights reserved.</span>
+      <span><a href="menu.html#browse-menu">Menu</a> · <a href="contact.html">Contact</a> · <a href="sitemap.html">Sitemap</a> · <a href="faq.html">FAQ</a> · <a href="privacy.html">Privacy</a></span>
+      <span class="ubc-footer-credit">Website by <a href="https://www.sparkthebuzz.com" target="_blank" rel="noopener">Spark the Buzz</a></span>
+    </div>
+  </footer>
+
+  <script src="js/main.js"></script>
+  <script>
+    const galleryPhotos = [
+      { src: "images/2025/10/banana-bread-with-Pecans-2.jpg", name: "Banana Bread With Caramel Pecan Glaze" },
+      { src: "images/2026/03/IMG_0029-scaled.jpg", name: "Red Velvet Bread With White Chocolate Cream" },
+      { src: "images/2026/03/IMG_0024-scaled.jpg", name: "Pineapple Upside Down Bread With Butter Rum Sauce" },
+      { src: "images/2026/03/IMG_0028-scaled.jpg", name: "Lemon Poppy Seed With Lemon Glaze" },
+      { src: "images/2026/03/IMG_0031-scaled.jpg", name: "Blue Velvet Lagniappe" },
+      { src: "images/2026/03/IMG_0017-scaled.jpg", name: "White Chocolate Peppermint Candy Cane Bread" },
+      { src: "images/2026/03/IMG_0022-scaled.jpg", name: "White Chocolate Peppermint Bread With White Chocolate Glaze" },
+      { src: "images/2026/03/IMG_0020-scaled.jpg", name: "Carrot Cake Bread with Cream Cheese Glaze" },
+      { src: "images/2026/03/IMG_0021-scaled.jpg", name: "Apple Crisp Bread With Caramel Glaze" },
+      { src: "images/2026/03/IMG_0019-scaled.jpg", name: "Banana Foster Bread With Caramel Rum Glaze" },
+      { src: "images/2026/03/IMG_0027-scaled.jpg", name: "Cranberry Buttermilk Bread With Vanilla Glaze" },
+      { src: "images/2026/03/IMG_0030-scaled.jpg", name: "Strawberry Shortcake Bread With Strawberry Compote" },
+      { src: "images/2026/03/IMG_0032-scaled.jpg", name: "Sweet Potato Bread with Brown Butter Glaze" },
+      { src: "images/2026/03/IMG_0016-scaled.jpg", name: "Blueberry Bread with Lemon Glaze" },
+      { src: "images/2026/03/IMG_0023-scaled.jpg", name: "Fresh From the Kitchen" },
+      { src: "images/2026/03/IMG_0026-scaled.jpg", name: "Caramel-Frosted Specialty Loaf" },
+      { src: "images/2026/03/IMG_0025-scaled.jpg", name: "Classic Glazed Loaf" },
+      { src: "images/2026/03/20250926_061539-scaled.jpg", name: "Gingerbread Bread With Vanilla Glaze" },
+      { src: "images/2026/03/20250926_060715-scaled.jpg", name: "Salted Caramel Pretzel Bread With Caramel Drizzle" },
+      { src: "images/2026/03/20250926_061055-scaled.jpg", name: "Pecan Crumb Specialty Loaf" },
+      { src: "images/2026/03/IMG_5589-scaled.jpg", name: "Banana Bread With Pecans" },
+      { src: "images/2026/03/IMG_8737-scaled.jpg", name: "Honey Cornbread" },
+      { src: "images/2026/03/IMG_8841-scaled.jpg", name: "White Chocolate Peppermint Candy Cane Bread" },
+      { src: "images/2025/06/processed-60491F71-E7FB-49DE-8CA6-6A086346422E-scaled.jpeg", name: "Pistachio Bread With Vanilla Glaze" },
+      { src: "images/2025/06/processed-B3F85E79-F8A3-489F-88DD-39F2EBBF0B5E.jpeg", name: "Pumpkin Spice Bread with White Chocolate Cream" }
+    ];
+
+    const galGrid = document.getElementById('galGrid');
+    galGrid.innerHTML = galleryPhotos.map(function(p, i) {
+      return '<div class="gal-item" data-src="' + p.src + '" data-name="' + p.name + '" style="transition-delay:' + Math.min(i * 0.035, 0.35) + 's">' +
+        '<img src="' + p.src + '" alt="' + p.name + '" loading="lazy">' +
+        '<div class="gal-item-overlay"><div class="gal-item-accent"></div><div class="gal-item-name">' + p.name + '</div></div>' +
+        '</div>';
+    }).join('');
+
+    const galObserver = new IntersectionObserver(function(entries) {
+      entries.forEach(function(entry) {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('is-visible');
+          galObserver.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.1, rootMargin: '0px 0px -40px 0px' });
+    document.querySelectorAll('.gal-item').forEach(function(item) { galObserver.observe(item); });
+
+    const galLightbox = document.getElementById('galLightbox');
+    function openGalLightbox(src, name) {
+      document.getElementById('galLightboxImg').src = src;
+      document.getElementById('galLightboxImg').alt = name;
+      document.getElementById('galLightboxCaption').textContent = name;
+      galLightbox.classList.add('is-active');
+    }
+    function closeGalLightbox() { galLightbox.classList.remove('is-active'); }
+    document.querySelectorAll('.gal-item').forEach(function(item) {
+      item.addEventListener('click', function() {
+        openGalLightbox(this.getAttribute('data-src'), this.getAttribute('data-name'));
+      });
+    });
+    document.getElementById('galLightboxClose').addEventListener('click', closeGalLightbox);
+    galLightbox.addEventListener('click', function(e) { if (e.target === galLightbox) closeGalLightbox(); });
+    document.addEventListener('keydown', function(e) { if (e.key === 'Escape') closeGalLightbox(); });
+  </script>
+</body>
+</html>
+
+
+
+

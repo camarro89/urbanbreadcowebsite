@@ -1,0 +1,586 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <link rel="icon" type="image/png" href="images/2025/10/Urban-Bread-Co-2026-Logo-150x150.png" />
+  <link rel="icon" type="image/svg+xml" href="favicon.svg" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Artist Feature | Urban Bread Co</title>
+  <meta name="description" content="Every month Urban Bread Co partners with a Colorado artist to create a signature bread. Meet this month's featured artist — Tony Exum Jr." />
+  <link rel="canonical" href="https://www.urbanbreadco.com/artist-feature.html" />
+  <meta property="og:title" content="Artist Feature — Urban Bread Co x Tony Exum Jr." />
+  <meta property="og:description" content="Saxophonist Tony Exum Jr. is this month's featured artist. His signature bread: Blue Velvet Lagniappe." />
+  <meta property="og:url" content="https://www.urbanbreadco.com/artist-feature.html" />
+  <meta property="og:type" content="website" />
+  <meta property="og:image" content="https://www.urbanbreadco.com/images/2025/10/Vince-Converse-572-1.jpg" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="Artist Feature — Urban Bread Co x Tony Exum Jr." />
+  <meta name="twitter:description" content="Saxophonist Tony Exum Jr. is this month's featured artist. His signature bread: Blue Velvet Lagniappe." />
+  <meta name="twitter:image" content="https://www.urbanbreadco.com/images/2025/10/Vince-Converse-572-1.jpg" />
+  <link rel="stylesheet" href="css/style.css?v=5" />
+  <style>
+    body { background: var(--black); }
+
+    /* ── FEATURED HERO ── */
+    .af-hero {
+      min-height: 100vh;
+      position: relative;
+      display: flex;
+      align-items: flex-end;
+      overflow: hidden;
+    }
+    .af-hero-bg {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: center top;
+      display: block;
+    }
+    .af-hero-overlay {
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(
+        to bottom,
+        rgba(14,13,11,0.20) 0%,
+        rgba(14,13,11,0.10) 30%,
+        rgba(14,13,11,0.75) 65%,
+        rgba(14,13,11,1.00) 100%
+      );
+    }
+    .af-hero-content {
+      position: relative;
+      z-index: 2;
+      padding: 0 52px 80px;
+      max-width: 1200px;
+      width: 100%;
+    }
+    .af-hero-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: var(--orange-dim);
+      border: 1px solid var(--orange);
+      border-radius: 100px;
+      padding: 6px 18px;
+      font-family: 'Outfit', sans-serif;
+      font-size: 0.75rem;
+      font-weight: 500;
+      letter-spacing: 0.10em;
+      text-transform: uppercase;
+      color: var(--orange);
+      margin-bottom: 28px;
+    }
+    .af-hero-name {
+      font-family: 'Syne', sans-serif;
+      font-weight: 800;
+      font-size: clamp(3rem, 8vw, 7rem);
+      color: var(--white);
+      line-height: 0.95;
+      margin-bottom: 12px;
+    }
+    .af-hero-role {
+      font-family: 'Playfair Display', serif;
+      font-style: italic;
+      font-size: clamp(1.1rem, 2.5vw, 1.6rem);
+      color: var(--orange);
+      margin-bottom: 36px;
+    }
+    .af-hero-actions { display: flex; gap: 16px; flex-wrap: wrap; }
+
+    /* ── STORY + BREAD GRID ── */
+    .af-section {
+      padding: 100px 52px;
+    }
+    .af-inner {
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+    .af-split {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 80px;
+      align-items: center;
+    }
+
+    .af-eyebrow {
+      font-family: 'Syne', sans-serif;
+      font-weight: 600;
+      font-size: 0.70rem;
+      letter-spacing: 0.20em;
+      text-transform: uppercase;
+      color: var(--orange);
+      margin-bottom: 16px;
+    }
+    .af-title {
+      font-family: 'Syne', sans-serif;
+      font-weight: 800;
+      font-size: clamp(2rem, 3.5vw, 2.8rem);
+      color: var(--white);
+      line-height: 1.1;
+      margin-bottom: 24px;
+    }
+    .af-body {
+      font-family: 'Outfit', sans-serif;
+      font-weight: 300;
+      font-size: 1.02rem;
+      color: rgba(250,250,248,0.9);
+      line-height: 1.8;
+      margin-bottom: 18px;
+    }
+    .af-img {
+      width: 100%;
+      aspect-ratio: 4/5;
+      object-fit: cover;
+      border-radius: var(--radius);
+      display: block;
+      border: 1px solid var(--rule-bright);
+    }
+
+    /* ── SIGNATURE BREAD CARD ── */
+    .af-bread-card {
+      background: var(--card);
+      border: 1px solid rgba(201,94,24,0.30);
+      border-radius: var(--radius);
+      overflow: hidden;
+    }
+    .af-bread-img {
+      width: 100%;
+      height: 300px;
+      object-fit: cover;
+      background: rgba(255,255,255,0.05);
+    }
+    .af-bread-body { padding: 32px; }
+    .af-bread-label {
+      font-family: 'Syne', sans-serif;
+      font-weight: 600;
+      font-size: 0.68rem;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      color: var(--orange);
+      margin-bottom: 8px;
+    }
+    .af-bread-name {
+      font-family: 'Syne', sans-serif;
+      font-weight: 800;
+      font-size: 1.5rem;
+      color: var(--white);
+      margin-bottom: 8px;
+    }
+    .af-bread-desc {
+      font-family: 'Outfit', sans-serif;
+      font-weight: 300;
+      font-size: 0.92rem;
+      color: rgba(250,250,248,0.9);
+      line-height: 1.7;
+      margin-bottom: 24px;
+    }
+    .af-bread-prices {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 10px;
+    }
+    .af-bread-btn {
+      padding: 13px 16px;
+      border-radius: 8px;
+      background: var(--orange);
+      color: var(--white);
+      font-family: 'Outfit', sans-serif;
+      font-weight: 500;
+      font-size: 0.88rem;
+      text-align: center;
+      cursor: pointer;
+      border: none;
+      transition: background var(--transition);
+    }
+    .af-bread-btn:hover { background: var(--orange-lt); }
+    .af-bread-btn.outline {
+      background: transparent;
+      border: 1.5px solid var(--orange);
+      color: var(--orange);
+    }
+    .af-bread-btn.outline:hover { background: var(--orange); color: var(--white); }
+
+    /* ── PAST FEATURES GRID ── */
+    .af-archive {
+      background: var(--ink);
+      border-top: 1px solid var(--rule-bright);
+      padding: 96px 52px;
+    }
+    .af-archive-inner { max-width: 1200px; margin: 0 auto; }
+    .af-archive-head {
+      display: flex;
+      align-items: flex-end;
+      justify-content: space-between;
+      margin-bottom: 56px;
+      flex-wrap: wrap;
+      gap: 24px;
+    }
+    .af-archive-title {
+      font-family: 'Syne', sans-serif;
+      font-weight: 800;
+      font-size: clamp(1.8rem, 3.5vw, 2.8rem);
+      color: var(--white);
+    }
+    .af-past-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 28px;
+    }
+    .af-past-card {
+      background: var(--card);
+      border: 1px solid var(--rule-bright);
+      border-radius: var(--radius);
+      overflow: hidden;
+      transition: border-color var(--transition), transform var(--transition);
+    }
+    .af-past-card:hover { border-color: rgba(201,94,24,0.40); transform: translateY(-4px); }
+    .af-past-img {
+      width: 100%;
+      height: 220px;
+      object-fit: cover;
+      background: var(--card);
+      display: block;
+    }
+    .af-past-body { padding: 22px; }
+    .af-past-date {
+      font-family: 'Syne', sans-serif;
+      font-weight: 600;
+      font-size: 0.65rem;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--orange);
+      margin-bottom: 6px;
+    }
+    .af-past-name {
+      font-family: 'Syne', sans-serif;
+      font-weight: 700;
+      font-size: 1rem;
+      color: var(--white);
+      margin-bottom: 4px;
+    }
+    .af-past-discipline {
+      font-size: 0.82rem;
+      color: rgba(250,250,248,0.9);
+      font-family: 'Outfit', sans-serif;
+    }
+
+    /* ── HOW IT WORKS ── */
+    .af-how {
+      background: var(--black);
+      padding: 96px 52px;
+    }
+    .af-how-inner { max-width: 1000px; margin: 0 auto; text-align: center; }
+    .af-how-title {
+      font-family: 'Syne', sans-serif;
+      font-weight: 800;
+      font-size: clamp(1.8rem, 3vw, 2.5rem);
+      color: var(--white);
+      margin-bottom: 56px;
+    }
+    .af-how-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 40px;
+      text-align: left;
+    }
+    .af-how-step {}
+    .af-how-num {
+      font-family: 'Syne', sans-serif;
+      font-weight: 800;
+      font-size: 2.5rem;
+      color: var(--orange);
+      opacity: 0.35;
+      line-height: 1;
+      margin-bottom: 12px;
+    }
+    .af-how-label {
+      font-family: 'Syne', sans-serif;
+      font-weight: 700;
+      font-size: 1rem;
+      color: var(--white);
+      margin-bottom: 10px;
+    }
+    .af-how-desc {
+      font-family: 'Outfit', sans-serif;
+      font-weight: 300;
+      font-size: 0.88rem;
+      color: rgba(250,250,248,0.9);
+      line-height: 1.75;
+    }
+
+    /* ── CTA: NOMINATE ── */
+    .af-nominate {
+      background: var(--orange);
+      padding: 96px 52px;
+      text-align: center;
+    }
+    .af-nominate-title {
+      font-family: 'Syne', sans-serif;
+      font-weight: 800;
+      font-size: clamp(1.8rem, 3.5vw, 3rem);
+      color: var(--white);
+      margin-bottom: 18px;
+    }
+    .af-nominate-body {
+      font-family: 'Outfit', sans-serif;
+      font-weight: 300;
+      font-size: 1.02rem;
+      color: rgba(255,255,255,0.80);
+      max-width: 540px;
+      margin: 0 auto 36px;
+      line-height: 1.7;
+    }
+    .af-nominate-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      font-family: 'Syne', sans-serif;
+      font-weight: 700;
+      font-size: 0.9rem;
+      letter-spacing: 0.06em;
+      color: var(--orange);
+      background: var(--white);
+      padding: 14px 32px;
+      border-radius: 100px;
+      transition: transform var(--transition), box-shadow var(--transition);
+    }
+    .af-nominate-btn:hover { transform: translateY(-2px); box-shadow: 0 8px 24px rgba(0,0,0,0.25); }
+
+    @media (max-width: 1024px) {
+      .af-section { padding: 80px 32px; }
+      .af-archive { padding: 80px 32px; }
+      .af-how { padding: 80px 32px; }
+      .af-nominate { padding: 80px 32px; }
+      .af-past-grid { grid-template-columns: repeat(2, 1fr); }
+    }
+    @media (max-width: 768px) {
+      .af-hero-content { padding: 0 20px 64px; }
+      .af-section { padding: 64px 20px; }
+      .af-archive { padding: 64px 20px; }
+      .af-how { padding: 64px 20px; }
+      .af-nominate { padding: 64px 20px; }
+      .af-split { grid-template-columns: 1fr; gap: 40px; }
+      .af-past-grid { grid-template-columns: 1fr; }
+      .af-how-grid { grid-template-columns: 1fr; }
+    }
+  </style>
+  <script type="application/ld+json">{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Home","item":"https://www.urbanbreadco.com/"},{"@type":"ListItem","position":2,"name":"Artist Feature","item":"https://www.urbanbreadco.com/artist-feature.html"}]}</script>
+</head>
+<body>
+
+  <header>
+    <nav class="ubc-site-nav" id="ubc-nav" aria-label="Main navigation">
+      <a href="/" class="ubc-nav-logo" aria-label="Urban Bread Co — home"><img src="images/2025/10/Urban-Bread-Co-2026-Logo-whitetext-300x300.png" alt="Urban Bread Co" class="ubc-nav-logo-img"></a>
+      <ul class="ubc-nav-links">
+        <li><a href="/">Home</a></li>
+        <li><a href="menu">Menu</a></li>
+        <li><a href="about">About</a></li>
+        <li><a href="gallery">Gallery</a></li>
+        <li><a href="catering">Catering</a></li>
+        <li><a href="events">Events</a></li>
+        <li><a href="reviews">Reviews</a></li>
+        <li><a href="game">Win a Discount</a></li>
+        <li><a href="vendor">Vendors</a></li>
+        <li><a href="contact">Contact</a></li>
+      </ul>
+      <a href="menu#browse-menu" class="ubc-nav-cta">Order Now</a>
+      <button class="ubc-hamburger" id="ubc-hamburger" aria-label="Open menu" aria-expanded="false">
+        <span></span><span></span><span></span>
+      </button>
+    </nav>
+    <nav class="ubc-mobile-nav" id="ubc-mobile-nav" aria-label="Mobile navigation">
+      <a href="/">Home</a>
+      <a href="menu">Menu</a>
+      <a href="about">About</a>
+      <a href="gallery">Gallery</a>
+      <a href="catering">Catering</a>
+      <a href="events">Events</a>
+      <a href="reviews">Reviews</a>
+      <a href="game">Win a Discount</a>
+      <a href="vendor">Vendors</a>
+      <a href="contact">Contact</a>
+      <a href="menu#browse-menu" class="ubc-nav-cta">Order Now →</a>
+    </nav>
+  </header>
+  <nav class="ubc-breadcrumb" aria-label="Breadcrumb">
+    <div class="ubc-breadcrumb-inner">
+      <a href="/">Home</a>
+      <span class="ubc-breadcrumb-sep">/</span>
+      <span class="ubc-breadcrumb-current">Artist Feature</span>
+    </div>
+  </nav>
+
+  <!-- FEATURED ARTIST HERO -->
+  <section class="af-hero" aria-label="Featured artist">
+    <img class="af-hero-bg" src="images/Pictures/tony%20feature.jpg" alt="Tony Exum Jr., saxophonist" aria-label="Tony Exum Jr., saxophonist">
+    <div class="af-hero-overlay" aria-hidden="true"></div>
+    <div class="af-hero-content">
+<h1 class="af-hero-name">Tony<br>Exum Jr.</h1>
+      <p class="af-hero-role">Saxophonist · Jazz & Soul · Denver, CO</p>
+      <div class="af-hero-actions">
+        <a href="menu" class="ubc-btn ubc-btn-primary">Order His Bread →</a>
+        <a href="#artist-story" class="ubc-btn ubc-btn-ghost">Read the Story</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ARTIST STORY -->
+  <section class="af-section" id="artist-story" style="background:var(--black);">
+    <div class="af-inner">
+      <div class="af-split">
+        <div class="fade-in">
+          <p class="af-eyebrow">The Artist</p>
+          <h2 class="af-title">Music That<br>You Can Taste</h2>
+          <p class="af-body">
+            Tony Exum Jr. is a Denver-based jazz saxophonist whose music lives somewhere between soul, groove, and pure emotion. He's performed across Colorado and beyond — carrying a sound that's deeply rooted in Black musical tradition and completely his own.
+          </p>
+          <p class="af-body">
+            When we approached Tony about a collaboration, he didn't just hand us a flavor — he handed us a feeling. "It should feel like a Sunday morning," he said. "Warm, unexpected, something you want to sit with."
+          </p>
+          <p class="af-body">
+            That conversation became the Blue Velvet Lagniappe.
+          </p>
+        </div>
+        <div class="fade-in fade-in-delay-1">
+          <img
+            class="af-img"
+            src="images/Pictures/tony%20middle.jfif"
+            alt="Tony Exum Jr., saxophonist"
+            style="width:100%;height:auto;display:block;">
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- THE BREAD -->
+  <section class="af-section" style="background:var(--ink);border-top:1px solid var(--rule-bright);">
+    <div class="af-inner">
+      <div class="af-split" style="align-items:start;">
+        <div class="fade-in">
+          <p class="af-eyebrow">The Signature Bread</p>
+          <h2 class="af-title">Blue Velvet<br>Lagniappe</h2>
+          <p class="af-body">
+            <em style="font-family:'Playfair Display',serif;color:var(--orange);">Lagniappe</em> — a New Orleans word meaning "a little something extra." That's exactly what this bread is. A rich blue velvet crumb swirled with blueberry cream cheese, finished with a honey-butter glaze that blooms in the oven.
+          </p>
+          <p class="af-body">
+            Bold on the outside. Smooth and soulful within. Like Tony's music — it hits you in layers.
+          </p>
+          <ul style="list-style:none;margin-top:20px;display:flex;flex-direction:column;gap:10px;">
+            <li style="font-family:'Outfit',sans-serif;font-size:0.92rem;color: rgba(250,250,248,0.9);display:flex;align-items:center;gap:10px;"><span style="color:var(--orange);">◆</span> Blueberry cream cheese swirl</li>
+            <li style="font-family:'Outfit',sans-serif;font-size:0.92rem;color: rgba(250,250,248,0.9);display:flex;align-items:center;gap:10px;"><span style="color:var(--orange);">◆</span> Blue velvet crumb, rich and moist</li>
+            <li style="font-family:'Outfit',sans-serif;font-size:0.92rem;color: rgba(250,250,248,0.9);display:flex;align-items:center;gap:10px;"><span style="color:var(--orange);">◆</span> Honey-butter glaze, caramelized top</li>
+            <li style="font-family:'Outfit',sans-serif;font-size:0.92rem;color: rgba(250,250,248,0.9);display:flex;align-items:center;gap:10px;"><span style="color:var(--orange);">◆</span> Limited run — available while Tony is featured</li>
+          </ul>
+        </div>
+        <div class="fade-in fade-in-delay-1">
+          <div class="af-bread-card">
+            <img
+              class="af-bread-img"
+              src="images/2026/05/13750-1-scaled.jpg"
+              alt="Blue Velvet Lagniappe artisan bread — Urban Bread Co"
+              loading="lazy"
+              width="520" height="300"
+            />
+            <div class="af-bread-body">
+              <p class="af-bread-label">Tony Exum Jr. × Urban Bread Co</p>
+              <p class="af-bread-name">Blue Velvet Lagniappe</p>
+              <p class="af-bread-desc">A layered dessert loaf with almond cream, raspberry, toasted coconut, and caramel — finished with our signature blue velvet glaze.</p>
+              <div class="af-bread-prices">
+                <button class="af-bread-btn" onclick="window.location.href='menu.html'">Mini — $13</button>
+                <button class="af-bread-btn" onclick="window.location.href='menu.html'">Full Loaf — $23</button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- HOW IT WORKS -->
+  <section class="af-how">
+    <div class="af-how-inner">
+      <h2 class="af-how-title fade-in">How the Artist Feature Works</h2>
+      <div class="af-how-grid">
+        <div class="af-how-step fade-in">
+          <div class="af-how-num">01</div>
+          <h3 class="af-how-label">We Select an Artist</h3>
+          <p class="af-how-desc">Each month we partner with a Colorado creative — musician, visual artist, poet, or community figure — whose work resonates with our mission.</p>
+        </div>
+        <div class="af-how-step fade-in fade-in-delay-1">
+          <div class="af-how-num">02</div>
+          <h3 class="af-how-label">We Build Together</h3>
+          <p class="af-how-desc">We sit down with the artist and design a bread that captures their personality, their flavor, their story. Every ingredient is intentional.</p>
+        </div>
+        <div class="af-how-step fade-in fade-in-delay-2">
+          <div class="af-how-num">03</div>
+          <h3 class="af-how-label">Limited Run, Live Events</h3>
+          <p class="af-how-desc">The signature bread is available for the full month. We also host at least one live event with the artist — music, tasting, community.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- PAST FEATURES -->
+  <!-- NOMINATE CTA -->
+  <section class="af-nominate">
+    <h2 class="af-nominate-title">Know a Colorado Artist?</h2>
+    <p class="af-nominate-body">We're always looking for our next collaboration. If you know a Colorado creative who deserves a spotlight — or if that's you — nominate them. Every submission is read.</p>
+    <a href="contact" class="af-nominate-btn">Nominate an Artist →</a>
+  </section>
+
+    <footer class="ubc-site-footer">
+    <div class="ubc-footer-grid">
+      <div class="ubc-footer-brand">
+        <div class="ubc-footer-logo"><img src="images/2025/10/Urban-Bread-Co-2026-Logo-whitetext-150x150.png" alt="Urban Bread Co" class="ubc-footer-logo-img">Urban <span>Bread</span> Co</div>
+        <p class="ubc-footer-tagline">"Bread that tells a story."</p>
+        <p style="font-size:0.88rem;line-height:1.7;margin-bottom:20px;">Small-batch artisan bakery in Thornton, CO. 82+ unique loaves baked fresh daily.</p>
+        <div class="ubc-footer-social">
+          <a href="https://instagram.com/urbanbreadco" target="_blank" rel="noopener" aria-label="Instagram">ig</a>
+          <a href="https://facebook.com/itsurbanbreadco" target="_blank" rel="noopener" aria-label="Facebook">fb</a>
+          <a href="https://linktr.ee/urbanbreadco" target="_blank" rel="noopener" aria-label="Linktree">lt</a>
+        </div>
+      </div>
+      <div class="ubc-footer-col">
+        <h4>Explore</h4>
+        <ul>
+          <li><a href="menu#browse-menu">Full Menu</a></li>
+          <li><a href="menu#build-bread">Build Custom</a></li>
+          <li><a href="menu#bread-club">Bread Club</a></li>
+          <li><a href="game">Win a Discount</a></li>
+        </ul>
+      </div>
+      <div class="ubc-footer-col">
+        <h4>Company</h4>
+        <ul>
+          <li><a href="about">About Us</a></li>
+          <li><a href="gallery">Gallery</a></li>
+          <li><a href="artist-feature">Artist Feature</a></li>
+          <li><a href="events">Events</a></li>
+          <li><a href="reviews">Reviews</a></li>
+        </ul>
+      </div>
+      <div class="ubc-footer-col">
+        <h4>Visit Us</h4>
+        <p class="ubc-footer-info">
+          <strong>Thornton, CO</strong><br>
+          Mon–Fri 8am–8pm<br>Sat 9am–7pm · Sun 10am–6pm<br><br>
+          <a href="tel:7202668231" style="color:var(--orange);">720-266-8231</a><br><br>
+          <a href="contact" style="color:var(--orange);">Contact Us →</a>
+        </p>
+      </div>
+    </div>
+    <div class="ubc-footer-bottom">
+      <span>© 2026 Urban Bread Co. All rights reserved.</span>
+      <span><a href="menu#browse-menu">Menu</a> · <a href="contact">Contact</a> · <a href="sitemap">Sitemap</a> · <a href="faq">FAQ</a> · <a href="privacy">Privacy</a></span>
+      <span class="ubc-footer-credit">Website by <a href="https://www.sparkthebuzz.com" target="_blank" rel="noopener">Spark the Buzz</a></span>
+    </div>
+  </footer>
+  <script src="js/main.js"></script>
+</body>
+</html>
+
+
+
+

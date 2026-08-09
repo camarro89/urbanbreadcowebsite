@@ -1,0 +1,11 @@
+﻿User-agent: *
+Allow: /
+Disallow: /cdn-cgi/
+
+Sitemap: https://www.urbanbreadco.com/sitemap.xml
+
+# Crawl-delay for bots
+User-agent: AhrefsBot
+Crawl-delay: 10
+User-agent: SemrushBot
+Crawl-delay: 10
