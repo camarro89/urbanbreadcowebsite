@@ -1,0 +1,340 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+
+  <link rel="icon" type="image/png" href="images/2025/10/Urban-Bread-Co-2026-Logo-150x150.png" />
+  <link rel="icon" type="image/png" sizes="150x150" href="favicon.png" />
+  <link rel="icon" type="image/svg+xml" href="favicon.svg" />
+  <link rel="apple-touch-icon" href="images/2025/10/Urban-Bread-Co-2026-Logo-150x150.png" />
+  <link rel="manifest" href="manifest.json" />
+  <meta name="theme-color" content="#C95E18" />
+
+  <title>Explore the World | Urban Bread Co — A Journey Through Bread</title>
+  <meta name="description" content="Urban Bread Co takes you around the world one loaf at a time. Explore countries and discover the breads, ingredients, and traditions behind each one." />
+  <meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large" />
+  <link rel="canonical" href="https://www.urbanbreadco.com/explore" />
+
+  <meta property="og:type" content="website" />
+  <meta property="og:site_name" content="Urban Bread Co" />
+  <meta property="og:url" content="https://www.urbanbreadco.com/explore" />
+  <meta property="og:title" content="Explore the World | Urban Bread Co" />
+  <meta property="og:description" content="A journey around the world, one loaf at a time. Explore countries and discover the breads, ingredients, and traditions behind each one." />
+
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Syne:wght@600;700;800&family=Outfit:wght@200;300;400;500&family=Playfair+Display:ital@1&display=swap" rel="stylesheet" />
+
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    "itemListElement": [
+      {"@type":"ListItem","position":1,"name":"Home","item":"https://www.urbanbreadco.com/"},
+      {"@type":"ListItem","position":2,"name":"Explore the World","item":"https://www.urbanbreadco.com/explore"}
+    ]
+  }
+  </script>
+
+  <link rel="stylesheet" href="css/style.css?v=6" />
+  <script defer src="assets/data/world-data.js"></script>
+</head>
+<body>
+
+<header>
+  <nav class="ubc-site-nav" id="ubc-nav" role="navigation" aria-label="Main navigation">
+    <a href="/" class="ubc-nav-logo" aria-label="Urban Bread Co — home">
+      <img src="images/2025/10/Urban-Bread-Co-2026-Logo-whitetext-300x300.png" alt="Urban Bread Co" class="ubc-nav-logo-img" fetchpriority="high">
+    </a>
+    <ul class="ubc-nav-links" role="list">
+      <li><a href="/">Home</a></li>
+      <li><a href="explore" class="active">Explore</a></li>
+      <li><a href="menu">Menu</a></li>
+      <li><a href="about">Our Story</a></li>
+      <li><a href="journal">Journal</a></li>
+      <li><a href="contact">Contact</a></li>
+    </ul>
+    <a href="menu#browse-menu" class="ubc-nav-cta">Order Now</a>
+    <button class="ubc-hamburger" id="ubc-hamburger" aria-label="Open menu" aria-expanded="false">
+      <span></span><span></span><span></span>
+    </button>
+  </nav>
+  <nav class="ubc-mobile-nav" id="ubc-mobile-nav" aria-label="Mobile navigation">
+    <a href="/">Home</a>
+    <a href="explore" class="active">Explore</a>
+    <a href="menu">Menu</a>
+    <a href="about">Our Story</a>
+    <a href="journal">Journal</a>
+    <a href="gallery">Gallery</a>
+    <a href="catering">Catering</a>
+    <a href="events">Events</a>
+    <a href="reviews">Reviews</a>
+    <a href="game">Game</a>
+    <a href="contact">Contact</a>
+    <a href="menu#browse-menu" class="ubc-nav-cta">Order Now</a>
+  </nav>
+</header>
+
+<!-- ═══ EXPLORE HERO ═══ -->
+<section class="wx-hero">
+  <div class="wx-hero-inner">
+    <div class="wx-kicker"><div class="wx-kicker-line"></div><span>A World of Bread</span></div>
+    <h1 class="wx-hero-title">Where will your<br><em>next loaf</em> take you?</h1>
+    <p class="wx-hero-sub">Bread exists in almost every culture on earth. Pick a country below and discover the flavors, ingredients, and traditions Urban Bread Co. found there.</p>
+    <button class="wx-random-btn" id="wxRandomBtn">🎲 Take Me Somewhere</button>
+  </div>
+</section>
+
+<!-- ═══ COUNTRY GRID ═══ -->
+<section class="wx-grid-section">
+  <div class="wx-grid-inner">
+    <div class="wx-grid-head">
+      <div class="wx-kicker"><div class="wx-kicker-line"></div><span>Explore By Country</span></div>
+      <h2 class="wx-grid-title">Pick a place. <em>Discover the bread.</em></h2>
+    </div>
+    <div class="wx-grid" id="wxGrid">
+      <!-- populated from world-data.js -->
+    </div>
+  </div>
+</section>
+
+<!-- ═══ CURRENTLY EXPLORING ═══ -->
+<section class="wx-current" id="wxCurrent">
+  <!-- populated from world-data.js -->
+</section>
+
+<!-- ═══ CRAVING FINDER ═══ -->
+<section class="wx-craving">
+  <div class="wx-craving-inner">
+    <div class="wx-kicker" style="justify-content:center;"><div class="wx-kicker-line"></div><span>Not Sure Where To Start?</span></div>
+    <h2 class="wx-grid-title" style="text-align:center;">What are you <em>craving?</em></h2>
+    <div class="wx-craving-tags">
+      <a href="menu?crave=sweet#browse-menu" class="wx-craving-tag">Sweet</a>
+      <a href="menu?crave=savory#browse-menu" class="wx-craving-tag">Savory</a>
+      <a href="menu?crave=chocolate#browse-menu" class="wx-craving-tag">Chocolate</a>
+      <a href="menu?crave=fruity#browse-menu" class="wx-craving-tag">Fruity</a>
+      <a href="menu?crave=nutty#browse-menu" class="wx-craving-tag">Nutty</a>
+      <a href="menu?crave=rich#browse-menu" class="wx-craving-tag">Rich</a>
+    </div>
+  </div>
+</section>
+
+<style>
+:root {
+  --wx-cream: #F0E9DA;
+  --wx-ink: #141210;
+  --wx-orange: #C95E18;
+  --wx-org2: #E07030;
+  --wx-muted: #7A7267;
+  --wx-rule: rgba(20,18,16,0.1);
+}
+
+.wx-kicker { display: flex; align-items: center; gap: 14px; margin-bottom: 20px; }
+.wx-kicker-line { width: 28px; height: 1.5px; background: var(--wx-orange); }
+.wx-kicker span { font-family: 'Outfit', sans-serif; font-weight: 500; font-size: 0.62rem; letter-spacing: 3.5px; text-transform: uppercase; color: var(--wx-orange); }
+
+/* HERO */
+.wx-hero {
+  width: 100vw; margin-left: calc(-50vw + 50%);
+  background: var(--wx-ink);
+  background-image: radial-gradient(ellipse at 20% 0%, rgba(201,94,24,0.28) 0%, transparent 55%),
+                     radial-gradient(ellipse at 85% 100%, rgba(201,94,24,0.16) 0%, transparent 55%);
+  padding: 160px 56px 110px;
+  position: relative;
+}
+.wx-hero-inner { max-width: 780px; margin: 0 auto; text-align: center; }
+.wx-hero .wx-kicker { justify-content: center; }
+.wx-hero-title {
+  font-family: 'Syne', sans-serif; font-weight: 800;
+  font-size: clamp(2.4rem, 6vw, 4.6rem); line-height: 1.05; letter-spacing: -1.5px;
+  color: #FAFAF8; margin-bottom: 24px;
+}
+.wx-hero-title em { font-family: 'Playfair Display', serif; font-style: italic; font-weight: 400; color: var(--wx-org2); }
+.wx-hero-sub {
+  font-family: 'Outfit', sans-serif; font-weight: 300; font-size: 1.1rem; line-height: 1.8;
+  color: rgba(240,233,218,0.82); max-width: 560px; margin: 0 auto 40px;
+}
+.wx-random-btn {
+  font-family: 'Outfit', sans-serif; font-weight: 500; font-size: 0.72rem; letter-spacing: 2px;
+  text-transform: uppercase; color: #FAFAF8; background: transparent;
+  border: 1px solid rgba(240,233,218,0.35); padding: 16px 32px; cursor: pointer;
+  transition: background 0.25s, border-color 0.25s;
+}
+.wx-random-btn:hover { background: rgba(240,233,218,0.08); border-color: var(--wx-org2); }
+
+/* GRID */
+.wx-grid-section { width: 100vw; margin-left: calc(-50vw + 50%); background: var(--wx-cream); padding: 100px 56px; }
+.wx-grid-inner { max-width: 1180px; margin: 0 auto; }
+.wx-grid-head { text-align: center; margin-bottom: 56px; }
+.wx-grid-head .wx-kicker { justify-content: center; }
+.wx-grid-title {
+  font-family: 'Syne', sans-serif; font-weight: 800; font-size: clamp(1.9rem, 4vw, 3rem);
+  color: var(--wx-ink); letter-spacing: -1px;
+}
+.wx-grid-title em { font-family: 'Playfair Display', serif; font-style: italic; font-weight: 400; color: var(--wx-orange); }
+
+.wx-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 28px; }
+@media (max-width: 900px) { .wx-grid { grid-template-columns: repeat(2, 1fr); } }
+@media (max-width: 560px) { .wx-grid { grid-template-columns: 1fr; } }
+
+.wx-card {
+  position: relative; display: block; text-decoration: none;
+  aspect-ratio: 4/5; overflow: hidden; background: var(--wx-ink);
+}
+.wx-card-img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; transition: transform 0.6s cubic-bezier(.16,1,.3,1); }
+.wx-card:hover .wx-card-img { transform: scale(1.06); }
+.wx-card::after {
+  content: ''; position: absolute; inset: 0;
+  background: linear-gradient(to top, rgba(13,9,0,0.92) 0%, rgba(13,9,0,0.35) 55%, rgba(13,9,0,0.05) 100%);
+}
+.wx-card-body { position: absolute; inset: 0; z-index: 2; display: flex; flex-direction: column; justify-content: flex-end; padding: 26px; }
+.wx-card-flag { font-size: 1.8rem; margin-bottom: 10px; }
+.wx-card-name { font-family: 'Syne', sans-serif; font-weight: 800; font-size: 1.5rem; color: #FAFAF8; letter-spacing: -0.5px; margin-bottom: 6px; }
+.wx-card-tagline { font-family: 'Outfit', sans-serif; font-weight: 300; font-size: 0.85rem; line-height: 1.5; color: rgba(240,233,218,0.85); margin-bottom: 14px; }
+.wx-card-cta { font-family: 'Outfit', sans-serif; font-weight: 500; font-size: 0.62rem; letter-spacing: 2px; text-transform: uppercase; color: var(--wx-org2); display: inline-flex; align-items: center; gap: 8px; transition: gap 0.25s; }
+.wx-card:hover .wx-card-cta { gap: 14px; }
+.wx-card-soon { position: absolute; top: 18px; right: 18px; z-index: 3; font-family: 'Outfit', sans-serif; font-weight: 500; font-size: 0.58rem; letter-spacing: 2px; text-transform: uppercase; color: #FAFAF8; background: rgba(201,94,24,0.9); padding: 6px 12px; }
+.wx-card.is-soon { cursor: default; }
+.wx-card.is-soon .wx-card-img { filter: grayscale(0.35) brightness(0.75); }
+
+/* CURRENTLY EXPLORING */
+.wx-current {
+  width: 100vw; margin-left: calc(-50vw + 50%);
+  background: var(--wx-ink); padding: 90px 56px;
+  position: relative; overflow: hidden;
+}
+.wx-current-inner { max-width: 900px; margin: 0 auto; text-align: center; position: relative; z-index: 1; }
+.wx-current-flag { font-size: 2.6rem; margin-bottom: 16px; }
+.wx-current-title { font-family: 'Syne', sans-serif; font-weight: 800; font-size: clamp(1.8rem, 4vw, 2.8rem); color: #FAFAF8; margin-bottom: 14px; }
+.wx-current-sub { font-family: 'Outfit', sans-serif; font-weight: 300; font-size: 1rem; line-height: 1.8; color: rgba(240,233,218,0.82); max-width: 620px; margin: 0 auto 32px; }
+.wx-current-btn {
+  display: inline-flex; align-items: center; gap: 12px; text-decoration: none;
+  font-family: 'Outfit', sans-serif; font-weight: 500; font-size: 0.68rem; letter-spacing: 2.5px;
+  text-transform: uppercase; color: #fff; background: var(--wx-orange); padding: 17px 34px;
+  transition: background 0.25s;
+}
+.wx-current-btn:hover { background: var(--wx-org2); }
+
+/* CRAVING */
+.wx-craving { width: 100vw; margin-left: calc(-50vw + 50%); background: var(--wx-cream); padding: 90px 56px; border-top: 1px solid var(--wx-rule); }
+.wx-craving-inner { max-width: 760px; margin: 0 auto; text-align: center; }
+.wx-craving-tags { display: flex; flex-wrap: wrap; justify-content: center; gap: 12px; margin-top: 36px; }
+.wx-craving-tag {
+  font-family: 'Outfit', sans-serif; font-weight: 500; font-size: 0.72rem; letter-spacing: 1px;
+  text-decoration: none; color: var(--wx-ink); border: 1px solid var(--wx-rule);
+  padding: 12px 24px; transition: background 0.2s, border-color 0.2s;
+}
+.wx-craving-tag:hover { background: var(--wx-orange); border-color: var(--wx-orange); color: #fff; }
+
+@media (max-width: 768px) {
+  .wx-hero, .wx-grid-section, .wx-current, .wx-craving { padding-left: 24px; padding-right: 24px; }
+}
+</style>
+
+<script>
+(function(){
+  function render(){
+    var data = window.UBC_WORLD;
+    if (!data) return;
+    var grid = document.getElementById('wxGrid');
+    grid.innerHTML = data.countries.map(function(c){
+      var soon = c.status === 'coming-soon';
+      var tag = soon ? 'div' : 'a';
+      var href = soon ? '' : ('href="countries/' + c.id + '.html"');
+      return '<' + tag + ' class="wx-card' + (soon ? ' is-soon' : '') + '" ' + href + '>' +
+        (soon ? '<span class="wx-card-soon">Coming Soon</span>' : '') +
+        '<img class="wx-card-img" loading="lazy" src="' + c.cardImage + '" alt="' + c.name + ' inspired breads">' +
+        '<div class="wx-card-body">' +
+          '<div class="wx-card-flag">' + c.flag + '</div>' +
+          '<div class="wx-card-name">' + c.name + '</div>' +
+          '<div class="wx-card-tagline">' + c.tagline + '</div>' +
+          (soon ? '' : '<span class="wx-card-cta">Discover the Bread →</span>') +
+        '</div>' +
+      '</' + tag + '>';
+    }).join('');
+
+    var current = data.countries.find(function(c){ return c.id === data.currentlyExploring; });
+    var currentEl = document.getElementById('wxCurrent');
+    if (current) {
+      currentEl.innerHTML = '<div class="wx-current-inner">' +
+        '<div class="wx-kicker" style="justify-content:center;"><div class="wx-kicker-line"></div><span>Currently Exploring</span></div>' +
+        '<div class="wx-current-flag">' + current.flag + '</div>' +
+        '<h2 class="wx-current-title">' + current.name + '</h2>' +
+        '<p class="wx-current-sub">' + current.tagline + '</p>' +
+        '<a href="countries/' + current.id + '.html" class="wx-current-btn">Discover ' + current.name + ' →</a>' +
+      '</div>';
+    }
+
+    var randomBtn = document.getElementById('wxRandomBtn');
+    if (randomBtn) {
+      randomBtn.addEventListener('click', function(){
+        var active = data.countries.filter(function(c){ return c.status === 'active'; });
+        if (!active.length) return;
+        var pick = active[Math.floor(Math.random() * active.length)];
+        window.location.href = 'countries/' + pick.id + '.html';
+      });
+    }
+  }
+  if (document.readyState === 'loading') { document.addEventListener('DOMContentLoaded', render); }
+  else { render(); }
+  window.addEventListener('load', function(){ if (window.UBC_WORLD) render(); });
+})();
+</script>
+
+<footer class="ubc-site-footer">
+  <div class="ubc-footer-grid">
+    <div class="ubc-footer-brand">
+      <div class="ubc-footer-logo"><img src="images/2025/10/Urban-Bread-Co-2026-Logo-whitetext-150x150.png" alt="Urban Bread Co" class="ubc-footer-logo-img"></div>
+      <p class="ubc-footer-tagline">"Bread that tells a story."</p>
+      <p style="font-size:0.88rem;line-height:1.7;margin-bottom:20px;">Small-batch artisan bakery in Thornton, CO. 82+ unique loaves baked fresh daily.</p>
+    </div>
+    <div class="ubc-footer-col">
+      <h4>The World</h4>
+      <ul>
+        <li><a href="explore">Explore All Countries</a></li>
+        <li><a href="countries/netherlands.html">Netherlands</a></li>
+        <li><a href="countries/el-salvador.html">El Salvador</a></li>
+        <li><a href="journal">Journal</a></li>
+      </ul>
+    </div>
+    <div class="ubc-footer-col">
+      <h4>Order</h4>
+      <ul>
+        <li><a href="menu#browse-menu">Full Menu</a></li>
+        <li><a href="menu#build-bread">Build Custom</a></li>
+        <li><a href="menu#bread-club">Bread Club</a></li>
+      </ul>
+    </div>
+    <div class="ubc-footer-col">
+      <h4>Visit Us</h4>
+      <p class="ubc-footer-info">
+        <strong>Thornton, CO</strong><br>
+        <a href="tel:7202668231" style="color:var(--orange);">720-266-8231</a><br><br>
+        <a href="contact" style="color:var(--orange);">Contact Us →</a>
+      </p>
+    </div>
+  </div>
+  <div class="ubc-footer-bottom">
+    <span>© 2026 Urban Bread Co. All rights reserved.</span>
+    <span><a href="menu#browse-menu">Menu</a> · <a href="contact">Contact</a> · <a href="sitemap">Sitemap</a> · <a href="faq">FAQ</a> · <a href="privacy">Privacy</a></span>
+  </div>
+</footer>
+
+<script>
+(function(){
+  var hamburger = document.getElementById('ubc-hamburger');
+  var mobileNav = document.getElementById('ubc-mobile-nav');
+  if (hamburger && mobileNav) {
+    hamburger.addEventListener('click', function(){
+      var open = mobileNav.classList.toggle('is-open');
+      hamburger.classList.toggle('is-open', open);
+      hamburger.setAttribute('aria-expanded', open ? 'true' : 'false');
+    });
+  }
+})();
+</script>
+
+</body>
+</html>

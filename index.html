@@ -232,6 +232,7 @@
   <link href="https://fonts.googleapis.com/css2?family=Syne:wght@700;800&family=Outfit:wght@300;400;500&family=Playfair+Display:ital@0;1&display=swap" rel="stylesheet" />
   <!-- ── STYLES ── -->
   <link rel="stylesheet" href="css/style.css?v=6" />
+  <script defer src="assets/data/world-data.js"></script>
 </head>
 <body>
 <!-- ── INTRO SPLASH OVERLAY ── -->
@@ -296,13 +297,10 @@
     </a>
     <ul class="ubc-nav-links" role="list">
       <li><a href="/" class="active">Home</a></li>
+      <li><a href="explore">Explore</a></li>
       <li><a href="menu">Menu</a></li>
-      <li><a href="about">About</a></li>
-      <li><a href="gallery">Gallery</a></li>
-      <li><a href="catering">Catering</a></li>
-      <li><a href="events">Events</a></li>
-      <li><a href="reviews">Reviews</a></li>
-      <li><a href="game">Game</a></li>
+      <li><a href="about">Our Story</a></li>
+      <li><a href="journal">Journal</a></li>
       <li><a href="contact">Contact</a></li>
     </ul>
     <a href="menu#browse-menu" class="ubc-nav-cta">Order Now</a>
@@ -312,11 +310,13 @@
   </nav>
   <nav class="ubc-mobile-nav" id="ubc-mobile-nav" aria-label="Mobile navigation">
     <a href="/" class="active">Home</a>
+    <a href="explore">Explore</a>
     <a href="menu">Menu</a>
-    <a href="about">About</a>
+    <a href="about">Our Story</a>
+    <a href="journal">Journal</a>
     <a href="gallery">Gallery</a>
     <a href="catering">Catering</a>
-      <a href="events">Events</a>
+    <a href="events">Events</a>
     <a href="reviews">Reviews</a>
     <a href="game">Game</a>
     <a href="contact">Contact</a>
@@ -471,12 +471,12 @@
   <div class="ubc-content">
     <div class="ubc-eyebrow">
       <div class="ubc-eyebrow-line"></div>
-      <span>Thornton, Colorado · Est. 2024 · Artisan Bakery</span>
+      <span>Thornton, Colorado · Est. 2024 · A World of Bread</span>
     </div>
     <div class="ubc-headline">
-      <span class="ubc-hl-solid">Crafted with</span>
-      <span class="ubc-hl-italic">tradition &amp; soul.</span>
-      <span class="ubc-hl-ghost">Baked to order.</span>
+      <span class="ubc-hl-solid">Take a journey</span>
+      <span class="ubc-hl-italic">around the world.</span>
+      <span class="ubc-hl-ghost">One loaf at a time.</span>
     </div>
   </div>
 
@@ -485,12 +485,12 @@
       <p>
         Founded by <strong>Little Moses Jones</strong>, Urban Bread Co. started
         in a small kitchen and has grown into <strong>82 unique handcrafted breads</strong> —
-        each one made with passion, creativity, and serious attention to craft.
+        inspired by cultures, flavors, and traditions from around the world.
       </p>
     </div>
     <div class="ubc-cta-group">
-      <a href="menu" class="ubc-btn-order">Order Now →</a>
-      <a href="menu" class="ubc-btn-menu">See All 82 Breads</a>
+      <a href="explore" class="ubc-btn-order">Explore the World →</a>
+      <a href="menu" class="ubc-btn-menu">Shop the Menu</a>
     </div>
   </div>
 
@@ -720,19 +720,91 @@
 .sm-cta-btn:hover .sm-cta-btn-glow { opacity: 1; }
 </style>
 
+<!-- ═══ EXPLORE THE WORLD ═══ -->
+<section class="wt-explore">
+  <div class="wt-explore-inner">
+    <div class="sm-kicker sm-reveal" style="justify-content:center;"><div class="sm-kicker-line"></div><span>A World of Bread</span></div>
+    <h2 class="sm-story-headline sm-reveal sm-reveal-d1" style="text-align:center;color:#FAFAF8;">Where will your <em>next loaf</em> take you?</h2>
+    <p class="sm-story-body sm-reveal sm-reveal-d2" style="text-align:center;color:rgba(240,233,218,0.8);margin:0 auto 48px;">Bread exists in almost every culture on earth. Pick a country and discover the flavors Urban Bread Co. found there.</p>
+    <div class="wt-explore-grid sm-reveal sm-reveal-d3" id="wtExploreGrid"></div>
+    <div class="wt-explore-cta">
+      <a href="explore" class="wt-explore-link">See All Countries →</a>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ FEATURED BREADS ═══ -->
+<section class="wt-featured">
+  <div class="wt-featured-inner">
+    <div class="sm-kicker sm-reveal" style="justify-content:center;"><div class="sm-kicker-line"></div><span>Featured Breads</span></div>
+    <h2 class="sm-story-headline sm-reveal sm-reveal-d1" style="text-align:center;">Start your <em>journey here.</em></h2>
+    <div class="wt-featured-grid sm-reveal sm-reveal-d2">
+      <div class="wt-featured-card">
+        <div class="wt-featured-label">🇺🇸 Featured Artist</div>
+        <h3>Blue Velvet Lagniappe</h3>
+        <p>Almond cream, raspberry, toasted coconut, and caramel, finished with our signature blue velvet glaze.</p>
+        <a href="menu#browse-menu">Explore This Bread →</a>
+      </div>
+      <div class="wt-featured-card">
+        <div class="wt-featured-label">🇳🇱 Netherlands</div>
+        <h3>Stroopwafel Bread</h3>
+        <p>Caramel waffle cookie inspired — built to taste like the carts of Amsterdam.</p>
+        <a href="breads/stroopwafel-bread.html">Explore This Bread →</a>
+      </div>
+      <div class="wt-featured-card">
+        <div class="wt-featured-label">🇸🇻 El Salvador</div>
+        <h3>Salvadoran Quesadilla Bread</h3>
+        <p>Sweet cheese bread with sesame — a Sunday-morning tradition, baked fresh.</p>
+        <a href="countries/el-salvador.html">Explore This Bread →</a>
+      </div>
+    </div>
+  </div>
+</section>
+
 <!-- ═══ BRAND STORY ═══ -->
 <section class="sm-story">
   <div class="sm-story-inner">
-    <div class="sm-kicker sm-reveal"><div class="sm-kicker-line"></div><span>Our Story</span></div>
-    <h2 class="sm-story-headline sm-reveal sm-reveal-d1">Bread made with <em>tradition &amp; soul.</em></h2>
+    <div class="sm-kicker sm-reveal"><div class="sm-kicker-line"></div><span>The Big Idea</span></div>
+    <h2 class="sm-story-headline sm-reveal sm-reveal-d1">Bread is universal. <em>So are we.</em></h2>
     <p class="sm-story-body sm-reveal sm-reveal-d2">
-      Founded by <strong>Little Moses Jones</strong>, Urban Bread Co started in a small kitchen and grew into 82 original recipes — every loaf baked fresh, by hand, in small batches.
+      Every culture has a story to tell through food. Founded by <strong>Little Moses Jones</strong>, Urban Bread Co started in a small kitchen and grew into 82 original recipes — exploring the world's flavors, one loaf at a time.
     </p>
     <div class="sm-stats sm-reveal sm-reveal-d3">
       <div class="sm-stat"><span class="sm-stat-num" data-count="82">0</span><span class="sm-stat-label">Bread Recipes</span></div>
       <div class="sm-stat"><span class="sm-stat-num" data-count="2024" data-no-plus="1">0</span><span class="sm-stat-label">Founded</span></div>
       <div class="sm-stat"><span class="sm-stat-num" data-count="100" data-suffix="%">0</span><span class="sm-stat-label">Baked Fresh</span></div>
       <div class="sm-stat"><span class="sm-stat-num" data-count="5" data-suffix=".0★">0</span><span class="sm-stat-label">Rated</span></div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ INGREDIENTS OF THE WORLD ═══ -->
+<section class="wt-ingredients">
+  <div class="wt-ingredients-inner">
+    <div class="sm-kicker sm-reveal" style="justify-content:center;"><div class="sm-kicker-line"></div><span>Ingredients From Around the World</span></div>
+    <h2 class="sm-story-headline sm-reveal sm-reveal-d1" style="text-align:center;color:#FAFAF8;">Flavors worth <em>traveling for.</em></h2>
+    <div class="wt-ingredient-row sm-reveal sm-reveal-d2">
+      <a href="countries/netherlands.html" class="wt-ingredient-chip">Stroopwafel Caramel</a>
+      <a href="countries/netherlands.html" class="wt-ingredient-chip">Hazelnut Praline</a>
+      <a href="countries/netherlands.html" class="wt-ingredient-chip">Advocaat Custard</a>
+      <a href="countries/el-salvador.html" class="wt-ingredient-chip">Quesillo Cheese</a>
+      <a href="countries/el-salvador.html" class="wt-ingredient-chip">Toasted Sesame</a>
+      <a href="menu#browse-menu" class="wt-ingredient-chip">Mexican Chocolate</a>
+      <a href="menu#browse-menu" class="wt-ingredient-chip">Cinnamon</a>
+      <a href="menu#browse-menu" class="wt-ingredient-chip">Coconut</a>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ CURRENTLY EXPLORING ═══ -->
+<section class="wt-current sm-reveal">
+  <div class="wt-current-inner">
+    <div class="sm-kicker" style="justify-content:center;"><div class="sm-kicker-line"></div><span>Currently Exploring</span></div>
+    <div class="wt-current-flag">🇳🇱</div>
+    <h2 class="sm-story-headline" style="text-align:center;color:#FAFAF8;">Netherlands</h2>
+    <p class="sm-story-body" style="text-align:center;color:rgba(240,233,218,0.8);">New flavors. New ingredients. New breads — seven Dutch-inspired loaves and counting.</p>
+    <div style="text-align:center;">
+      <a href="countries/netherlands.html" class="wt-current-btn">Discover Netherlands →</a>
     </div>
   </div>
 </section>
@@ -854,7 +926,91 @@
   .sm-events { padding: 72px 24px; }
   .sm-events-grid { grid-template-columns: 1fr; }
 }
+
+/* ═══ EXPLORE THE WORLD (homepage) ═══ */
+.wt-explore {
+  width: 100vw; margin-left: calc(-50vw + 50%);
+  background: var(--sm-ink); padding: 110px 56px;
+  background-image: radial-gradient(ellipse at 15% 10%, rgba(201,94,24,0.22) 0%, transparent 55%);
+}
+.wt-explore-inner { max-width: 1180px; margin: 0 auto; }
+.wt-explore-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 20px; }
+@media (max-width: 900px) { .wt-explore-grid { grid-template-columns: repeat(2, 1fr); } }
+.wt-country-card {
+  position: relative; display: block; text-decoration: none;
+  aspect-ratio: 4/5; overflow: hidden; background: rgba(240,233,218,0.06);
+  border: 1px solid rgba(240,233,218,0.1);
+}
+.wt-country-card img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; transition: transform 0.6s cubic-bezier(.16,1,.3,1); }
+.wt-country-card:hover img { transform: scale(1.08); }
+.wt-country-card::after { content: ''; position: absolute; inset: 0; background: linear-gradient(to top, rgba(13,9,0,0.9) 0%, rgba(13,9,0,0.2) 60%); }
+.wt-country-body { position: absolute; inset: 0; z-index: 1; display: flex; flex-direction: column; justify-content: flex-end; padding: 18px; }
+.wt-country-flag { font-size: 1.4rem; margin-bottom: 6px; }
+.wt-country-name { font-family: 'Syne', sans-serif; font-weight: 800; font-size: 1rem; color: #FAFAF8; }
+.wt-country-card.is-soon { cursor: default; }
+.wt-country-card.is-soon img { filter: grayscale(0.4) brightness(0.7); }
+.wt-country-soon { position: absolute; top: 10px; right: 10px; z-index: 2; font-family: 'Outfit', sans-serif; font-weight: 500; font-size: 0.5rem; letter-spacing: 1.5px; text-transform: uppercase; color: #fff; background: rgba(201,94,24,0.9); padding: 4px 8px; }
+.wt-explore-cta { text-align: center; margin-top: 44px; }
+.wt-explore-link {
+  display: inline-flex; align-items: center; gap: 12px; text-decoration: none;
+  font-family: 'Outfit', sans-serif; font-weight: 500; font-size: 0.68rem; letter-spacing: 2.5px;
+  text-transform: uppercase; color: #FAFAF8; border: 1px solid rgba(240,233,218,0.35);
+  padding: 16px 34px; transition: background 0.25s, gap 0.25s;
+}
+.wt-explore-link:hover { background: rgba(240,233,218,0.08); gap: 18px; }
+
+/* ═══ FEATURED BREADS (homepage) ═══ */
+.wt-featured { width: 100vw; margin-left: calc(-50vw + 50%); background: var(--sm-cream); padding: 110px 56px; }
+.wt-featured-inner { max-width: 1180px; margin: 0 auto; }
+.wt-featured-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 28px; margin-top: 56px; }
+@media (max-width: 900px) { .wt-featured-grid { grid-template-columns: 1fr; } }
+.wt-featured-card { background: #fff; border: 1px solid var(--sm-rule); padding: 32px; }
+.wt-featured-label { font-family: 'Outfit', sans-serif; font-weight: 500; font-size: 0.62rem; letter-spacing: 2px; text-transform: uppercase; color: var(--sm-orange); margin-bottom: 14px; }
+.wt-featured-card h3 { font-family: 'Syne', sans-serif; font-weight: 800; font-size: 1.25rem; color: var(--sm-ink); margin-bottom: 12px; }
+.wt-featured-card p { font-family: 'Outfit', sans-serif; font-weight: 300; font-size: 0.9rem; line-height: 1.7; color: var(--sm-muted); margin-bottom: 18px; }
+.wt-featured-card a { font-family: 'Outfit', sans-serif; font-weight: 500; font-size: 0.65rem; letter-spacing: 1.5px; text-transform: uppercase; color: var(--sm-orange); text-decoration: none; }
+
+/* ═══ INGREDIENTS OF THE WORLD ═══ */
+.wt-ingredients { width: 100vw; margin-left: calc(-50vw + 50%); background: var(--sm-ink); padding: 100px 56px; text-align: center; }
+.wt-ingredients-inner { max-width: 900px; margin: 0 auto; }
+.wt-ingredient-row { display: flex; flex-wrap: wrap; justify-content: center; gap: 12px; margin-top: 12px; }
+.wt-ingredient-chip {
+  font-family: 'Outfit', sans-serif; font-weight: 400; font-size: 0.8rem; text-decoration: none;
+  color: #FAFAF8; border: 1px solid rgba(240,233,218,0.28); padding: 11px 20px; transition: background 0.2s, border-color 0.2s;
+}
+.wt-ingredient-chip:hover { background: var(--sm-orange); border-color: var(--sm-orange); }
+
+/* ═══ CURRENTLY EXPLORING ═══ */
+.wt-current { width: 100vw; margin-left: calc(-50vw + 50%); background: var(--sm-ink); border-top: 1px solid rgba(240,233,218,0.07); padding: 90px 56px; }
+.wt-current-inner { max-width: 700px; margin: 0 auto; text-align: center; }
+.wt-current-flag { font-size: 2.2rem; text-align: center; margin-bottom: 8px; }
+.wt-current-btn {
+  display: inline-flex; align-items: center; gap: 12px; text-decoration: none; margin-top: 16px;
+  font-family: 'Outfit', sans-serif; font-weight: 500; font-size: 0.65rem; letter-spacing: 2.5px;
+  text-transform: uppercase; color: #fff; background: var(--sm-orange); padding: 16px 32px; transition: background 0.25s;
+}
+.wt-current-btn:hover { background: var(--sm-org2); }
+
+/* ═══ JOURNAL TEASER ═══ */
+.wt-journal { width: 100vw; margin-left: calc(-50vw + 50%); background: var(--sm-cream); padding: 100px 56px; }
+.wt-journal-inner { max-width: 700px; margin: 0 auto; text-align: center; }
+
+@media (max-width: 768px) {
+  .wt-explore, .wt-featured, .wt-ingredients, .wt-current, .wt-journal { padding-left: 24px; padding-right: 24px; }
+}
 </style>
+
+<!-- ═══ JOURNAL TEASER ═══ -->
+<section class="wt-journal">
+  <div class="wt-journal-inner">
+    <div class="sm-kicker sm-reveal" style="justify-content:center;"><div class="sm-kicker-line"></div><span>From the Journal</span></div>
+    <h2 class="sm-story-headline sm-reveal sm-reveal-d1" style="text-align:center;">We don't just get inspired by the world. <em>We go there.</em></h2>
+    <p class="sm-story-body sm-reveal sm-reveal-d2" style="text-align:center;">We're planning a trip to Mexico to source ingredients and inspiration in person. Follow along on the Journal.</p>
+    <div style="text-align:center;">
+      <a href="journal" class="wt-explore-link" style="color:var(--sm-orange);border-color:var(--sm-orange);">Read the Journal →</a>
+    </div>
+  </div>
+</section>
 
 <!-- ═══ FINAL CTA ═══ -->
 <section class="sm-cta">
@@ -938,6 +1094,29 @@ function smPlayPress(wrapId, vidId){
   };
 }
 </script>
+
+<script>
+(function(){
+  function renderExploreGrid(){
+    var data = window.UBC_WORLD;
+    var grid = document.getElementById('wtExploreGrid');
+    if (!data || !grid) return;
+    grid.innerHTML = data.countries.slice(0, 4).map(function(c){
+      var soon = c.status === 'coming-soon';
+      var tag = soon ? 'div' : 'a';
+      var href = soon ? '' : ('href="countries/' + c.id + '.html"');
+      return '<' + tag + ' class="wt-country-card' + (soon ? ' is-soon' : '') + '" ' + href + '>' +
+        (soon ? '<span class="wt-country-soon">Coming Soon</span>' : '') +
+        '<img loading="lazy" src="' + c.cardImage + '" alt="' + c.name + ' inspired breads">' +
+        '<div class="wt-country-body"><div class="wt-country-flag">' + c.flag + '</div><div class="wt-country-name">' + c.name + '</div></div>' +
+      '</' + tag + '>';
+    }).join('');
+  }
+  if (document.readyState === 'loading') { document.addEventListener('DOMContentLoaded', renderExploreGrid); }
+  else { renderExploreGrid(); }
+  window.addEventListener('load', function(){ if (window.UBC_WORLD) renderExploreGrid(); });
+})();
+</script>
   <footer class="ubc-site-footer">
     <div class="ubc-footer-grid">
       <div class="ubc-footer-brand">
@@ -953,17 +1132,17 @@ function smPlayPress(wrapId, vidId){
       <div class="ubc-footer-col">
         <h4>Explore</h4>
         <ul>
+          <li><a href="explore">The World</a></li>
           <li><a href="menu#browse-menu">Full Menu</a></li>
           <li><a href="menu#build-bread">Build Custom</a></li>
           <li><a href="menu#bread-club">Bread Club</a></li>
-          <li><a href="game">Game</a></li>
-          <li><a href="vendor">Vendor Program</a></li>
+          <li><a href="journal">Journal</a></li>
         </ul>
       </div>
       <div class="ubc-footer-col">
         <h4>Company</h4>
         <ul>
-          <li><a href="about">About Us</a></li>
+          <li><a href="about">Our Story</a></li>
           <li><a href="gallery">Gallery</a></li>
           <li><a href="artist-feature">Artist Feature</a></li>
         <li><a href="events">Events</a></li>

@@ -422,13 +422,10 @@
       <a href="/" class="ubc-nav-logo" aria-label="Urban Bread Co home"><img src="images/2025/10/Urban-Bread-Co-2026-Logo-whitetext-300x300.png" alt="Urban Bread Co" class="ubc-nav-logo-img" fetchpriority="high"></a>
       <ul class="ubc-nav-links">
         <li><a href="/">Home</a></li>
+        <li><a href="explore">Explore</a></li>
         <li><a href="menu">Menu</a></li>
-        <li><a href="about" class="active">About</a></li>
-        <li><a href="gallery">Gallery</a></li>
-        <li><a href="catering">Catering</a></li>
-        <li><a href="events">Events</a></li>
-        <li><a href="reviews">Reviews</a></li>
-        <li><a href="game">Game</a></li>
+        <li><a href="about" class="active">Our Story</a></li>
+        <li><a href="journal">Journal</a></li>
         <li><a href="contact">Contact</a></li>
       </ul>
       <a href="menu#browse-menu" class="ubc-nav-cta">Order Now</a>
@@ -438,8 +435,10 @@
     </nav>
     <nav class="ubc-mobile-nav" id="ubc-mobile-nav" aria-label="Mobile navigation">
       <a href="/">Home</a>
+      <a href="explore">Explore</a>
       <a href="menu">Menu</a>
-      <a href="about" class="active">About</a>
+      <a href="about" class="active">Our Story</a>
+      <a href="journal">Journal</a>
       <a href="gallery">Gallery</a>
       <a href="catering">Catering</a>
       <a href="events">Events</a>
@@ -452,7 +451,7 @@
     <div class="ubc-breadcrumb-inner">
       <a href="/">Home</a>
       <span class="ubc-breadcrumb-sep">/</span>
-      <span class="ubc-breadcrumb-current">About</span>
+      <span class="ubc-breadcrumb-current">Our Story</span>
     </div>
   </nav>
 
@@ -517,6 +516,62 @@
       </div>
     </div>
   </section>
+
+  <!-- ── THE BIG IDEA ── -->
+  <section style="background:var(--cream,#F0E9DA); padding: 100px 24px;">
+    <div style="max-width:720px;margin:0 auto;text-align:center;">
+      <div class="ab-kicker" style="justify-content:center;">
+        <div class="ab-kicker-line"></div>
+        <span>The Big Idea</span>
+      </div>
+      <h2 class="ab-section-title">Bread is universal. <em>So is Urban Bread Co.</em></h2>
+      <p class="ab-body">
+        Bread exists in almost every culture, country, and region of the world. Every one of those cultures has a story to tell through food &mdash; and Urban Bread Co exists to bring those stories to the table, one loaf at a time.
+      </p>
+      <p class="ab-body">
+        It started as 82 original recipes born from Little Moses Jones's own obsession. It's growing into something bigger: a bakery that treats the world's flavors, ingredients, and traditions as the menu itself.
+      </p>
+      <p class="ab-body" style="margin-bottom:0;">
+        <a href="explore" style="color:var(--orange,#C95E18); font-weight:600;">See where the journey has gone so far →</a>
+      </p>
+    </div>
+  </section>
+
+  <!-- ── WE GO THERE ── -->
+  <section class="ab-worldtrip">
+    <div class="ab-worldtrip-media">
+      <img loading="lazy" src="https://images.unsplash.com/photo-1584269600464-37b1b58a9fe7?auto=format&fit=crop&w=1200&q=80" alt="Market ingredients in Mexico">
+    </div>
+    <div class="ab-worldtrip-body">
+      <div class="ab-kicker">
+        <div class="ab-kicker-line"></div>
+        <span>We Go There</span>
+      </div>
+      <h2 class="ab-section-title">We don't just get inspired by the world.<br><em>We go there.</em></h2>
+      <p class="ab-body">
+        Urban Bread Co is actively planning a trip to Mexico &mdash; Cabo and beyond &mdash; to source ingredients and inspiration in person: local markets, family-run bakeries, street vendors, and the flavors that don't come through on a phone call.
+      </p>
+      <p class="ab-body">
+        The photos, ingredients, and breads that come out of it will live on the Journal as it happens.
+      </p>
+      <a href="journal" class="ab-worldtrip-link">🇲🇽 Follow the Mexico Trip →</a>
+    </div>
+  </section>
+
+  <style>
+    .ab-worldtrip { display: grid; grid-template-columns: 1fr 1fr; min-height: 480px; background: var(--black); }
+    .ab-worldtrip-media { overflow: hidden; }
+    .ab-worldtrip-media img { width: 100%; height: 100%; object-fit: cover; display: block; min-height: 300px; }
+    .ab-worldtrip-body { padding: 72px 56px; display: flex; flex-direction: column; justify-content: center; }
+    .ab-worldtrip-link {
+      display: inline-flex; align-self: flex-start; margin-top: 12px; text-decoration: none;
+      font-weight: 600; color: #fff; background: var(--orange,#C95E18); padding: 14px 26px; font-size: 0.85rem;
+    }
+    @media (max-width: 900px) {
+      .ab-worldtrip { grid-template-columns: 1fr; }
+      .ab-worldtrip-body { padding: 48px 24px; }
+    }
+  </style>
 
   <!-- ── PULL QUOTE ── -->
   <section class="ab-quote">
