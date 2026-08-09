@@ -224,20 +224,7 @@
     <span><a href="menu#browse-menu">Menu</a> · <a href="contact">Contact</a></span>
   </div>
 </footer>
-
-<script>
-(function(){
-  var hamburger = document.getElementById('ubc-hamburger');
-  var mobileNav = document.getElementById('ubc-mobile-nav');
-  if (hamburger && mobileNav) {
-    hamburger.addEventListener('click', function(){
-      var open = mobileNav.classList.toggle('is-open');
-      hamburger.classList.toggle('is-open', open);
-      hamburger.setAttribute('aria-expanded', open ? 'true' : 'false');
-    });
-  }
-})();
-</script>
+<script src="js/main.js"></script>
 
 </body>
 </html>
