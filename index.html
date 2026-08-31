@@ -297,6 +297,7 @@
     <ul class="ubc-nav-links" role="list">
       <li><a href="/" class="active">Home</a></li>
       <li><a href="menu">Menu</a></li>
+      <li><a href="atlas">Atlas</a></li>
       <li><a href="about">About</a></li>
       <li><a href="gallery">Gallery</a></li>
       <li><a href="catering">Catering</a></li>
@@ -737,6 +738,86 @@
   </div>
 </section>
 
+<!-- ═══ BREAD ATLAS TEASER ═══ -->
+<style>
+.sm-atlas { position: relative; overflow: hidden; padding: 96px 6vw; background: #140D04; border-top: 1px solid rgba(240,233,218,0.08); border-bottom: 1px solid rgba(240,233,218,0.08); }
+.sm-atlas::after { content: ''; position: absolute; inset: 0; pointer-events: none;
+  background: radial-gradient(circle at 22% 30%, rgba(201,94,24,0.20), transparent 55%),
+              radial-gradient(circle at 82% 70%, rgba(255,209,102,0.12), transparent 55%); }
+.sm-atlas-inner { position: relative; z-index: 2; display: grid; gap: 48px; grid-template-columns: 1.05fr 1fr; align-items: center; max-width: 1180px; margin: 0 auto; }
+.sm-atlas-desc { font-family: 'Outfit', sans-serif; font-weight: 300; font-size: 1.02rem; line-height: 1.8; color: rgba(240,233,218,0.86); max-width: 520px; margin: 0 0 28px; }
+.sm-atlas-btn { display: inline-flex; align-items: center; gap: 12px; padding: 18px 38px; background: var(--sm-orange);
+  color: #fff; text-decoration: none; font-family: 'Syne', sans-serif; font-weight: 800; font-size: 0.82rem;
+  letter-spacing: 2px; text-transform: uppercase; transition: transform 0.25s, box-shadow 0.25s; }
+.sm-atlas-btn:hover { transform: translateY(-3px); box-shadow: 0 16px 40px rgba(201,94,24,0.4); }
+.sm-atlas-chips { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 30px; }
+.sm-atlas-chip { display: inline-flex; align-items: center; gap: 8px; padding: 9px 16px; border-radius: 999px;
+  border: 1px solid rgba(240,233,218,0.16); font-family: 'Outfit', sans-serif; font-size: 0.82rem; color: rgba(240,233,218,0.8); }
+.sm-atlas-art { position: relative; aspect-ratio: 4 / 3; border-radius: 18px; overflow: hidden;
+  border: 1px solid rgba(240,233,218,0.12); background:
+    radial-gradient(circle at 50% 45%, rgba(201,94,24,0.16), transparent 62%), #0C0803; }
+.sm-atlas-art svg { position: absolute; inset: 0; width: 100%; height: 100%; }
+.sm-atlas-dot { fill: rgba(240,233,218,0.14); }
+.sm-atlas-star { fill: #FFD166; transform-box: fill-box; transform-origin: center; animation: smAtlasPulse 2.8s ease-in-out infinite; }
+@keyframes smAtlasPulse { 0%, 100% { opacity: 0.45; transform: scale(0.75); } 50% { opacity: 1; transform: scale(1.25); } }
+@media (max-width: 900px) { .sm-atlas-inner { grid-template-columns: 1fr; } }
+@media (prefers-reduced-motion: reduce) { .sm-atlas-star { animation: none; opacity: 1; } }
+</style>
+<section class="sm-atlas" aria-label="Bread Atlas">
+  <div class="sm-atlas-inner">
+    <div>
+      <div class="sm-kicker sm-reveal"><div class="sm-kicker-line"></div><span>New · Interactive</span></div>
+      <h2 class="sm-story-headline sm-reveal sm-reveal-d1">Taste the world on <em>one map.</em></h2>
+      <p class="sm-atlas-desc sm-reveal sm-reveal-d2">
+        The Bread Atlas plots all 82 loaves onto the places that invented their flavours. Click a glowing
+        star and you get the food history nobody tells you, the science hiding inside the ingredient, and
+        the breads that carry it home to Thornton.
+      </p>
+      <a href="atlas" class="sm-atlas-btn sm-reveal sm-reveal-d3">Explore the Atlas →</a>
+      <div class="sm-atlas-chips sm-reveal sm-reveal-d3">
+        <span class="sm-atlas-chip">🇳🇱 Stroopwafel</span>
+        <span class="sm-atlas-chip">🇲🇬 Vanilla</span>
+        <span class="sm-atlas-chip">🇲🇽 Tres Leches</span>
+        <span class="sm-atlas-chip">🇮🇩 Nutmeg</span>
+        <span class="sm-atlas-chip">🇨🇭 Conching</span>
+      </div>
+    </div>
+    <div class="sm-atlas-art sm-reveal sm-reveal-d2" aria-hidden="true">
+      <svg viewBox="0 0 400 300" role="presentation">
+        <g id="sm-atlas-grid"></g>
+        <g id="sm-atlas-stars"></g>
+      </svg>
+    </div>
+  </div>
+</section>
+<script>
+(function () {
+  var grid = document.getElementById('sm-atlas-grid');
+  var stars = document.getElementById('sm-atlas-stars');
+  if (!grid || !stars) return;
+  var NS = 'http://www.w3.org/2000/svg';
+  for (var y = 20; y < 290; y += 14) {
+    for (var x = 20; x < 390; x += 14) {
+      var r = Math.hypot((x - 200) / 190, (y - 150) / 140);
+      if (r > 1) continue;
+      var c = document.createElementNS(NS, 'circle');
+      c.setAttribute('cx', x); c.setAttribute('cy', y);
+      c.setAttribute('r', 1.5 - r * 0.7);
+      c.setAttribute('class', 'sm-atlas-dot');
+      grid.appendChild(c);
+    }
+  }
+  [[96, 118], [132, 96], [188, 92], [212, 104], [246, 128], [286, 112], [316, 148], [148, 190], [268, 196], [332, 208]]
+    .forEach(function (p, i) {
+      var s = document.createElementNS(NS, 'path');
+      s.setAttribute('d', 'M' + p[0] + ' ' + (p[1] - 6) + 'l1.7 4.3 4.3 1.7-4.3 1.7-1.7 4.3-1.7-4.3-4.3-1.7 4.3-1.7z');
+      s.setAttribute('class', 'sm-atlas-star');
+      s.style.animationDelay = (i * 0.24) + 's';
+      stars.appendChild(s);
+    });
+})();
+</script>
+
 <!-- ═══ ARTIST FEATURE TEASER ═══ -->
 <a href="artist-feature" class="sm-artist sm-reveal" style="text-decoration:none;">
   <div class="sm-artist-bg"></div>
@@ -953,6 +1034,7 @@ function smPlayPress(wrapId, vidId){
       <div class="ubc-footer-col">
         <h4>Explore</h4>
         <ul>
+          <li><a href="atlas">Bread Atlas</a></li>
           <li><a href="menu#browse-menu">Full Menu</a></li>
           <li><a href="menu#build-bread">Build Custom</a></li>
           <li><a href="menu#bread-club">Bread Club</a></li>

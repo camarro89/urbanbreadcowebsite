@@ -1,0 +1,585 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <link rel="icon" type="image/png" href="images/2025/10/Urban-Bread-Co-2026-Logo-150x150.png" />
+  <link rel="icon" type="image/svg+xml" href="favicon.svg" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Bread Atlas | Urban Bread Co — Taste the World, One Loaf at a Time</title>
+  <meta name="description" content="An interactive world map of bread. Click a star to uncover the country or state a loaf came from, the food history behind it, the science of its signature ingredient, and the Urban Bread Co breads it inspired." />
+  <meta name="keywords" content="interactive bread map, world bread origins, bread history, dessert facts, ingredient science, food geography, Urban Bread Co atlas" />
+  <link rel="canonical" href="https://www.urbanbreadco.com/atlas.html" />
+  <meta property="og:title" content="Bread Atlas | Urban Bread Co" />
+  <meta property="og:description" content="An interactive world map of bread origins — 45 regions, 82 loaves, and the food history behind every one." />
+  <meta property="og:url" content="https://www.urbanbreadco.com/atlas.html" />
+  <meta property="og:type" content="website" />
+  <meta property="og:image" content="https://www.urbanbreadco.com/images/2026/03/IMG_0023-scaled.jpg" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="Bread Atlas | Urban Bread Co" />
+  <meta name="twitter:description" content="Click a star anywhere on earth and taste where that loaf came from." />
+  <meta name="twitter:image" content="https://www.urbanbreadco.com/images/2026/03/IMG_0023-scaled.jpg" />
+  <meta name="theme-color" content="#FF6B35" />
+  <link rel="stylesheet" href="css/style.css?v=6" />
+  <script type="application/ld+json">{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Home","item":"https://www.urbanbreadco.com/"},{"@type":"ListItem","position":2,"name":"Bread Atlas","item":"https://www.urbanbreadco.com/atlas.html"}]}</script>
+  <script type="application/ld+json">{"@context":"https://schema.org","@type":"LearningResource","name":"Urban Bread Co Bread Atlas","description":"An interactive world map teaching the origins, food history and ingredient science behind 82 artisan breads.","educationalLevel":"General audience","learningResourceType":"Interactive map","teaches":["Food geography","Baking history","Ingredient science"],"provider":{"@type":"Bakery","name":"Urban Bread Co","url":"https://www.urbanbreadco.com"}}</script>
+
+  <style>
+    /* ============================================================
+       BREAD ATLAS
+       ============================================================ */
+    .atlas-wrap { --atlas-sea: #0A0703; --atlas-land: #2A1A0C; --atlas-land-lit: #4A2E12; }
+
+    /* ── Hero ── */
+    .atlas-hero {
+      position: relative; padding: 128px 52px 40px;
+      background:
+        radial-gradient(1100px 520px at 18% -10%, rgba(255,107,53,0.18), transparent 60%),
+        radial-gradient(900px 460px at 88% 0%, rgba(200,134,42,0.16), transparent 62%),
+        var(--black);
+      overflow: hidden;
+    }
+    .atlas-hero::after {
+      content: ''; position: absolute; inset: 0; pointer-events: none;
+      background-image:
+        radial-gradient(1.4px 1.4px at 12% 30%, rgba(242,228,196,0.5), transparent),
+        radial-gradient(1.2px 1.2px at 32% 68%, rgba(242,228,196,0.35), transparent),
+        radial-gradient(1.6px 1.6px at 62% 22%, rgba(255,107,53,0.5), transparent),
+        radial-gradient(1.2px 1.2px at 78% 60%, rgba(242,228,196,0.4), transparent),
+        radial-gradient(1.5px 1.5px at 92% 34%, rgba(242,228,196,0.3), transparent);
+    }
+    .atlas-hero-inner { position: relative; z-index: 1; max-width: 1500px; margin: 0 auto; }
+    .atlas-kicker {
+      font-family: 'Outfit', sans-serif; font-size: 0.74rem; letter-spacing: 0.34em;
+      text-transform: uppercase; color: var(--orange); margin-bottom: 16px;
+    }
+    .atlas-title {
+      font-family: 'Syne', sans-serif; font-weight: 800; letter-spacing: -2px; line-height: 0.94;
+      font-size: clamp(2.6rem, 7.4vw, 6rem); color: var(--white); margin-bottom: 18px;
+    }
+    .atlas-title em {
+      font-family: 'Playfair Display', serif; font-style: italic; font-weight: 400;
+      background: linear-gradient(100deg, var(--orange), #FFD166 60%, var(--gold));
+      -webkit-background-clip: text; background-clip: text; color: transparent;
+    }
+    .atlas-lede {
+      font-family: 'Outfit', sans-serif; font-weight: 300; font-size: clamp(1rem, 1.5vw, 1.15rem);
+      line-height: 1.8; color: var(--dim); max-width: 720px;
+    }
+    .atlas-stats { display: flex; flex-wrap: wrap; gap: 34px; margin-top: 30px; }
+    .atlas-stat strong {
+      display: block; font-family: 'Syne', sans-serif; font-weight: 800;
+      font-size: 2rem; color: var(--orange); line-height: 1;
+    }
+    .atlas-stat span {
+      font-size: 0.72rem; letter-spacing: 0.22em; text-transform: uppercase; color: var(--muted);
+    }
+
+    /* ── Control bar ── */
+    .atlas-controls {
+      position: sticky; top: calc(var(--nav-h) + var(--ticker-h)); z-index: 40;
+      display: flex; flex-wrap: wrap; align-items: center; gap: 12px;
+      padding: 14px 52px; background: rgba(13,9,0,0.82);
+      backdrop-filter: blur(14px); -webkit-backdrop-filter: blur(14px);
+      border-top: 1px solid var(--rule); border-bottom: 1px solid var(--rule);
+    }
+    .atlas-search-wrap { position: relative; flex: 1 1 260px; max-width: 340px; }
+    #atlas-search {
+      width: 100%; padding: 11px 14px 11px 38px; border-radius: 999px;
+      background: var(--card); border: 1px solid var(--rule-bright);
+      color: var(--white); font-family: 'Outfit', sans-serif; font-size: 0.92rem;
+    }
+    #atlas-search:focus { outline: none; border-color: var(--orange); box-shadow: 0 0 0 3px var(--orange-dim); }
+    .search-icon { position: absolute; left: 14px; top: 50%; transform: translateY(-50%); opacity: 0.6; font-size: 0.9rem; }
+    #atlas-results {
+      display: none; position: absolute; top: calc(100% + 8px); left: 0; right: 0; z-index: 60;
+      background: var(--panel); border: 1px solid var(--rule-bright); border-radius: 12px;
+      overflow: hidden; box-shadow: var(--shadow);
+    }
+    #atlas-results.is-on { display: block; }
+    .result {
+      display: flex; align-items: center; gap: 10px; width: 100%; padding: 10px 14px;
+      text-align: left; color: var(--cream); font-family: 'Outfit', sans-serif; font-size: 0.9rem;
+      border-bottom: 1px solid var(--rule);
+    }
+    .result:hover, .result:focus-visible { background: var(--orange-dim); color: var(--white); }
+    .result-hit { margin-left: auto; font-size: 0.74rem; color: var(--muted); }
+    .result-empty { padding: 14px; font-size: 0.86rem; color: var(--muted); }
+
+    .region-chips { display: flex; flex-wrap: wrap; gap: 8px; }
+    .region-chip {
+      padding: 9px 16px; border-radius: 999px; font-family: 'Outfit', sans-serif;
+      font-size: 0.8rem; letter-spacing: 0.04em; color: var(--cream-dim);
+      border: 1px solid var(--rule-bright); background: transparent; transition: var(--transition);
+    }
+    .region-chip:hover { color: var(--white); border-color: var(--orange); }
+    .region-chip.is-on { background: var(--orange); border-color: var(--orange); color: #1a0c02; font-weight: 600; }
+
+    .atlas-actions { display: flex; gap: 8px; margin-left: auto; }
+    .atlas-btn {
+      padding: 9px 16px; border-radius: 999px; border: 1px solid var(--rule-bright);
+      color: var(--cream); font-family: 'Outfit', sans-serif; font-size: 0.82rem; transition: var(--transition);
+    }
+    .atlas-btn:hover { border-color: var(--orange); color: var(--white); background: var(--orange-dim); }
+    .atlas-btn.is-primary { background: var(--orange); border-color: var(--orange); color: #1a0c02; font-weight: 600; }
+    .atlas-btn.is-primary:hover { background: var(--orange-lt); }
+
+    /* ── Stage ── */
+    .atlas-stage {
+      position: relative; display: grid; grid-template-columns: minmax(0,1fr) 0fr;
+      transition: grid-template-columns 0.5s cubic-bezier(.22,.9,.24,1);
+      background: var(--black); padding: 0 0 10px;
+    }
+    .atlas-stage.has-panel { grid-template-columns: minmax(0,1fr) 430px; }
+    .atlas-map-shell {
+      position: relative; overflow: hidden;
+      background:
+        radial-gradient(1200px 700px at 50% 42%, rgba(255,107,53,0.09), transparent 70%),
+        linear-gradient(180deg, #0A0703, #140C04);
+      border-bottom: 1px solid var(--rule);
+    }
+    #atlas-svg { display: block; width: 100%; height: auto; cursor: grab; touch-action: none; }
+    #atlas-svg.is-dragging { cursor: grabbing; }
+    #atlas-world { transform-origin: 0 0; }
+
+    .atlas-sphere { fill: #0B0803; stroke: rgba(242,228,196,0.10); stroke-width: 1; vector-effect: non-scaling-stroke; }
+    .atlas-grat { fill: none; stroke: rgba(242,228,196,0.045); stroke-width: 0.6; vector-effect: non-scaling-stroke; }
+    .atlas-country {
+      fill: #241708; stroke: rgba(242,228,196,0.10); stroke-width: 0.45;
+      vector-effect: non-scaling-stroke; transition: fill 0.35s ease;
+    }
+    .atlas-country.has-origin { fill: #3C2510; stroke: rgba(255,107,53,0.28); }
+    .atlas-country.is-active { fill: #6A3C13; stroke: rgba(255,107,53,0.85); }
+
+    .atlas-route { fill: none; stroke: var(--orange); stroke-width: 1.6; stroke-linecap: round; opacity: 0.9; vector-effect: non-scaling-stroke; }
+    .atlas-route-glow { fill: none; stroke: rgba(255,107,53,0.28); stroke-width: 6; filter: blur(2px); vector-effect: non-scaling-stroke; }
+    .atlas-route-dot { fill: #FFD166; }
+
+    .atlas-star { cursor: pointer; }
+    .star-hit { fill: transparent; }
+    .star-shape { fill: #FFD166; stroke: rgba(26,12,2,0.55); stroke-width: 0.8; transition: fill 0.25s ease; }
+    .star-halo { fill: rgba(255,209,102,0.10); }
+    .star-pulse { fill: rgba(255,209,102,0.30); transform-origin: center; animation: starPulse 3.4s ease-out infinite; animation-delay: var(--delay, 0s); }
+    .atlas-star.is-home .star-shape { fill: var(--orange); }
+    .atlas-star.is-home .star-pulse { fill: rgba(255,107,53,0.35); }
+    .atlas-star:hover .star-shape, .atlas-star:focus-visible .star-shape { fill: #FFFFFF; }
+    .atlas-star:focus-visible { outline: none; }
+    .atlas-star:focus-visible .star-halo { fill: rgba(255,255,255,0.28); }
+    .atlas-star.is-active .star-shape { fill: #FFFFFF; }
+    .atlas-star.is-active .star-halo { fill: rgba(255,107,53,0.35); }
+    .atlas-star.is-visited .star-shape { fill: #7BE0A5; }
+    .atlas-star.is-dim { opacity: 0.16; pointer-events: none; }
+    .atlas-star > * { transform: scale(calc(1 / var(--star-k, 1))); }
+    @keyframes starPulse {
+      0%   { transform: scale(0.6); opacity: 0.85; }
+      70%  { transform: scale(2.6); opacity: 0; }
+      100% { transform: scale(2.6); opacity: 0; }
+    }
+
+    #atlas-tooltip {
+      position: absolute; z-index: 30; pointer-events: none; opacity: 0;
+      transform: translate(-50%, -100%); transition: opacity 0.18s ease;
+      display: flex; align-items: center; gap: 8px; white-space: nowrap;
+      padding: 8px 12px; border-radius: 10px; background: rgba(13,9,0,0.94);
+      border: 1px solid var(--rule-bright); box-shadow: var(--shadow);
+      font-family: 'Outfit', sans-serif; font-size: 0.84rem; color: var(--white);
+    }
+    #atlas-tooltip.is-on { opacity: 1; }
+    .tip-count { color: var(--orange); font-size: 0.74rem; letter-spacing: 0.08em; text-transform: uppercase; }
+
+    #atlas-hint {
+      position: absolute; left: 50%; top: 18px; transform: translateX(-50%); z-index: 25;
+      padding: 9px 16px; border-radius: 999px; background: rgba(13,9,0,0.9);
+      border: 1px solid var(--rule-bright); color: var(--cream); font-family: 'Outfit', sans-serif;
+      font-size: 0.8rem; opacity: 0; pointer-events: none; transition: opacity 0.25s ease;
+    }
+    #atlas-hint.is-on { opacity: 1; }
+    #atlas-hint kbd {
+      font-family: 'Outfit', sans-serif; font-size: 0.72rem; padding: 2px 6px; border-radius: 5px;
+      background: var(--cream-ghost); border: 1px solid var(--rule-bright);
+    }
+
+    .map-tools { position: absolute; right: 16px; bottom: 16px; display: flex; flex-direction: column; gap: 8px; z-index: 20; }
+    .map-tool {
+      width: 40px; height: 40px; border-radius: 10px; background: rgba(13,9,0,0.8);
+      border: 1px solid var(--rule-bright); color: var(--cream); font-size: 1.05rem;
+      display: flex; align-items: center; justify-content: center; backdrop-filter: blur(8px);
+    }
+    .map-tool:hover { border-color: var(--orange); color: var(--white); }
+    .map-legend {
+      position: absolute; left: 16px; bottom: 16px; z-index: 20;
+      display: flex; flex-wrap: wrap; gap: 14px; padding: 10px 14px; border-radius: 12px;
+      background: rgba(13,9,0,0.72); border: 1px solid var(--rule); backdrop-filter: blur(8px);
+      font-family: 'Outfit', sans-serif; font-size: 0.74rem; color: var(--muted);
+    }
+    .map-legend i { display: inline-block; width: 9px; height: 9px; border-radius: 50%; margin-right: 6px; }
+    .legend-new i { background: #FFD166; }
+    .legend-seen i { background: #7BE0A5; }
+    .legend-home i { background: var(--orange); }
+
+    /* ── Passport ── */
+    .atlas-passport {
+      display: flex; flex-wrap: wrap; align-items: center; gap: 18px;
+      padding: 16px 52px; background: var(--ink); border-bottom: 1px solid var(--rule);
+    }
+    .passport-title {
+      font-family: 'Syne', sans-serif; font-weight: 700; font-size: 0.9rem;
+      letter-spacing: 0.12em; text-transform: uppercase; color: var(--white);
+    }
+    .passport-bar { flex: 1 1 200px; max-width: 320px; height: 8px; border-radius: 999px; background: var(--card-lt); overflow: hidden; }
+    #passport-fill { height: 100%; width: 0%; border-radius: 999px; background: linear-gradient(90deg, var(--orange), #FFD166); transition: width 0.6s ease; }
+    #passport-count { font-family: 'Syne', sans-serif; font-weight: 700; color: var(--orange); font-size: 0.95rem; }
+    #passport-badges { display: flex; flex-wrap: wrap; gap: 8px; }
+    .badge {
+      display: inline-flex; align-items: center; gap: 6px; padding: 6px 12px; border-radius: 999px;
+      border: 1px dashed var(--rule-bright); font-family: 'Outfit', sans-serif; font-size: 0.74rem;
+      color: var(--muted); opacity: 0.55;
+    }
+    .badge.is-earned { opacity: 1; color: var(--cream); border-style: solid; border-color: var(--orange); background: var(--orange-dim); }
+    #passport-reset { margin-left: auto; font-size: 0.74rem; color: var(--muted); text-decoration: underline; }
+    #passport-reset:hover { color: var(--orange); }
+
+    /* ── Detail panel ── */
+    .atlas-panel {
+      position: relative; overflow: hidden; background: var(--panel);
+      border-left: 1px solid var(--rule); transform: translateX(30px); opacity: 0;
+      transition: opacity 0.4s ease, transform 0.4s ease; pointer-events: none;
+    }
+    .atlas-panel.is-open { transform: none; opacity: 1; pointer-events: auto; }
+    #atlas-panel-body { height: 100%; max-height: calc(100vh - var(--nav-h)); overflow-y: auto; padding: 26px 26px 60px; }
+    #atlas-panel-close {
+      position: absolute; top: 14px; right: 16px; z-index: 5; width: 34px; height: 34px;
+      border-radius: 50%; background: rgba(13,9,0,0.7); border: 1px solid var(--rule-bright);
+      color: var(--cream); font-size: 1rem;
+    }
+    #atlas-panel-close:hover { border-color: var(--orange); color: var(--white); }
+    .panel-head { display: flex; gap: 14px; align-items: flex-start; margin-bottom: 14px; padding-right: 40px; }
+    .panel-flag { font-size: 2.4rem; line-height: 1; }
+    .panel-kicker { font-size: 0.68rem; letter-spacing: 0.28em; text-transform: uppercase; color: var(--orange); }
+    .panel-head h2 { font-family: 'Syne', sans-serif; font-weight: 800; font-size: 1.7rem; color: var(--white); line-height: 1.1; letter-spacing: -0.5px; }
+    .panel-sub { font-size: 0.82rem; color: var(--muted); margin-top: 4px; }
+    .panel-tagline {
+      font-family: 'Playfair Display', serif; font-style: italic; font-size: 1.05rem;
+      color: var(--cream); line-height: 1.6; margin-bottom: 22px;
+    }
+    .fact-card { border-radius: 14px; padding: 18px; margin-bottom: 14px; border: 1px solid var(--rule); background: var(--card); }
+    .fact-card h3 { font-family: 'Syne', sans-serif; font-size: 1.02rem; color: var(--white); margin-bottom: 8px; }
+    .fact-card p { font-size: 0.9rem; line-height: 1.75; color: var(--dim); }
+    .fact-label {
+      display: inline-block; font-size: 0.64rem; letter-spacing: 0.2em; text-transform: uppercase;
+      color: var(--orange); margin-bottom: 8px;
+    }
+    .fact-spotlight { background: linear-gradient(150deg, rgba(255,107,53,0.13), var(--card) 60%); border-color: rgba(255,107,53,0.3); }
+    .fact-ingredient .fact-label { color: #7BE0A5; }
+    .fact-tradition .fact-label { color: #FFD166; }
+    .panel-breads-title {
+      font-family: 'Syne', sans-serif; font-size: 0.82rem; letter-spacing: 0.16em; text-transform: uppercase;
+      color: var(--cream); margin: 26px 0 14px; padding-top: 18px; border-top: 1px solid var(--rule);
+    }
+    .bread-card {
+      display: grid; grid-template-columns: 118px minmax(0,1fr); gap: 14px; align-items: center;
+      padding: 12px; margin-bottom: 10px; border-radius: 14px; background: var(--card-lt);
+      border: 1px solid var(--rule); transition: var(--transition);
+    }
+    .bread-card:hover { border-color: var(--orange); transform: translateY(-2px); }
+    .loaf-art { width: 100%; height: auto; filter: drop-shadow(0 6px 14px rgba(0,0,0,0.5)); }
+    .bread-meta h4 { font-family: 'Syne', sans-serif; font-size: 0.95rem; color: var(--white); line-height: 1.25; }
+    .bread-meta p { font-size: 0.8rem; color: var(--dim); line-height: 1.55; margin: 5px 0 8px; }
+    .bread-tags { display: flex; flex-wrap: wrap; gap: 5px; margin-bottom: 7px; }
+    .bread-tags span {
+      font-size: 0.62rem; letter-spacing: 0.08em; text-transform: uppercase; padding: 3px 8px;
+      border-radius: 999px; background: var(--cream-ghost); color: var(--cream-dim);
+    }
+    .bread-tags .bread-cat { background: var(--orange-dim); color: var(--orange-lt); }
+    .bread-price { font-family: 'Syne', sans-serif; font-size: 0.82rem; color: var(--gold); }
+    .panel-cta {
+      display: block; margin-top: 20px; padding: 14px; text-align: center; border-radius: 999px;
+      background: var(--orange); color: #1a0c02; font-family: 'Syne', sans-serif; font-weight: 700;
+      letter-spacing: 0.04em;
+    }
+    .panel-cta:hover { background: var(--orange-lt); }
+
+    /* ── Origin strip ── */
+    .atlas-strip-section { padding: 40px 52px 70px; background: var(--black); }
+    .strip-head { display: flex; align-items: baseline; gap: 14px; margin-bottom: 16px; flex-wrap: wrap; }
+    .strip-head h2 { font-family: 'Syne', sans-serif; font-weight: 800; font-size: 1.5rem; color: var(--white); }
+    .strip-head p { font-size: 0.85rem; color: var(--muted); }
+    #atlas-strip { display: flex; flex-wrap: wrap; gap: 8px; }
+    .strip-item {
+      display: inline-flex; align-items: center; gap: 8px; padding: 9px 15px; border-radius: 999px;
+      border: 1px solid var(--rule-bright); background: var(--card); color: var(--cream-dim);
+      font-family: 'Outfit', sans-serif; font-size: 0.84rem; transition: var(--transition);
+    }
+    .strip-item:hover { color: var(--white); border-color: var(--orange); background: var(--orange-dim); transform: translateY(-2px); }
+    .strip-flag { font-size: 1rem; }
+
+    /* ── How to use ── */
+    .atlas-howto { display: grid; grid-template-columns: repeat(auto-fit, minmax(230px, 1fr)); gap: 16px; margin-top: 40px; }
+    .howto-card { padding: 20px; border-radius: 14px; background: var(--card); border: 1px solid var(--rule); }
+    .howto-card strong { display: block; font-family: 'Syne', sans-serif; color: var(--white); margin-bottom: 6px; }
+    .howto-card p { font-size: 0.86rem; line-height: 1.7; color: var(--dim); }
+    .howto-num { font-family: 'Syne', sans-serif; font-size: 1.5rem; color: var(--orange); }
+
+    #atlas-toast {
+      position: fixed; left: 50%; bottom: 28px; transform: translate(-50%, 20px); z-index: 300;
+      padding: 12px 22px; border-radius: 999px; background: var(--panel); color: var(--white);
+      border: 1px solid var(--orange); box-shadow: var(--glow); font-family: 'Outfit', sans-serif;
+      font-size: 0.88rem; opacity: 0; pointer-events: none; transition: opacity 0.3s ease, transform 0.3s ease;
+    }
+    #atlas-toast.is-on { opacity: 1; transform: translate(-50%, 0); }
+
+    /* ── Responsive ── */
+    @media (max-width: 1100px) {
+      .atlas-stage.has-panel { grid-template-columns: minmax(0,1fr) 360px; }
+    }
+    @media (max-width: 900px) {
+      .atlas-hero { padding: 108px 22px 30px; }
+      .atlas-controls { padding: 12px 22px; top: var(--nav-h); }
+      .atlas-passport, .atlas-strip-section { padding-left: 22px; padding-right: 22px; }
+      .atlas-stage, .atlas-stage.has-panel { grid-template-columns: minmax(0,1fr); }
+      .atlas-panel {
+        position: fixed; left: 0; right: 0; bottom: 0; z-index: 220; max-height: 82vh;
+        border-left: none; border-top: 1px solid var(--orange);
+        border-radius: 20px 20px 0 0; transform: translateY(100%); opacity: 1;
+        transition: transform 0.45s cubic-bezier(.22,.9,.24,1);
+      }
+      .atlas-panel.is-open { transform: translateY(0); }
+      #atlas-panel-body { max-height: 82vh; padding: 22px 18px 48px; }
+      .atlas-actions { margin-left: 0; }
+      .map-legend { display: none; }
+    }
+    @media (prefers-reduced-motion: reduce) {
+      .star-pulse { animation: none; }
+      * { scroll-behavior: auto; }
+    }
+  </style>
+</head>
+<body>
+<a class="ubc-skip-link" href="#main-content">Skip to main content</a>
+
+<!-- ── TICKER ── -->
+<div class="ticker" aria-label="Site updates" role="marquee">
+  <div class="ticker-track" aria-hidden="true">
+    <span>82 loaves · 45 origins · one map</span>
+    <span>Click a star, learn a story, taste a country</span>
+    <span>Handcrafted in small batches in Thornton, Colorado</span>
+    <span>Every loaf tells its own story</span>
+  </div>
+</div>
+<script>
+(function(){
+  var track = document.querySelector('.ticker-track');
+  if (track) track.innerHTML = track.innerHTML + track.innerHTML;
+})();
+</script>
+
+<!-- ── NAV ── -->
+<header>
+  <nav class="ubc-site-nav" id="ubc-nav" role="navigation" aria-label="Main navigation">
+    <a href="/" class="ubc-nav-logo" aria-label="Urban Bread Co — home">
+      <img src="images/2025/10/Urban-Bread-Co-2026-Logo-whitetext-300x300.png" alt="Urban Bread Co" class="ubc-nav-logo-img" fetchpriority="high">
+    </a>
+    <ul class="ubc-nav-links" role="list">
+      <li><a href="/">Home</a></li>
+      <li><a href="menu">Menu</a></li>
+      <li><a href="atlas" class="active">Atlas</a></li>
+      <li><a href="about">About</a></li>
+      <li><a href="gallery">Gallery</a></li>
+      <li><a href="catering">Catering</a></li>
+      <li><a href="events">Events</a></li>
+      <li><a href="reviews">Reviews</a></li>
+      <li><a href="game">Game</a></li>
+      <li><a href="contact">Contact</a></li>
+    </ul>
+    <a href="menu#browse-menu" class="ubc-nav-cta">Order Now</a>
+    <button class="ubc-hamburger" id="ubc-hamburger" aria-label="Open menu" aria-expanded="false">
+      <span></span><span></span><span></span>
+    </button>
+  </nav>
+  <nav class="ubc-mobile-nav" id="ubc-mobile-nav" aria-label="Mobile navigation">
+    <a href="/">Home</a>
+    <a href="menu">Menu</a>
+    <a href="atlas" class="active">Atlas</a>
+    <a href="about">About</a>
+    <a href="gallery">Gallery</a>
+    <a href="catering">Catering</a>
+    <a href="events">Events</a>
+    <a href="reviews">Reviews</a>
+    <a href="game">Game</a>
+    <a href="contact">Contact</a>
+    <a href="menu#browse-menu" class="ubc-nav-cta">Order Now</a>
+  </nav>
+</header>
+
+<main id="main-content" class="atlas-wrap">
+
+  <!-- ── HERO ── -->
+  <section class="atlas-hero">
+    <div class="atlas-hero-inner">
+      <p class="atlas-kicker">Interactive · Educational · Delicious</p>
+      <h1 class="atlas-title">The Bread <em>Atlas</em></h1>
+      <p class="atlas-lede">
+        Every loaf we bake came from somewhere. Spin the map, click a glowing star, and you land in the
+        place that invented the flavour — the history nobody tells you, the science hiding in the
+        ingredient, and the Urban Bread Co loaves that carry it back to Colorado.
+      </p>
+      <div class="atlas-stats">
+        <div class="atlas-stat"><strong id="atlas-total">45</strong><span>Origins mapped</span></div>
+        <div class="atlas-stat"><strong id="atlas-bread-total">82</strong><span>Loaves placed</span></div>
+        <div class="atlas-stat"><strong>6</strong><span>Continents</span></div>
+        <div class="atlas-stat"><strong>1</strong><span>Bakery in Thornton</span></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── CONTROLS ── -->
+  <div class="atlas-controls">
+    <div class="atlas-search-wrap">
+      <span class="search-icon" aria-hidden="true">🔍</span>
+      <input id="atlas-search" type="search" aria-label="Search origins, ingredients or breads" placeholder="Search a bread, spice or country…" autocomplete="off">
+      <div id="atlas-results" role="listbox" aria-label="Search results"></div>
+    </div>
+    <div class="region-chips" role="group" aria-label="Filter by region">
+      <button type="button" class="region-chip is-on" data-region="all">All</button>
+      <button type="button" class="region-chip" data-region="North America">North America</button>
+      <button type="button" class="region-chip" data-region="Latin America">Latin America</button>
+      <button type="button" class="region-chip" data-region="Europe">Europe</button>
+      <button type="button" class="region-chip" data-region="Africa">Africa</button>
+      <button type="button" class="region-chip" data-region="Asia">Asia</button>
+      <button type="button" class="region-chip" data-region="Oceania">Oceania</button>
+    </div>
+    <div class="atlas-actions">
+      <span class="atlas-btn" aria-live="polite"><strong id="atlas-shown">45</strong> stars shown</span>
+      <button type="button" class="atlas-btn is-primary" id="atlas-surprise">✦ Surprise me</button>
+    </div>
+  </div>
+
+  <!-- ── PASSPORT ── -->
+  <div class="atlas-passport">
+    <span class="passport-title">Flavour Passport</span>
+    <div class="passport-bar"><div id="passport-fill"></div></div>
+    <span id="passport-count">0 / 45</span>
+    <div id="passport-badges"></div>
+    <button type="button" id="passport-reset">Reset passport</button>
+  </div>
+
+  <!-- ── MAP + PANEL ── -->
+  <div class="atlas-stage" id="atlas-stage">
+    <div class="atlas-map-shell">
+      <svg id="atlas-svg" role="application" aria-label="Interactive world map of bread origins. Use tab to move between stars and Enter to open one.">
+        <g id="atlas-world">
+          <g id="atlas-graticule"></g>
+          <g id="atlas-land"></g>
+          <g id="atlas-routes"></g>
+          <g id="atlas-stars"></g>
+        </g>
+      </svg>
+      <div id="atlas-tooltip" aria-hidden="true"></div>
+      <div id="atlas-hint" aria-hidden="true">Hold <kbd>Ctrl</kbd> and scroll to zoom · drag to pan</div>
+      <div class="map-tools">
+        <button type="button" class="map-tool" id="atlas-zoom-in" aria-label="Zoom in">+</button>
+        <button type="button" class="map-tool" id="atlas-zoom-out" aria-label="Zoom out">−</button>
+        <button type="button" class="map-tool" id="atlas-reset" aria-label="Reset view">⟲</button>
+      </div>
+      <div class="map-legend">
+        <span class="legend-new"><i></i>Unexplored star</span>
+        <span class="legend-seen"><i></i>Already tasted</span>
+        <span class="legend-home"><i></i>Our bakery</span>
+      </div>
+    </div>
+
+    <aside class="atlas-panel" id="atlas-panel" aria-hidden="true" aria-label="Origin details">
+      <button type="button" id="atlas-panel-close" aria-label="Close origin details">✕</button>
+      <div id="atlas-panel-body"></div>
+    </aside>
+  </div>
+
+  <!-- ── STRIP + HOW TO ── -->
+  <section class="atlas-strip-section">
+    <div class="strip-head">
+      <h2>Every origin on the map</h2>
+      <p>Prefer a list? Jump straight to a region.</p>
+    </div>
+    <div id="atlas-strip"></div>
+
+    <div class="atlas-howto">
+      <div class="howto-card">
+        <span class="howto-num">01</span>
+        <strong>Find a star</strong>
+        <p>Gold stars mark places that gave us a flavour. Drag to pan, scroll to zoom, or search for a spice like nutmeg or vanilla.</p>
+      </div>
+      <div class="howto-card">
+        <span class="howto-num">02</span>
+        <strong>Learn something</strong>
+        <p>Each origin opens with a fun food fact, the science behind its signature ingredient, and the local baking tradition it belongs to.</p>
+      </div>
+      <div class="howto-card">
+        <span class="howto-num">03</span>
+        <strong>Follow the route</strong>
+        <p>A glowing arc traces the flavour from its homeland to our ovens in Thornton, Colorado — the journey every loaf makes.</p>
+      </div>
+      <div class="howto-card">
+        <span class="howto-num">04</span>
+        <strong>Stamp your passport</strong>
+        <p>Visited stars turn green and fill your Flavour Passport. Collect all 45 origins to earn Master of the Atlas.</p>
+      </div>
+    </div>
+  </section>
+</main>
+
+<div id="atlas-toast" role="status" aria-live="polite"></div>
+
+<footer class="ubc-site-footer">
+  <div class="ubc-footer-grid">
+    <div class="ubc-footer-brand">
+      <div class="ubc-footer-logo"><img src="images/2025/10/Urban-Bread-Co-2026-Logo-whitetext-150x150.png" alt="Urban Bread Co" class="ubc-footer-logo-img">Urban <span>Bread</span> Co</div>
+      <p class="ubc-footer-tagline">"Bread that tells a story."</p>
+      <p style="font-size:0.88rem;line-height:1.7;margin-bottom:20px;">Small-batch artisan bakery in Thornton, CO. 82+ unique loaves baked fresh daily.</p>
+      <div class="ubc-footer-social">
+        <a href="https://instagram.com/urbanbreadco" target="_blank" rel="noopener" aria-label="Instagram">ig</a>
+        <a href="https://facebook.com/itsurbanbreadco" target="_blank" rel="noopener" aria-label="Facebook">fb</a>
+        <a href="https://linktr.ee/urbanbreadco" target="_blank" rel="noopener" aria-label="Linktree">lt</a>
+      </div>
+    </div>
+    <div class="ubc-footer-col">
+      <h4>Explore</h4>
+      <ul>
+        <li><a href="atlas">Bread Atlas</a></li>
+        <li><a href="menu#browse-menu">Full Menu</a></li>
+        <li><a href="menu#build-bread">Build Custom</a></li>
+        <li><a href="menu#bread-club">Bread Club</a></li>
+        <li><a href="game">Win a Discount</a></li>
+      </ul>
+    </div>
+    <div class="ubc-footer-col">
+      <h4>Company</h4>
+      <ul>
+        <li><a href="about">About Us</a></li>
+        <li><a href="gallery">Gallery</a></li>
+        <li><a href="artist-feature">Artist Feature</a></li>
+        <li><a href="events">Events</a></li>
+        <li><a href="reviews">Reviews</a></li>
+      </ul>
+    </div>
+    <div class="ubc-footer-col">
+      <h4>Visit Us</h4>
+      <p class="ubc-footer-info">
+        <strong>Thornton, CO</strong><br>
+        Mon–Fri 8am–8pm<br>Sat 9am–7pm · Sun 10am–6pm<br><br>
+        <a href="tel:7202668231" style="color:var(--orange);">720-266-8231</a><br><br>
+        <a href="contact" style="color:var(--orange);">Contact Us →</a>
+      </p>
+    </div>
+  </div>
+  <div class="ubc-footer-bottom">
+    <span>© 2026 Urban Bread Co. All rights reserved.</span>
+    <span><a href="menu#browse-menu">Menu</a> · <a href="contact">Contact</a> · <a href="sitemap">Sitemap</a> · <a href="faq">FAQ</a> · <a href="privacy">Privacy</a></span>
+    <span class="ubc-footer-credit">Website by <a href="https://www.sparkthebuzz.com" target="_blank" rel="noopener">Spark the Buzz</a></span>
+  </div>
+</footer>
+
+<script src="js/main.js"></script>
+<script src="atlas-map.js"></script>
+<script src="atlas-data.js"></script>
+<script src="atlas.js"></script>
+</body>
+</html>
