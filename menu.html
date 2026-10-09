@@ -761,6 +761,14 @@
 .urban-bread-menu-wrapper .search-compact input:focus { border-color:var(--orange); background:var(--white); }
 .urban-bread-menu-wrapper .search-compact input::placeholder { color:rgba(20,18,16,.3); }
 .urban-bread-menu-wrapper .filters-compact { display:flex; gap:0; flex-wrap:wrap; margin-bottom:0; padding:0; border-bottom:1px solid var(--rule); }
+.urban-bread-menu-wrapper .live-menu-note {
+  text-align:center; font-family:'Outfit',sans-serif; font-weight:300; font-size:0.85rem;
+  color:rgba(20,18,16,.62); padding:0 20px 18px;
+}
+.urban-bread-menu-wrapper .live-menu-note a {
+  color:var(--orange); font-weight:500; text-decoration:none; border-bottom:1px solid rgba(201,94,24,.35);
+}
+.urban-bread-menu-wrapper .live-menu-note a:hover { border-bottom-color:var(--orange); }
 .urban-bread-menu-wrapper .filter-btn-compact { padding:13px 22px; font-family:'Outfit',sans-serif; font-weight:400; font-size:0.54rem; letter-spacing:2.5px; text-transform:uppercase; background:transparent; color:rgba(20,18,16,.4); border:none; border-right:1px solid var(--rule); cursor:pointer; transition:all .2s; border-radius:0; }
 .urban-bread-menu-wrapper .filter-btn-compact:hover { color:var(--ink); background:var(--soft); }
 .urban-bread-menu-wrapper .filter-btn-compact.active { color:var(--orange); background:rgba(201,94,24,.06); }
@@ -886,6 +894,11 @@ button:active { transform:scale(0.98); }
 
 <div class="compact-menu-section" id="browse-menu">
   <div class="compact-container">
+
+    <div class="live-menu-note">
+      Today's lineup — <strong>25 breads</strong>, rotating with the seasons.
+      <a href="atlas.html">See every bread we've ever baked in the Bread Atlas →</a>
+    </div>
 
     <div class="filters-compact">
       <button class="filter-btn-compact active" data-category="all">All Breads</button>
@@ -1048,6 +1061,12 @@ window.urbanBreadApp = (function() {
     {id:82,name:"Tuxedo Bread With White Chocolate Glaze & Dark Chocolate Glaze",category:"premium",description:"Elegant tuxedo bread with both white and dark chocolate glaze.",features:["Chocolate"],price:"$15/$25"}
   ];
 
+  /* The live menu is intentionally capped at 25 so it doesn't overwhelm —
+     rotate this list whenever the season changes. Every bread not listed
+     here (82 and counting) is still fully explorable on the Bread Atlas. */
+  const LIVE_BREAD_IDS = [0,9,35,55,61,72,65,66,69,1,12,13,14,8,7,40,48,52,56,50,33,73,74,77,82];
+  const liveBreadsData = breadsData.filter(function(b) { return LIVE_BREAD_IDS.indexOf(b.id) !== -1; });
+
   let shoppingCart = [];
   let currentCategory = 'all';
   let currentSearch = '';
@@ -1059,7 +1078,7 @@ window.urbanBreadApp = (function() {
     setupFilters();
     setupFeaturedBanner();
     loadCart();
-    renderBreads(breadsData);
+    renderBreads(liveBreadsData);
   }
 
   function loadCart() {
@@ -1152,7 +1171,7 @@ window.urbanBreadApp = (function() {
   }
 
   function filterBreads() {
-    let filtered = breadsData;
+    let filtered = liveBreadsData;
     if (currentCategory !== 'all') filtered = filtered.filter(function(b) { return b.category === currentCategory; });
     if (currentSearch) {
       const q = currentSearch.toLowerCase();
@@ -2541,6 +2560,10 @@ button, .frequency-option, .add-bread-btn, .category-filter, .back-btn, .continu
     </div>
 
     <div class="bread-selection" id="step2">
+      <div class="live-menu-note">
+        Today's lineup — <strong>25 breads</strong>, rotating with the seasons.
+        <a href="atlas.html">See every bread we've ever baked in the Bread Atlas →</a>
+      </div>
       <div class="category-filters">
         <button class="category-filter active" data-category="all">All Breads</button>
         <button class="category-filter" data-category="classic">Classic</button>
@@ -2677,6 +2700,10 @@ button, .frequency-option, .add-bread-btn, .category-filter, .back-btn, .continu
     {id:82,name:"Tuxedo Bread",category:"premium",description:"White and dark chocolate glaze.",features:["Chocolate"],miniPrice:15,fullPrice:25}
   ];
 
+  /* Same 25-bread live-menu cap as the browse table above, kept in sync by hand. */
+  const LIVE_BREAD_IDS = [0,9,35,55,61,72,65,66,69,1,12,13,14,8,7,40,48,52,56,50,33,73,74,77,82];
+  const liveBreadsData = breadsData.filter(b => LIVE_BREAD_IDS.includes(b.id));
+
   let state = { frequency: null, selectedBreads: [], currentStep: 1, currentCategory: 'all' };
   let subOverlay;
   let pendingBaseTotal = 0;
@@ -2685,7 +2712,7 @@ button, .frequency-option, .add-bread-btn, .category-filter, .back-btn, .continu
   function init() {
     setupFrequencySelection();
     setupCategoryFilters();
-    renderBreadGrid(breadsData);
+    renderBreadGrid(liveBreadsData);
     setupButtons();
     setupDeliveryModal();
     updateUI();
@@ -2732,8 +2759,8 @@ button, .frequency-option, .add-bread-btn, .category-filter, .back-btn, .continu
 
   function filterBreads() {
     const filtered = state.currentCategory === 'all'
-      ? breadsData
-      : breadsData.filter(b => b.category === state.currentCategory);
+      ? liveBreadsData
+      : liveBreadsData.filter(b => b.category === state.currentCategory);
     renderBreadGrid(filtered);
   }
 
