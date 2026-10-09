@@ -1,0 +1,438 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <link rel="icon" type="image/png" href="images/2025/10/Urban-Bread-Co-2026-Logo-150x150.png" />
+  <link rel="icon" type="image/png" sizes="150x150" href="favicon.png" />
+  <link rel="icon" type="image/svg+xml" href="favicon.svg" />
+  <link rel="apple-touch-icon" href="images/2025/10/Urban-Bread-Co-2026-Logo-150x150.png" />
+  <link rel="manifest" href="manifest.json" />
+  <meta name="theme-color" content="#FF6B35" />
+  <title>Event Packages & Pricing | Urban Bread Co — Corporate, Wedding &amp; Festival · Thornton, CO</title>
+  <meta name="description" content="Priced bread catering packages for corporate events, weddings, and festivals or markets, across the Denver metro area. Pick a package or request a custom quote." />
+  <meta name="author" content="Urban Bread Co" />
+  <meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1" />
+  <link rel="canonical" href="https://www.urbanbreadco.com/event-packages" />
+  <meta name="geo.region" content="US-CO" />
+  <meta name="geo.placename" content="Thornton, Colorado" />
+  <meta property="og:type" content="website" />
+  <meta property="og:locale" content="en_US" />
+  <meta property="og:site_name" content="Urban Bread Co" />
+  <meta property="og:url" content="https://www.urbanbreadco.com/event-packages" />
+  <meta property="og:title" content="Event Packages & Pricing | Urban Bread Co" />
+  <meta property="og:description" content="Priced bread catering packages for corporate events, weddings, and festivals or markets." />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:site" content="@urbanbreadco" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@graph": [
+      {
+        "@type": "BreadcrumbList",
+        "itemListElement": [
+          { "@type": "ListItem", "position": 1, "name": "Home", "item": "https://www.urbanbreadco.com/" },
+          { "@type": "ListItem", "position": 2, "name": "Catering", "item": "https://www.urbanbreadco.com/catering.html" },
+          { "@type": "ListItem", "position": 3, "name": "Event Packages", "item": "https://www.urbanbreadco.com/event-packages.html" }
+        ]
+      }
+    ]
+  }
+  </script>
+  <link href="https://fonts.googleapis.com/css2?family=Syne:wght@700;800&family=Outfit:wght@300;400;500&family=Playfair+Display:ital@0;1&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="css/style.css?v=6" />
+  <style>
+  body { background: var(--black); }
+
+  .pkg-hero {
+    position: relative; padding: 180px 6vw 80px; text-align: center;
+    background: radial-gradient(1100px 520px at 50% -10%, rgba(255,107,53,0.14), transparent 60%), var(--black);
+  }
+  .pkg-eyebrow {
+    display: inline-flex; align-items: center; gap: 10px; justify-content: center;
+    font-family: 'Outfit', sans-serif; font-weight: 500; font-size: 0.78rem; letter-spacing: 0.3em;
+    text-transform: uppercase; color: var(--orange); margin-bottom: 20px;
+  }
+  .pkg-eyebrow-line { width: 32px; height: 1px; background: var(--orange); }
+  .pkg-hero h1 {
+    font-family: 'Syne', sans-serif; font-weight: 800; letter-spacing: -1.5px; line-height: 0.98;
+    font-size: clamp(2.4rem, 6vw, 4.4rem); color: var(--cream); margin: 0 0 20px;
+  }
+  .pkg-hero h1 em {
+    font-family: 'Playfair Display', serif; font-style: italic; font-weight: 400; color: var(--orange);
+  }
+  .pkg-hero p {
+    font-family: 'Outfit', sans-serif; font-weight: 300; font-size: 1.05rem; line-height: 1.8;
+    color: rgba(240,233,218,0.8); max-width: 640px; margin: 0 auto;
+  }
+  .pkg-draft-note {
+    max-width: 640px; margin: 28px auto 0; padding: 14px 20px; border: 1px dashed rgba(255,107,53,0.4);
+    border-radius: 12px; font-family: 'Outfit', sans-serif; font-size: 0.85rem; color: rgba(240,233,218,0.65);
+  }
+
+  .pkg-section { padding: 70px 6vw 10px; max-width: 1180px; margin: 0 auto; }
+  .pkg-section-head { text-align: center; margin-bottom: 46px; }
+  .pkg-section-head h2 {
+    font-family: 'Syne', sans-serif; font-weight: 800; font-size: clamp(1.8rem, 3.4vw, 2.6rem);
+    color: var(--cream); letter-spacing: -0.5px; margin: 0 0 12px;
+  }
+  .pkg-section-head h2 em { font-family: 'Playfair Display', serif; font-style: italic; font-weight: 400; color: var(--orange); }
+  .pkg-section-head p {
+    font-family: 'Outfit', sans-serif; font-weight: 300; font-size: 0.98rem; color: rgba(240,233,218,0.72);
+    max-width: 560px; margin: 0 auto;
+  }
+
+  .pkg-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; margin-bottom: 20px; }
+  .pkg-card {
+    position: relative; background: #140D04; border: 1px solid rgba(240,233,218,0.1); border-radius: 18px;
+    padding: 36px 30px; display: flex; flex-direction: column; transition: border-color 0.25s, transform 0.25s;
+  }
+  .pkg-card:hover { border-color: rgba(255,107,53,0.4); transform: translateY(-4px); }
+  .pkg-card.is-popular { border-color: var(--orange); background: #1A1206; }
+  .pkg-card-badge {
+    position: absolute; top: -13px; left: 30px; background: var(--orange); color: #fff;
+    font-family: 'Outfit', sans-serif; font-weight: 600; font-size: 0.68rem; letter-spacing: 0.1em;
+    text-transform: uppercase; padding: 5px 14px; border-radius: 999px;
+  }
+  .pkg-card-tier {
+    font-family: 'Outfit', sans-serif; font-weight: 500; font-size: 0.72rem; letter-spacing: 0.18em;
+    text-transform: uppercase; color: var(--orange); margin-bottom: 10px;
+  }
+  .pkg-card-name {
+    font-family: 'Syne', sans-serif; font-weight: 800; font-size: 1.5rem; color: var(--cream); margin-bottom: 6px;
+  }
+  .pkg-card-scope {
+    font-family: 'Outfit', sans-serif; font-weight: 300; font-size: 0.85rem; color: rgba(240,233,218,0.55); margin-bottom: 18px;
+  }
+  .pkg-card-price {
+    font-family: 'Syne', sans-serif; font-weight: 800; font-size: 2.6rem; color: var(--cream); line-height: 1;
+    margin-bottom: 4px;
+  }
+  .pkg-card-price span {
+    font-family: 'Outfit', sans-serif; font-weight: 400; font-size: 0.9rem; color: rgba(240,233,218,0.5);
+  }
+  .pkg-card-starting {
+    font-family: 'Outfit', sans-serif; font-weight: 400; font-size: 0.72rem; letter-spacing: 0.08em;
+    text-transform: uppercase; color: rgba(240,233,218,0.4); margin-bottom: 24px;
+  }
+  .pkg-card-list { list-style: none; margin: 0 0 28px; padding: 0; flex-grow: 1; }
+  .pkg-card-list li {
+    font-family: 'Outfit', sans-serif; font-weight: 300; font-size: 0.92rem; line-height: 1.6;
+    color: rgba(240,233,218,0.82); padding-left: 22px; position: relative; margin-bottom: 10px;
+  }
+  .pkg-card-list li::before {
+    content: '✓'; position: absolute; left: 0; top: 0; color: var(--orange); font-weight: 600;
+  }
+  .pkg-card-cta {
+    display: block; text-align: center; text-decoration: none; font-family: 'Outfit', sans-serif;
+    font-weight: 500; font-size: 0.78rem; letter-spacing: 0.1em; text-transform: uppercase; color: #fff;
+    background: var(--orange); padding: 14px; border-radius: 10px; transition: background 0.2s;
+  }
+  .pkg-card-cta:hover { background: #E0611F; }
+  .pkg-card.is-popular .pkg-card-cta { background: #fff; color: var(--black); }
+  .pkg-card.is-popular .pkg-card-cta:hover { background: var(--orange); color: #fff; }
+
+  .pkg-custom {
+    text-align: center; max-width: 640px; margin: 50px auto 0; padding: 32px; border-top: 1px solid rgba(240,233,218,0.1);
+  }
+  .pkg-custom p {
+    font-family: 'Outfit', sans-serif; font-weight: 300; font-size: 0.95rem; color: rgba(240,233,218,0.7); margin-bottom: 18px;
+  }
+  .pkg-custom a {
+    display: inline-block; text-decoration: none; font-family: 'Outfit', sans-serif; font-weight: 500;
+    font-size: 0.8rem; letter-spacing: 0.1em; text-transform: uppercase; color: var(--orange);
+    border: 1px solid rgba(255,107,53,0.4); padding: 13px 28px; border-radius: 999px; transition: background 0.2s;
+  }
+  .pkg-custom a:hover { background: rgba(255,107,53,0.1); }
+
+  @media (max-width: 900px) {
+    .pkg-grid { grid-template-columns: 1fr; }
+  }
+  </style>
+</head>
+<body>
+<a class="ubc-skip-link" href="#main-content">Skip to main content</a>
+
+  <header>
+    <nav class="ubc-site-nav" id="ubc-nav" aria-label="Main navigation">
+      <a href="/" class="ubc-nav-logo" aria-label="Urban Bread Co home"><img src="images/2025/10/Urban-Bread-Co-2026-Logo-whitetext-300x300.png" alt="Urban Bread Co" class="ubc-nav-logo-img" fetchpriority="high"></a>
+      <ul class="ubc-nav-links">
+        <li><a href="/">Home</a></li>
+        <li><a href="menu">Menu</a></li>
+        <li><a href="atlas">Atlas</a></li>
+        <li><a href="about">About</a></li>
+        <li><a href="gallery">Gallery</a></li>
+        <li><a href="catering">Catering</a></li>
+        <li><a href="events">Events</a></li>
+        <li><a href="reviews">Reviews</a></li>
+        <li><a href="game">Game</a></li>
+        <li><a href="contact">Contact</a></li>
+      </ul>
+      <a href="contact" class="ubc-nav-cta">Get a Quote</a>
+      <button class="ubc-hamburger" id="ubc-hamburger" aria-label="Open menu" aria-expanded="false">
+        <span></span><span></span><span></span>
+      </button>
+    </nav>
+    <nav class="ubc-mobile-nav" id="ubc-mobile-nav" aria-label="Mobile navigation">
+      <a href="/">Home</a>
+      <a href="menu">Menu</a>
+      <a href="about">About</a>
+      <a href="gallery">Gallery</a>
+      <a href="catering">Catering</a>
+      <a href="events">Events</a>
+      <a href="reviews">Reviews</a>
+      <a href="game">Game</a>      <a href="contact">Contact</a>
+      <a href="contact" class="ubc-nav-cta">Get a Quote &#8594;</a>
+    </nav>
+  </header>
+  <nav class="ubc-breadcrumb" aria-label="Breadcrumb">
+    <div class="ubc-breadcrumb-inner">
+      <a href="/">Home</a>
+      <span class="ubc-breadcrumb-sep">/</span>
+      <a href="catering">Catering</a>
+      <span class="ubc-breadcrumb-sep">/</span>
+      <span class="ubc-breadcrumb-current">Event Packages</span>
+    </div>
+  </nav>
+
+  <main id="main-content">
+
+  <!-- ── HERO ── -->
+  <section class="pkg-hero">
+    <div class="pkg-eyebrow"><div class="pkg-eyebrow-line"></div><span>Event Packages</span><div class="pkg-eyebrow-line"></div></div>
+    <h1>Pick a package.<br><em>Or build your own.</em></h1>
+    <p>Starting packages for corporate events, weddings, and festivals or markets — every one customizable, every loaf baked fresh for your date.</p>
+    <div class="pkg-draft-note">Draft pricing for review — nothing here is final. Swap any number, name, or inclusion before this goes live.</div>
+  </section>
+
+  <!-- ── CORPORATE ── -->
+  <section class="pkg-section">
+    <div class="pkg-section-head">
+      <h2>Corporate <em>events.</em></h2>
+      <p>Client meetings, office catering, conference tables, and recurring accounts.</p>
+    </div>
+    <div class="pkg-grid">
+      <div class="pkg-card">
+        <div class="pkg-card-tier">Tier 1</div>
+        <div class="pkg-card-name">Boardroom</div>
+        <div class="pkg-card-scope">Serves 15–20 people</div>
+        <div class="pkg-card-price">$150</div>
+        <div class="pkg-card-starting">Flat rate · drop-off included</div>
+        <ul class="pkg-card-list">
+          <li>2 dozen mini loaves, your choice of 2 flavors</li>
+          <li>Compostable packaging &amp; labels</li>
+          <li>Drop-off within Denver metro</li>
+        </ul>
+        <a href="contact" class="pkg-card-cta">Request Boardroom &#8594;</a>
+      </div>
+      <div class="pkg-card is-popular">
+        <div class="pkg-card-badge">Most booked</div>
+        <div class="pkg-card-tier">Tier 2</div>
+        <div class="pkg-card-name">All-Hands</div>
+        <div class="pkg-card-scope">Serves 30–40 people</div>
+        <div class="pkg-card-price">$300</div>
+        <div class="pkg-card-starting">Flat rate · delivery included</div>
+        <ul class="pkg-card-list">
+          <li>4 dozen mini loaves, your choice of 4 flavors</li>
+          <li>Display board with flavor cards</li>
+          <li>Delivery &amp; setup included</li>
+        </ul>
+        <a href="contact" class="pkg-card-cta">Request All-Hands &#8594;</a>
+      </div>
+      <div class="pkg-card">
+        <div class="pkg-card-tier">Tier 3</div>
+        <div class="pkg-card-name">Company-Wide</div>
+        <div class="pkg-card-scope">Serves 60+ people</div>
+        <div class="pkg-card-price">$500</div>
+        <div class="pkg-card-starting">Starting at</div>
+        <ul class="pkg-card-list">
+          <li>8 dozen mini loaves across 6+ flavors</li>
+          <li>Full tasting table with signage</li>
+          <li>On-site setup + dedicated coordinator</li>
+          <li>Recurring-order discount available</li>
+        </ul>
+        <a href="contact" class="pkg-card-cta">Request Company-Wide &#8594;</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── WEDDING ── -->
+  <section class="pkg-section">
+    <div class="pkg-section-head">
+      <h2>Wedding <em>bread.</em></h2>
+      <p>Favors, tasting tables, and a flavor lineup built around your day.</p>
+    </div>
+    <div class="pkg-grid">
+      <div class="pkg-card">
+        <div class="pkg-card-tier">Tier 1</div>
+        <div class="pkg-card-name">Intimate</div>
+        <div class="pkg-card-scope">Up to 50 guests</div>
+        <div class="pkg-card-price">$450</div>
+        <div class="pkg-card-starting">Starting at</div>
+        <ul class="pkg-card-list">
+          <li>1 mini loaf favor per guest</li>
+          <li>1 signature full loaf for the sweetheart table</li>
+          <li>Custom favor tags with your names &amp; date</li>
+        </ul>
+        <a href="contact" class="pkg-card-cta">Request Intimate &#8594;</a>
+      </div>
+      <div class="pkg-card is-popular">
+        <div class="pkg-card-badge">Most booked</div>
+        <div class="pkg-card-tier">Tier 2</div>
+        <div class="pkg-card-name">Classic</div>
+        <div class="pkg-card-scope">Up to 100 guests</div>
+        <div class="pkg-card-price">$850</div>
+        <div class="pkg-card-starting">Starting at</div>
+        <ul class="pkg-card-list">
+          <li>1 mini loaf favor per guest</li>
+          <li>Full tasting table, 6 flavors</li>
+          <li>Custom ribbon &amp; favor tags</li>
+          <li>Flavor consultation with our team</li>
+        </ul>
+        <a href="contact" class="pkg-card-cta">Request Classic &#8594;</a>
+      </div>
+      <div class="pkg-card">
+        <div class="pkg-card-tier">Tier 3</div>
+        <div class="pkg-card-name">Grand</div>
+        <div class="pkg-card-scope">Up to 200 guests</div>
+        <div class="pkg-card-price">$1,500</div>
+        <div class="pkg-card-starting">Starting at</div>
+        <ul class="pkg-card-list">
+          <li>1 mini loaf favor per guest</li>
+          <li>Full tasting table, 10 flavors</li>
+          <li>On-site bread bar attendant</li>
+          <li>Custom flavor development for your day</li>
+        </ul>
+        <a href="contact" class="pkg-card-cta">Request Grand &#8594;</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── FESTIVAL / MARKET ── -->
+  <section class="pkg-section">
+    <div class="pkg-section-head">
+      <h2>Festivals <em>&amp; markets.</em></h2>
+      <p>Pop-up booths and multi-day vendor spots, stocked and restocked.</p>
+    </div>
+    <div class="pkg-grid">
+      <div class="pkg-card">
+        <div class="pkg-card-tier">Tier 1</div>
+        <div class="pkg-card-name">Pop-Up Basic</div>
+        <div class="pkg-card-scope">Single day</div>
+        <div class="pkg-card-price">$200</div>
+        <div class="pkg-card-starting">Starting at</div>
+        <ul class="pkg-card-list">
+          <li>10 dozen assorted minis for retail sale</li>
+          <li>Your event branding on signage</li>
+          <li>You provide the booth/table</li>
+        </ul>
+        <a href="contact" class="pkg-card-cta">Request Pop-Up Basic &#8594;</a>
+      </div>
+      <div class="pkg-card is-popular">
+        <div class="pkg-card-badge">Most booked</div>
+        <div class="pkg-card-tier">Tier 2</div>
+        <div class="pkg-card-name">Pop-Up Plus</div>
+        <div class="pkg-card-scope">Single day</div>
+        <div class="pkg-card-price">$450</div>
+        <div class="pkg-card-starting">Starting at</div>
+        <ul class="pkg-card-list">
+          <li>20 dozen assorted minis for retail sale</li>
+          <li>Table, linens &amp; signage provided</li>
+          <li>2 Urban Bread Co staff on-site</li>
+        </ul>
+        <a href="contact" class="pkg-card-cta">Request Pop-Up Plus &#8594;</a>
+      </div>
+      <div class="pkg-card">
+        <div class="pkg-card-tier">Tier 3</div>
+        <div class="pkg-card-name">Weekend Vendor</div>
+        <div class="pkg-card-scope">2–3 day event</div>
+        <div class="pkg-card-price">$900</div>
+        <div class="pkg-card-starting">Starting at</div>
+        <ul class="pkg-card-list">
+          <li>40+ dozen minis, replenished daily</li>
+          <li>Full vendor booth setup &amp; signage</li>
+          <li>Staffed every day of the event</li>
+          <li>Wholesale pricing on resale inventory</li>
+        </ul>
+        <a href="contact" class="pkg-card-cta">Request Weekend Vendor &#8594;</a>
+      </div>
+    </div>
+  </section>
+
+  <div class="pkg-custom">
+    <p>Don't see the right fit? Every package here can be scaled up, down, or combined — tell us your date, guest count, and vision.</p>
+    <a href="contact">Request a Custom Quote &#8594;</a>
+  </div>
+
+  </main>
+
+  <footer class="ubc-site-footer">
+    <div class="ubc-footer-grid">
+      <div class="ubc-footer-brand">
+        <div class="ubc-footer-logo"><img src="images/2025/10/Urban-Bread-Co-2026-Logo-whitetext-150x150.png" alt="Urban Bread Co" class="ubc-footer-logo-img"></div>
+        <p class="ubc-footer-tagline">"Bread that tells a story."</p>
+        <p style="font-size:0.88rem;line-height:1.7;margin-bottom:20px;">Small-batch artisan bakery in Thornton, CO. 82+ unique loaves baked fresh daily.</p>
+        <div class="ubc-footer-social">
+          <a href="https://instagram.com/urbanbreadco" target="_blank" rel="noopener" aria-label="Instagram"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"/><circle cx="12" cy="12" r="4.5"/><circle cx="17.5" cy="6.5" r="1" fill="currentColor" stroke="none"/></svg></a>
+          <a href="https://facebook.com/itsurbanbreadco" target="_blank" rel="noopener" aria-label="Facebook"><svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"/></svg></a>
+          <a href="https://linktr.ee/urbanbreadco" target="_blank" rel="noopener" aria-label="Linktree"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"/><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"/></svg></a>
+        </div>
+      </div>
+      <div class="ubc-footer-col">
+        <h4>Explore</h4>
+        <ul>
+          <li><a href="atlas">Bread Atlas</a></li>
+          <li><a href="menu#browse-menu">Full Menu</a></li>
+          <li><a href="menu#build-bread">Build Custom</a></li>
+          <li><a href="menu#bread-club">Bread Club</a></li>
+          <li><a href="game">Game</a></li>
+          <li><a href="vendor">Vendor Program</a></li>
+        </ul>
+      </div>
+      <div class="ubc-footer-col">
+        <h4>Company</h4>
+        <ul>
+          <li><a href="about">About Us</a></li>
+          <li><a href="catering">Catering</a></li>
+          <li><a href="event-packages">Event Packages</a></li>
+          <li><a href="gallery">Gallery</a></li>
+          <li><a href="events">Events</a></li>
+          <li><a href="reviews">Reviews</a></li>
+        </ul>
+      </div>
+      <div class="ubc-footer-col">
+        <h4>Visit Us</h4>
+        <p class="ubc-footer-info">
+          <strong>Thornton, CO</strong><br>
+          Mon&#8211;Fri 8am&#8211;8pm<br>Sat 9am&#8211;7pm &middot; Sun 10am&#8211;6pm<br><br>
+          <a href="tel:7202668231" style="color:var(--orange);">720-266-8231</a><br><br>
+          <a href="contact" style="color:var(--orange);">Contact Us &#8594;</a>
+        </p>
+      </div>
+    </div>
+    <div class="ubc-footer-bottom">
+      <span>&#169; 2026 Urban Bread Co. All rights reserved.</span>
+      <span><a href="menu#browse-menu">Menu</a> &middot; <a href="contact">Contact</a> &middot; <a href="sitemap">Sitemap</a> &middot; <a href="faq">FAQ</a> &middot; <a href="privacy">Privacy</a></span>
+      <span class="ubc-footer-credit">Website by <a href="https://www.sparkthebuzz.com" target="_blank" rel="noopener">Spark the Buzz</a></span>
+    </div>
+  </footer>
+  <script src="js/main.js"></script>
+
+  <!-- ── Back to top ── -->
+  <button class="ubc-back-top" aria-label="Back to top" onclick="window.scrollTo({top:0,behavior:'smooth'})">
+    <svg viewBox="0 0 24 24"><polyline points="18 15 12 9 6 15"></polyline></svg>
+  </button>
+  <script>
+  (function(){
+    var btn = document.querySelector('.ubc-back-top');
+    if (!btn) return;
+    window.addEventListener('scroll', function(){
+      btn.classList.toggle('visible', window.scrollY > 400);
+    }, {passive: true});
+  })();
+  </script>
+</body>
+</html>
