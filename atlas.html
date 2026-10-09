@@ -36,6 +36,8 @@ body{background:var(--space);color:var(--ink);font-family:var(--f-body);font-siz
 
 /* intro */
 .intro{position:relative;z-index:2;align-self:start;max-width:30rem;padding:8px 24px 0;pointer-events:none;transition:opacity .5s,transform .5s}
+.intro::before{content:"";position:absolute;left:-24px;right:-40%;top:-20px;bottom:-40px;z-index:-1;background:linear-gradient(105deg,rgba(5,7,13,.78) 0%,rgba(5,7,13,.55) 45%,rgba(5,7,13,0) 100%);pointer-events:none}
+.intro h1,.intro p{text-shadow:0 2px 16px rgba(0,0,0,.5)}
 .intro h1{font-family:var(--f-display);font-weight:800;font-size:clamp(2.4rem,6vw,4.6rem);line-height:.92;letter-spacing:-.02em;margin:0 0 14px;text-wrap:balance}
 .intro h1 em{font-style:normal;color:var(--crust)}
 .intro p{margin:0;color:var(--muted);max-width:26rem}
