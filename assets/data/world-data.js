@@ -223,11 +223,254 @@ window.UBC_WORLD = {
 };
 
 /*
- * Renders the flat, full-width interactive world map header. Uses a real
- * country-accurate map (assets/img/world-map-real.svg, traced from
- * Natural Earth data via world-atlas, ISC-licensed) instead of a
- * stylized approximation, with pins placed by real lat/lon using a
- * plain equirectangular projection that matches the image exactly.
+ * Builds a WebGL-rendered, texture-mapped rotating globe — a realistic
+ * sphere (gold continents on a deep-space ocean, lit like a photograph)
+ * instead of a flat projection. The texture is a recolored render of the
+ * real country-accurate map (assets/img/earth-texture.png, traced from
+ * Natural Earth data via world-atlas, ISC-licensed) using the exact same
+ * equirectangular layout the sphere's UVs are generated from, so pins —
+ * drawn as DOM elements — line up with the painted coastlines precisely
+ * because both use the same lat/lon -> (u,v)/(x,y,z) formulas.
+ *
+ * Auto-rotates when idle, drag/touch to spin and tilt, click a pin to
+ * fly the globe to it and open its country page.
+ */
+function ubcInitGlobe(canvas, pinLayer, data, prefix, onSelect) {
+  var gl = canvas.getContext('webgl', { antialias: true, alpha: false, preserveDrawingBuffer: false }) ||
+           canvas.getContext('experimental-webgl');
+  if (!gl) { canvas.style.display = 'none'; return; }
+
+  var vsSrc =
+    'attribute vec3 aPos;' +
+    'attribute vec2 aUv;' +
+    'uniform float uRotY;' +
+    'uniform float uRotX;' +
+    'uniform vec2 uScale;' +
+    'varying vec2 vUv;' +
+    'varying float vLight;' +
+    'void main() {' +
+    '  float cy = cos(uRotY), sy = sin(uRotY);' +
+    '  float x1 = aPos.x * cy + aPos.z * sy;' +
+    '  float z1 = -aPos.x * sy + aPos.z * cy;' +
+    '  float cx = cos(uRotX), sx = sin(uRotX);' +
+    '  float y2 = aPos.y * cx - z1 * sx;' +
+    '  float z2 = aPos.y * sx + z1 * cx;' +
+    '  vLight = z2;' +
+    '  vUv = aUv;' +
+    '  gl_Position = vec4(x1 * uScale.x, y2 * uScale.y, -z2, 1.0);' +
+    '}';
+
+  var fsSrc =
+    'precision mediump float;' +
+    'varying vec2 vUv;' +
+    'varying float vLight;' +
+    'uniform sampler2D uTex;' +
+    'void main() {' +
+    '  vec4 tex = texture2D(uTex, vUv);' +
+    '  float lit = mix(0.38, 1.05, smoothstep(-0.2, 0.9, vLight));' +
+    '  float rim = smoothstep(0.08, -0.05, vLight);' +
+    '  vec3 col = tex.rgb * lit + rim * vec3(0.08, 0.14, 0.22);' +
+    '  gl_FragColor = vec4(col, 1.0);' +
+    '}';
+
+  function compile(type, src) {
+    var sh = gl.createShader(type);
+    gl.shaderSource(sh, src);
+    gl.compileShader(sh);
+    return sh;
+  }
+  var prog = gl.createProgram();
+  gl.attachShader(prog, compile(gl.VERTEX_SHADER, vsSrc));
+  gl.attachShader(prog, compile(gl.FRAGMENT_SHADER, fsSrc));
+  gl.linkProgram(prog);
+  if (!gl.getProgramParameter(prog, gl.LINK_STATUS)) { canvas.style.display = 'none'; return; }
+  gl.useProgram(prog);
+
+  var LON_SEG = 64, LAT_SEG = 32;
+  var positions = [], uvs = [], indices = [];
+  for (var j = 0; j <= LAT_SEG; j++) {
+    var v = j / LAT_SEG;
+    var lat = (0.5 - v) * Math.PI;
+    var cl = Math.cos(lat), sl = Math.sin(lat);
+    for (var i = 0; i <= LON_SEG; i++) {
+      var u = i / LON_SEG;
+      var lon = (u - 0.5) * Math.PI * 2;
+      positions.push(cl * Math.sin(lon), sl, cl * Math.cos(lon));
+      uvs.push(u, v);
+    }
+  }
+  for (var j2 = 0; j2 < LAT_SEG; j2++) {
+    for (var i2 = 0; i2 < LON_SEG; i2++) {
+      var a = j2 * (LON_SEG + 1) + i2, b = a + LON_SEG + 1;
+      indices.push(a, b, a + 1, b, b + 1, a + 1);
+    }
+  }
+
+  var posBuf = gl.createBuffer();
+  gl.bindBuffer(gl.ARRAY_BUFFER, posBuf);
+  gl.bufferData(gl.ARRAY_BUFFER, new Float32Array(positions), gl.STATIC_DRAW);
+  var uvBuf = gl.createBuffer();
+  gl.bindBuffer(gl.ARRAY_BUFFER, uvBuf);
+  gl.bufferData(gl.ARRAY_BUFFER, new Float32Array(uvs), gl.STATIC_DRAW);
+  var idxBuf = gl.createBuffer();
+  gl.bindBuffer(gl.ELEMENT_ARRAY_BUFFER, idxBuf);
+  gl.bufferData(gl.ELEMENT_ARRAY_BUFFER, new Uint16Array(indices), gl.STATIC_DRAW);
+
+  var aPosLoc = gl.getAttribLocation(prog, 'aPos');
+  var aUvLoc = gl.getAttribLocation(prog, 'aUv');
+  gl.bindBuffer(gl.ARRAY_BUFFER, posBuf);
+  gl.enableVertexAttribArray(aPosLoc);
+  gl.vertexAttribPointer(aPosLoc, 3, gl.FLOAT, false, 0, 0);
+  gl.bindBuffer(gl.ARRAY_BUFFER, uvBuf);
+  gl.enableVertexAttribArray(aUvLoc);
+  gl.vertexAttribPointer(aUvLoc, 2, gl.FLOAT, false, 0, 0);
+
+  var uRotY = gl.getUniformLocation(prog, 'uRotY');
+  var uRotX = gl.getUniformLocation(prog, 'uRotX');
+  var uScale = gl.getUniformLocation(prog, 'uScale');
+  var uTex = gl.getUniformLocation(prog, 'uTex');
+
+  var tex = gl.createTexture();
+  gl.bindTexture(gl.TEXTURE_2D, tex);
+  gl.texImage2D(gl.TEXTURE_2D, 0, gl.RGBA, 1, 1, 0, gl.RGBA, gl.UNSIGNED_BYTE, new Uint8Array([10, 20, 35, 255]));
+  var img = new Image();
+  img.onload = function () {
+    gl.bindTexture(gl.TEXTURE_2D, tex);
+    gl.pixelStorei(gl.UNPACK_FLIP_Y_WEBGL, false);
+    gl.texImage2D(gl.TEXTURE_2D, 0, gl.RGBA, gl.RGBA, gl.UNSIGNED_BYTE, img);
+    gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_WRAP_S, gl.REPEAT);
+    gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_WRAP_T, gl.CLAMP_TO_EDGE);
+    gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MIN_FILTER, gl.LINEAR_MIPMAP_LINEAR);
+    gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MAG_FILTER, gl.LINEAR);
+    gl.generateMipmap(gl.TEXTURE_2D);
+  };
+  img.src = prefix + 'assets/img/earth-texture.png';
+
+  gl.enable(gl.DEPTH_TEST);
+  gl.clearColor(0.02, 0.035, 0.06, 1);
+
+  var state = { rotY: 0, rotX: -0.2, targetRotY: 0, targetRotX: -0.2, dragging: false,
+    lastX: 0, lastY: 0, autoRotate: true, idleTimer: null, radiusPx: 1, cw: 1, ch: 1,
+    scaleX: 1, scaleY: 1 };
+
+  var initial = data.countries.filter(function (c) { return c.id === data.currentlyExploring; })[0] || data.countries[0];
+  if (initial) {
+    var r0 = -(initial.lon * Math.PI / 180);
+    state.rotY = r0; state.targetRotY = r0;
+  }
+
+  function lonLatToXYZ(lon, lat) {
+    var lonR = lon * Math.PI / 180, latR = lat * Math.PI / 180;
+    var cl = Math.cos(latR);
+    var x = cl * Math.sin(lonR), y = Math.sin(latR), z = cl * Math.cos(lonR);
+    var cy = Math.cos(state.rotY), sy = Math.sin(state.rotY);
+    var x1 = x * cy + z * sy, z1 = -x * sy + z * cy;
+    var cx = Math.cos(state.rotX), sx = Math.sin(state.rotX);
+    var y2 = y * cx - z1 * sx, z2 = y * sx + z1 * cx;
+    return { x: x1, y: y2, z: z2 };
+  }
+
+  function resize() {
+    var rect = canvas.parentElement.getBoundingClientRect();
+    var dpr = Math.min(window.devicePixelRatio || 1, 2);
+    var w = rect.width, h = rect.height;
+    if (!w || !h) return;
+    canvas.width = Math.round(w * dpr);
+    canvas.height = Math.round(h * dpr);
+    gl.viewport(0, 0, canvas.width, canvas.height);
+    var radiusPx = Math.min(w, h) * 0.42;
+    state.radiusPx = radiusPx; state.cw = w; state.ch = h;
+    state.scaleX = (radiusPx * 2) / w;
+    state.scaleY = (radiusPx * 2) / h;
+  }
+  resize();
+  window.addEventListener('resize', resize);
+
+  function pointerDown(x, y) {
+    state.dragging = true; state.lastX = x; state.lastY = y; state.autoRotate = false;
+    if (state.idleTimer) clearTimeout(state.idleTimer);
+    canvas.style.cursor = 'grabbing';
+  }
+  function pointerMove(x, y) {
+    if (!state.dragging) return;
+    var dx = x - state.lastX, dy = y - state.lastY;
+    state.targetRotY += dx * 0.0055;
+    state.targetRotX = Math.max(-1.15, Math.min(1.15, state.targetRotX - dy * 0.0055));
+    state.lastX = x; state.lastY = y;
+  }
+  function pointerUp() {
+    if (!state.dragging) return;
+    state.dragging = false;
+    canvas.style.cursor = 'grab';
+    state.idleTimer = setTimeout(function () { state.autoRotate = true; }, 2600);
+  }
+  canvas.style.cursor = 'grab';
+  canvas.addEventListener('mousedown', function (e) { pointerDown(e.clientX, e.clientY); e.preventDefault(); });
+  window.addEventListener('mousemove', function (e) { pointerMove(e.clientX, e.clientY); });
+  window.addEventListener('mouseup', pointerUp);
+  canvas.addEventListener('touchstart', function (e) { var t = e.touches[0]; pointerDown(t.clientX, t.clientY); }, { passive: true });
+  canvas.addEventListener('touchmove', function (e) { var t = e.touches[0]; pointerMove(t.clientX, t.clientY); }, { passive: true });
+  canvas.addEventListener('touchend', pointerUp);
+
+  var pinData = Array.prototype.slice.call(pinLayer.querySelectorAll('.wf-pin')).map(function (el) {
+    var c = data.countries.filter(function (x) { return x.id === el.getAttribute('data-id'); })[0];
+    return { el: el, c: c };
+  });
+
+  pinData.forEach(function (p) {
+    if (!p.c) return;
+    p.el.addEventListener('mouseenter', function () { onSelect(p.c); });
+    p.el.addEventListener('click', function (e) {
+      e.preventDefault();
+      onSelect(p.c);
+      state.targetRotY = -(p.c.lon * Math.PI / 180);
+      state.targetRotX = -0.12;
+      state.autoRotate = false;
+      if (state.idleTimer) clearTimeout(state.idleTimer);
+      if (p.c.status !== 'coming-soon') {
+        setTimeout(function () { window.location.href = prefix + 'countries/' + p.c.id + '.html'; }, 600);
+      } else {
+        state.idleTimer = setTimeout(function () { state.autoRotate = true; }, 2600);
+      }
+    });
+  });
+
+  function updatePins() {
+    pinData.forEach(function (p) {
+      if (!p.c) return;
+      var pos = lonLatToXYZ(p.c.lon, p.c.lat);
+      var visible = pos.z > -0.08;
+      p.el.style.left = (state.cw / 2 + pos.x * state.radiusPx) + 'px';
+      p.el.style.top = (state.ch / 2 - pos.y * state.radiusPx) + 'px';
+      p.el.style.opacity = visible ? String(Math.max(0.35, Math.min(1, (pos.z + 0.08) / 0.35 + 0.45))) : '0';
+      p.el.style.pointerEvents = visible ? 'auto' : 'none';
+    });
+  }
+
+  function frame() {
+    if (state.autoRotate && !state.dragging) state.targetRotY += 0.0022;
+    state.rotY += (state.targetRotY - state.rotY) * (state.dragging ? 1 : 0.09);
+    state.rotX += (state.targetRotX - state.rotX) * (state.dragging ? 1 : 0.09);
+
+    gl.clear(gl.COLOR_BUFFER_BIT | gl.DEPTH_BUFFER_BIT);
+    gl.uniform1f(uRotY, state.rotY);
+    gl.uniform1f(uRotX, state.rotX);
+    gl.uniform2f(uScale, state.scaleX, state.scaleY);
+    gl.activeTexture(gl.TEXTURE0);
+    gl.bindTexture(gl.TEXTURE_2D, tex);
+    gl.uniform1i(uTex, 0);
+    gl.drawElements(gl.TRIANGLES, indices.length, gl.UNSIGNED_SHORT, 0);
+
+    updatePins();
+    requestAnimationFrame(frame);
+  }
+  frame();
+}
+
+/*
+ * Renders the full-width interactive world header: a realistic rotating
+ * WebGL globe with pins placed by real lat/lon, plus a caption panel
+ * below it describing whichever country is hovered/selected.
  *
  * containerId: id of an empty <div> to render into.
  * opts.pathPrefix: "" on root pages, "../" on pages one folder deep.
@@ -239,14 +482,9 @@ window.UBC_WORLD.renderMap = function (containerId, opts) {
   var root = document.getElementById(containerId);
   if (!root) return;
 
-  function pinPos(c) {
-    return { left: (c.lon + 180) / 360 * 100, top: (90 - c.lat) / 180 * 100 };
-  }
-
   var pins = data.countries.map(function (c) {
     var soon = c.status === "coming-soon";
-    var pos = pinPos(c);
-    return '<button type="button" class="wf-pin' + (soon ? " is-soon" : "") + '" style="left:' + pos.left.toFixed(2) + '%;top:' + pos.top.toFixed(2) + '%;" data-id="' + c.id + '" aria-label="' + c.name + '">' +
+    return '<button type="button" class="wf-pin' + (soon ? " is-soon" : "") + '" style="left:50%;top:50%;opacity:0;" data-id="' + c.id + '" aria-label="' + c.name + '">' +
       '<span class="wf-pin-dot"></span>' +
       '<span class="wf-pin-label">' + c.flag + ' ' + c.name + '</span>' +
     '</button>';
@@ -254,10 +492,10 @@ window.UBC_WORLD.renderMap = function (containerId, opts) {
 
   root.innerHTML =
     '<div class="wf-map-hero">' +
-      '<img class="wf-map-img" src="' + prefix + 'assets/img/world-map-real.svg" alt="World map" loading="eager">' +
+      '<canvas class="wf-globe-canvas" id="wfGlobeCanvas-' + containerId + '"></canvas>' +
       '<div class="wf-map-shade wf-map-shade-top"></div>' +
       '<div class="wf-map-shade wf-map-shade-bottom"></div>' +
-      pins +
+      '<div class="wf-pin-layer" id="wfPinLayer-' + containerId + '">' + pins + '</div>' +
     '</div>' +
     '<div class="wm-caption" id="wmCaption-' + containerId + '"></div>';
 
@@ -280,17 +518,9 @@ window.UBC_WORLD.renderMap = function (containerId, opts) {
   var defaultCountry = data.countries.find(function (c) { return c.id === data.currentlyExploring; }) || data.countries[0];
   paintCaption(defaultCountry);
 
-  root.querySelectorAll('.wf-pin').forEach(function (pin) {
-    var c = data.countries.find(function (x) { return x.id === pin.getAttribute('data-id'); });
-    if (!c) return;
-    pin.addEventListener('mouseenter', function () { paintCaption(c); });
-    pin.addEventListener('click', function () {
-      paintCaption(c);
-      if (c.status !== 'coming-soon') {
-        window.location.href = prefix + 'countries/' + c.id + '.html';
-      }
-    });
-  });
+  var canvas = document.getElementById('wfGlobeCanvas-' + containerId);
+  var pinLayer = document.getElementById('wfPinLayer-' + containerId);
+  ubcInitGlobe(canvas, pinLayer, data, prefix, paintCaption);
 };
 
 /* Returns { id, name, description, price, features } for a bread id, reading
