@@ -722,13 +722,11 @@
 
 <!-- ═══ EXPLORE THE WORLD (MAP HEADER) ═══ -->
 <section class="wt-explore">
-  <div class="wt-map-outer">
-    <div class="wt-map sm-reveal" id="wtWorldMap"></div>
-    <div class="wt-explore-head sm-reveal">
-      <div class="sm-kicker" style="justify-content:center;"><div class="sm-kicker-line"></div><span>A World of Bread</span></div>
-      <h2 class="sm-story-headline" style="text-align:center;color:#FAFAF8;">Click a destination to get <em>the bread from that country.</em></h2>
-    </div>
+  <div class="wt-explore-head sm-reveal">
+    <div class="sm-kicker" style="justify-content:center;"><div class="sm-kicker-line"></div><span>A World of Bread</span></div>
+    <h2 class="wt-explore-title">Click a destination to get <em>the bread from that country.</em></h2>
   </div>
+  <div class="wt-map sm-reveal" id="wtWorldMap"></div>
   <div class="wt-explore-cta">
     <a href="explore" class="wt-explore-link">See All Countries →</a>
   </div>
@@ -943,19 +941,25 @@
 .wt-explore-link:hover { background: rgba(240,233,218,0.08); gap: 18px; }
 
 /* ── Shared flat world-map header (homepage + /explore) ── */
-.wt-map-outer { position: relative; width: 100%; }
 .wt-explore-head {
-  position: absolute; top: 64px; left: 0; right: 0; z-index: 3;
-  max-width: 900px; margin: 0 auto; padding: 0 24px; pointer-events: none;
+  background: var(--sm-cream);
+  padding: 56px 24px 40px;
+  text-align: center;
 }
+.wt-explore-title {
+  font-family: 'Syne', sans-serif; font-weight: 800; color: var(--sm-ink);
+  font-size: clamp(1.5rem, 3.2vw, 2.3rem); line-height: 1.25; letter-spacing: -0.5px;
+  max-width: 760px; margin: 0 auto;
+}
+.wt-explore-title em { font-family: 'Playfair Display', serif; font-style: italic; font-weight: 400; color: var(--sm-orange); }
 .wt-map { width: 100%; }
 .wf-map-hero {
-  position: relative; width: 100%; aspect-ratio: 2.15 / 1; overflow: hidden; background: #0d0900;
+  position: relative; width: 100%; aspect-ratio: 2.3 / 1; overflow: hidden; background: #0d0900;
 }
-.wf-map-img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: fill; color: #4a3018; }
+.wf-map-img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: fill; color: #5a3a1e; }
 .wf-map-shade { position: absolute; left: 0; right: 0; pointer-events: none; }
-.wf-map-shade-top { top: 0; height: 40%; background: linear-gradient(to bottom, rgba(13,9,0,0.92) 0%, rgba(13,9,0,0.35) 60%, rgba(13,9,0,0) 100%); }
-.wf-map-shade-bottom { bottom: 0; height: 22%; background: linear-gradient(to top, rgba(13,9,0,0.85) 0%, rgba(13,9,0,0) 100%); }
+.wf-map-shade-top { top: 0; height: 14%; background: linear-gradient(to bottom, rgba(13,9,0,0.55) 0%, rgba(13,9,0,0) 100%); }
+.wf-map-shade-bottom { bottom: 0; height: 16%; background: linear-gradient(to top, rgba(13,9,0,0.6) 0%, rgba(13,9,0,0) 100%); }
 .wf-pin {
   position: absolute; transform: translate(-50%, -50%);
   display: flex; flex-direction: column; align-items: center; gap: 8px;
@@ -984,7 +988,7 @@
   color: var(--sm-org2); margin-top: 8px;
 }
 @media (max-width: 768px) {
-  .wt-explore-head { top: 32px; }
+  .wt-explore-head { padding: 40px 20px 28px; }
   .wf-map-hero { aspect-ratio: 1.3 / 1; }
 }
 .wm-caption {
