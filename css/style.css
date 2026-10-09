@@ -566,6 +566,20 @@ html { scroll-behavior: smooth; }
 .ubc-back-top:hover { transform: translateY(-3px); box-shadow: 0 8px 28px rgba(255,107,53,0.5); }
 .ubc-back-top svg { width: 18px; height: 18px; fill: none; stroke: #fff; stroke-width: 2.5; stroke-linecap: round; stroke-linejoin: round; }
 
+/* ── ALWAYS-ON "VIEW FULL MENU" BUTTON ── */
+.ubc-float-menu {
+  position: fixed; bottom: 28px; left: 28px; z-index: 900;
+  display: inline-flex; align-items: center; gap: 9px;
+  background: var(--orange); color: #fff;
+  font-family: 'Syne', sans-serif; font-weight: 700; font-size: 0.78rem;
+  letter-spacing: 0.04em; text-transform: uppercase;
+  padding: 14px 22px; border-radius: 999px; text-decoration: none;
+  box-shadow: 0 4px 20px rgba(255,107,53,0.4);
+  transition: transform 0.25s, box-shadow 0.25s, background 0.25s;
+}
+.ubc-float-menu svg { flex-shrink: 0; }
+.ubc-float-menu:hover { background: var(--orange-lt); transform: translateY(-3px); box-shadow: 0 8px 28px rgba(255,107,53,0.5); }
+
 /* ── SCROLL REVEAL ── */
 .reveal {
   opacity: 0;
@@ -597,4 +611,7 @@ img[loading="lazy"] { background: var(--panel); }
 
 @media (max-width: 768px) {
   .ubc-back-top { bottom: 16px; right: 16px; width: 40px; height: 40px; }
+  .ubc-float-menu { bottom: 16px; left: 16px; padding: 12px 16px; font-size: 0.7rem; }
+  .ubc-float-menu span { display: none; }
+  .ubc-float-menu { width: 44px; height: 44px; justify-content: center; padding: 0; border-radius: 50%; }
 }

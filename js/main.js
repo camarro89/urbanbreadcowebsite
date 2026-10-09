@@ -87,4 +87,15 @@
     document.querySelectorAll('.fade-in').forEach(function (el) { fadeObs.observe(el); });
   }
 
+  /* ── Always-on "View Full Menu" floating button (every page) ── */
+  if (!document.querySelector('.ubc-float-menu')) {
+    const deep = /\/(countries|breads)\//.test(window.location.pathname);
+    const prefix = deep ? '../' : '';
+    const btn = document.createElement('a');
+    btn.href = prefix + 'menu#browse-menu';
+    btn.className = 'ubc-float-menu';
+    btn.innerHTML = '<svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><line x1="4" y1="7" x2="20" y2="7"/><line x1="4" y1="12" x2="20" y2="12"/><line x1="4" y1="17" x2="20" y2="17"/></svg><span>View Full Menu</span>';
+    document.body.appendChild(btn);
+  }
+
 })();
