@@ -1,585 +1,835 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8" />
-  <link rel="icon" type="image/png" href="images/2025/10/Urban-Bread-Co-2026-Logo-150x150.png" />
-  <link rel="icon" type="image/svg+xml" href="favicon.svg" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Bread Atlas | Urban Bread Co — Taste the World, One Loaf at a Time</title>
-  <meta name="description" content="An interactive world map of bread. Click a star to uncover the country or state a loaf came from, the food history behind it, the science of its signature ingredient, and the Urban Bread Co breads it inspired." />
-  <meta name="keywords" content="interactive bread map, world bread origins, bread history, dessert facts, ingredient science, food geography, Urban Bread Co atlas" />
-  <link rel="canonical" href="https://www.urbanbreadco.com/atlas.html" />
-  <meta property="og:title" content="Bread Atlas | Urban Bread Co" />
-  <meta property="og:description" content="An interactive world map of bread origins — 45 regions, 82 loaves, and the food history behind every one." />
-  <meta property="og:url" content="https://www.urbanbreadco.com/atlas.html" />
-  <meta property="og:type" content="website" />
-  <meta property="og:image" content="https://www.urbanbreadco.com/images/2026/03/IMG_0023-scaled.jpg" />
-  <meta name="twitter:card" content="summary_large_image" />
-  <meta name="twitter:title" content="Bread Atlas | Urban Bread Co" />
-  <meta name="twitter:description" content="Click a star anywhere on earth and taste where that loaf came from." />
-  <meta name="twitter:image" content="https://www.urbanbreadco.com/images/2026/03/IMG_0023-scaled.jpg" />
-  <meta name="theme-color" content="#FF6B35" />
-  <link rel="stylesheet" href="css/style.css?v=6" />
-  <script type="application/ld+json">{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Home","item":"https://www.urbanbreadco.com/"},{"@type":"ListItem","position":2,"name":"Bread Atlas","item":"https://www.urbanbreadco.com/atlas.html"}]}</script>
-  <script type="application/ld+json">{"@context":"https://schema.org","@type":"LearningResource","name":"Urban Bread Co Bread Atlas","description":"An interactive world map teaching the origins, food history and ingredient science behind 82 artisan breads.","educationalLevel":"General audience","learningResourceType":"Interactive map","teaches":["Food geography","Baking history","Ingredient science"],"provider":{"@type":"Bakery","name":"Urban Bread Co","url":"https://www.urbanbreadco.com"}}</script>
+<!doctype html><html><head><meta charset=utf8><meta name=viewport content="width=device-width,initial-scale=1,viewport-fit=cover"><style>:root{color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}html{scroll-padding-top:env(safe-area-inset-top,0px)}body{margin:0;padding:0;font:14px -apple-system,BlinkMacSystemFont,sans-serif;background:#faf9f5;color:#141413}img{max-width:100%}[hidden]:not([hidden=until-found i]){display:none!important}</style></head><body>
+<title>Taste the World</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Syne:wght@600;700;800&family=Manrope:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap">
+<style>
+/* Layout: one full-bleed photographic globe; destinations ride a rail along the bottom; a story panel slides in from the right (bottom sheet on phones) after the camera lands. */
+:root{
+  --space:#05070d;
+  --ink:#f4efe7;
+  --muted:#9ea6b6;
+  --crust:#ff6b35;
+  --glaze:#ffcfb3;
+  --gold:#ffc857;
+  --panel:rgba(9,12,20,.82);
+  --line:rgba(244,239,231,.12);
+  --f-display:"Syne","Arial Black",system-ui,sans-serif;
+  --f-body:"Manrope",system-ui,-apple-system,"Segoe UI",sans-serif;
+  --f-mono:"JetBrains Mono",ui-monospace,"SF Mono",Menlo,monospace;
+  color-scheme:dark;
+}
+html,body{height:100%}
+body{background:var(--space);color:var(--ink);font-family:var(--f-body);font-size:16px;line-height:1.55;overflow:hidden}
+*{box-sizing:border-box}
+.app{position:relative;height:100%;display:grid;grid-template-rows:auto 1fr auto auto}
+#stage{position:absolute;inset:0;cursor:grab}
+#stage:active{cursor:grabbing}
 
-  <style>
-    /* ============================================================
-       BREAD ATLAS
-       ============================================================ */
-    .atlas-wrap { --atlas-sea: #0A1626; --atlas-land: #5A3C1F; --atlas-land-lit: #C98A3E; }
+/* header */
+.top{position:relative;z-index:3;display:flex;align-items:center;justify-content:space-between;gap:16px;padding:18px 24px;pointer-events:none}
+.brand{display:flex;align-items:baseline;gap:12px;pointer-events:auto}
+.brand b{font-family:var(--f-display);font-weight:800;font-size:15px;letter-spacing:.06em;text-transform:uppercase}
+.brand span{font-family:var(--f-mono);font-size:11px;color:var(--muted);letter-spacing:.08em}
+.home-btn{pointer-events:auto;font:500 12px/1 var(--f-mono);letter-spacing:.08em;text-transform:uppercase;color:var(--ink);background:transparent;border:1px solid var(--line);border-radius:999px;padding:9px 14px;cursor:pointer}
+.home-btn:hover{border-color:var(--crust);color:var(--glaze)}
 
-    /* ── Hero ── */
-    .atlas-hero {
-      position: relative; padding: 128px 52px 40px;
-      background:
-        radial-gradient(1100px 520px at 18% -10%, rgba(255,107,53,0.18), transparent 60%),
-        radial-gradient(900px 460px at 88% 0%, rgba(200,134,42,0.16), transparent 62%),
-        var(--black);
-      overflow: hidden;
-    }
-    .atlas-hero::after {
-      content: ''; position: absolute; inset: 0; pointer-events: none;
-      background-image:
-        radial-gradient(1.4px 1.4px at 12% 30%, rgba(242,228,196,0.5), transparent),
-        radial-gradient(1.2px 1.2px at 32% 68%, rgba(242,228,196,0.35), transparent),
-        radial-gradient(1.6px 1.6px at 62% 22%, rgba(255,107,53,0.5), transparent),
-        radial-gradient(1.2px 1.2px at 78% 60%, rgba(242,228,196,0.4), transparent),
-        radial-gradient(1.5px 1.5px at 92% 34%, rgba(242,228,196,0.3), transparent);
-    }
-    .atlas-hero-inner { position: relative; z-index: 1; max-width: 1500px; margin: 0 auto; }
-    .atlas-kicker {
-      font-family: 'Outfit', sans-serif; font-size: 0.74rem; letter-spacing: 0.34em;
-      text-transform: uppercase; color: var(--orange); margin-bottom: 16px;
-    }
-    .atlas-title {
-      font-family: 'Syne', sans-serif; font-weight: 800; letter-spacing: -2px; line-height: 0.94;
-      font-size: clamp(2.6rem, 7.4vw, 6rem); color: var(--white); margin-bottom: 18px;
-    }
-    .atlas-title em {
-      font-family: 'Playfair Display', serif; font-style: italic; font-weight: 400;
-      background: linear-gradient(100deg, var(--orange), #FFD166 60%, var(--gold));
-      -webkit-background-clip: text; background-clip: text; color: transparent;
-    }
-    .atlas-lede {
-      font-family: 'Outfit', sans-serif; font-weight: 300; font-size: clamp(1rem, 1.5vw, 1.15rem);
-      line-height: 1.8; color: var(--dim); max-width: 720px;
-    }
-    .atlas-stats { display: flex; flex-wrap: wrap; gap: 34px; margin-top: 30px; }
-    .atlas-stat strong {
-      display: block; font-family: 'Syne', sans-serif; font-weight: 800;
-      font-size: 2rem; color: var(--orange); line-height: 1;
-    }
-    .atlas-stat span {
-      font-size: 0.72rem; letter-spacing: 0.22em; text-transform: uppercase; color: var(--muted);
-    }
+/* intro */
+.intro{position:relative;z-index:2;align-self:start;max-width:30rem;padding:8px 24px 0;pointer-events:none;transition:opacity .5s,transform .5s}
+.intro h1{font-family:var(--f-display);font-weight:800;font-size:clamp(2.4rem,6vw,4.6rem);line-height:.92;letter-spacing:-.02em;margin:0 0 14px;text-wrap:balance}
+.intro h1 em{font-style:normal;color:var(--crust)}
+.intro p{margin:0;color:var(--muted);max-width:26rem}
+.app.flying .intro,.app.open .intro{opacity:0;transform:translateY(-8px)}
 
-    /* ── Control bar ── */
-    .atlas-controls {
-      position: sticky; top: calc(var(--nav-h) + var(--ticker-h)); z-index: 40;
-      display: flex; flex-wrap: wrap; align-items: center; gap: 12px;
-      padding: 14px 52px; background: rgba(13,9,0,0.82);
-      backdrop-filter: blur(14px); -webkit-backdrop-filter: blur(14px);
-      border-top: 1px solid var(--rule); border-bottom: 1px solid var(--rule);
-    }
-    .atlas-search-wrap { position: relative; flex: 1 1 260px; max-width: 340px; }
-    #atlas-search {
-      width: 100%; padding: 11px 14px 11px 38px; border-radius: 999px;
-      background: var(--card); border: 1px solid var(--rule-bright);
-      color: var(--white); font-family: 'Outfit', sans-serif; font-size: 0.92rem;
-    }
-    #atlas-search:focus { outline: none; border-color: var(--orange); box-shadow: 0 0 0 3px var(--orange-dim); }
-    .search-icon { position: absolute; left: 14px; top: 50%; transform: translateY(-50%); opacity: 0.6; font-size: 0.9rem; }
-    #atlas-results {
-      display: none; position: absolute; top: calc(100% + 8px); left: 0; right: 0; z-index: 60;
-      background: var(--panel); border: 1px solid var(--rule-bright); border-radius: 12px;
-      overflow: hidden; box-shadow: var(--shadow);
-    }
-    #atlas-results.is-on { display: block; }
-    .result {
-      display: flex; align-items: center; gap: 10px; width: 100%; padding: 10px 14px;
-      text-align: left; color: var(--cream); font-family: 'Outfit', sans-serif; font-size: 0.9rem;
-      border-bottom: 1px solid var(--rule);
-    }
-    .result:hover, .result:focus-visible { background: var(--orange-dim); color: var(--white); }
-    .result-hit { margin-left: auto; font-size: 0.74rem; color: var(--muted); }
-    .result-empty { padding: 14px; font-size: 0.86rem; color: var(--muted); }
+/* rail */
+.rail{position:relative;z-index:3;padding:0 24px 20px;display:flex;gap:10px;overflow-x:auto;scrollbar-width:none}
+.rail::-webkit-scrollbar{display:none}
+.stop{flex:0 0 auto;min-width:150px;text-align:left;color:var(--ink);background:rgba(9,12,20,.62);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);border:1px solid var(--line);border-radius:14px;padding:12px 14px;cursor:pointer;display:grid;gap:2px;transition:border-color .2s,background .2s}
+.stop:hover{border-color:rgba(255,107,53,.55)}
+.stop[aria-pressed="true"]{border-color:var(--crust);background:rgba(255,107,53,.14)}
+.stop small{font:500 10.5px/1.2 var(--f-mono);letter-spacing:.1em;text-transform:uppercase;color:var(--muted)}
+.stop strong{font-family:var(--f-display);font-weight:700;font-size:17px;line-height:1.15}
+.stop span{font-size:12px;color:var(--glaze)}
+.stop:focus-visible,.home-btn:focus-visible,.close:focus-visible,.cta:focus-visible{outline:2px solid var(--crust);outline-offset:2px}
 
-    .region-chips { display: flex; flex-wrap: wrap; gap: 8px; }
-    .region-chip {
-      padding: 9px 16px; border-radius: 999px; font-family: 'Outfit', sans-serif;
-      font-size: 0.8rem; letter-spacing: 0.04em; color: var(--cream-dim);
-      border: 1px solid var(--rule-bright); background: transparent; transition: var(--transition);
-    }
-    .region-chip:hover { color: var(--white); border-color: var(--orange); }
-    .region-chip.is-on { background: var(--orange); border-color: var(--orange); color: #1a0c02; font-weight: 600; }
+/* route readout */
+.route{position:absolute;z-index:3;left:50%;top:70px;transform:translateX(-50%);font:500 11.5px/1 var(--f-mono);letter-spacing:.12em;text-transform:uppercase;color:var(--glaze);background:rgba(9,12,20,.6);border:1px solid var(--line);border-radius:999px;padding:9px 14px;white-space:nowrap;opacity:0;transition:opacity .4s;pointer-events:none;max-width:calc(100% - 32px);overflow:hidden;text-overflow:ellipsis}
+.app.flying .route,.app.open .route{opacity:1}
 
-    .atlas-actions { display: flex; gap: 8px; margin-left: auto; }
-    .atlas-btn {
-      padding: 9px 16px; border-radius: 999px; border: 1px solid var(--rule-bright);
-      color: var(--cream); font-family: 'Outfit', sans-serif; font-size: 0.82rem; transition: var(--transition);
-    }
-    .atlas-btn:hover { border-color: var(--orange); color: var(--white); background: var(--orange-dim); }
-    .atlas-btn.is-primary { background: var(--orange); border-color: var(--orange); color: #1a0c02; font-weight: 600; }
-    .atlas-btn.is-primary:hover { background: var(--orange-lt); }
+/* pins */
+.pin{pointer-events:auto;cursor:pointer;transform:translate(-50%,-50%);display:flex;align-items:center;gap:8px}
+.pin i{display:block;width:11px;height:11px;border-radius:50%;background:var(--crust);box-shadow:0 0 0 3px rgba(255,107,53,.25),0 0 18px rgba(255,107,53,.8)}
+.pin em{font:600 11px/1 var(--f-mono);font-style:normal;letter-spacing:.1em;text-transform:uppercase;color:var(--ink);text-shadow:0 1px 6px rgba(0,0,0,.9);white-space:nowrap}
+.pin.active i{background:#fff;box-shadow:0 0 0 4px var(--crust),0 0 26px var(--crust)}
 
-    /* ── Stage ── */
-    .atlas-stage {
-      position: relative; display: grid; grid-template-columns: minmax(0,1fr) 0fr;
-      transition: grid-template-columns 0.5s cubic-bezier(.22,.9,.24,1);
-      background: var(--black); padding: 0 0 10px;
-    }
-    .atlas-stage.has-panel { grid-template-columns: minmax(0,1fr) 430px; }
-    .atlas-map-shell {
-      position: relative; overflow: hidden;
-      background:
-        radial-gradient(1200px 700px at 50% 42%, rgba(90,160,255,0.10), transparent 70%),
-        linear-gradient(180deg, #0A1626, #050A14);
-      border-bottom: 1px solid var(--rule);
-    }
-    #atlas-svg { display: block; width: 100%; height: auto; cursor: grab; touch-action: none; }
-    #atlas-svg.is-dragging { cursor: grabbing; }
-    #atlas-world { transform-origin: 0 0; }
+/* story panel */
+.panel{position:absolute;z-index:4;top:16px;right:16px;bottom:16px;width:min(420px,calc(100% - 32px));background:var(--panel);backdrop-filter:blur(18px);-webkit-backdrop-filter:blur(18px);border:1px solid var(--line);border-radius:20px;overflow:auto;transform:translateX(calc(100% + 32px));transition:transform .6s cubic-bezier(.2,.8,.2,1)}
+.app.open .panel{transform:none}
+.panel-in{padding:24px 24px 28px;display:grid;gap:22px}
+.p-head{display:flex;justify-content:space-between;align-items:start;gap:12px}
+.eyebrow{font:500 11px/1 var(--f-mono);letter-spacing:.16em;text-transform:uppercase;color:var(--crust)}
+.p-head h2{font-family:var(--f-display);font-weight:800;font-size:clamp(2rem,4vw,2.6rem);line-height:.95;letter-spacing:-.02em;margin:8px 0 0;text-wrap:balance}
+.coords{font:400 11.5px/1.5 var(--f-mono);color:var(--muted);margin-top:10px;letter-spacing:.04em;font-variant-numeric:tabular-nums}
+.close{flex:0 0 auto;width:38px;height:38px;border-radius:50%;border:1px solid var(--line);background:transparent;color:var(--ink);font-size:20px;line-height:1;cursor:pointer}
+.close:hover{border-color:var(--crust)}
+.sig{border-top:1px solid var(--line);padding-top:18px}
+.sig h3{font-family:var(--f-display);font-weight:700;font-size:20px;line-height:1.2;margin:4px 0 8px}
+.sig p{margin:0;color:#d9d3ca}
+.label{font:500 10.5px/1 var(--f-mono);letter-spacing:.14em;text-transform:uppercase;color:var(--muted)}
+.facts{display:grid;gap:16px}
+.fact{display:grid;gap:6px}
+.fact p{margin:0}
+.chips{display:flex;flex-wrap:wrap;gap:6px}
+.chips span{font-size:12.5px;border:1px solid var(--line);border-radius:999px;padding:4px 10px;color:var(--ink)}
+.funfact{background:rgba(255,107,53,.1);border:1px solid rgba(255,107,53,.35);border-radius:14px;padding:14px 16px;display:grid;gap:6px}
+.funfact .label{color:var(--glaze)}
+.box{border-top:1px solid var(--line);padding-top:18px;display:grid;gap:12px}
+.box ul{list-style:none;margin:0;padding:0;display:grid;gap:8px}
+.box li{display:flex;justify-content:space-between;gap:12px;font-size:14px}
+.box li span:last-child{font-family:var(--f-mono);font-size:12px;color:var(--muted);white-space:nowrap}
+.price{display:flex;align-items:baseline;gap:12px;font-variant-numeric:tabular-nums}
+.price b{font-family:var(--f-display);font-size:34px;font-weight:800;line-height:1}
+.price s{color:var(--muted);font-family:var(--f-mono);font-size:13px}
+.price em{font-style:normal;font-family:var(--f-mono);font-size:12px;color:var(--glaze)}
+.cta{display:block;text-align:center;text-decoration:none;font-weight:700;font-size:15px;color:#1a0b04;background:var(--crust);border-radius:12px;padding:14px 16px}
+.cta:hover{background:#ff7f50}
+.note{font-size:12px;color:var(--muted);margin:0}
 
-    .atlas-sphere { fill: #0A1626; stroke: rgba(144,195,255,0.14); stroke-width: 1; vector-effect: non-scaling-stroke; }
-    .atlas-grat { fill: none; stroke: rgba(144,195,255,0.07); stroke-width: 0.6; vector-effect: non-scaling-stroke; }
-    .atlas-country {
-      fill: #5A3C1F; stroke: rgba(10,22,38,0.4); stroke-width: 0.45;
-      vector-effect: non-scaling-stroke; transition: fill 0.35s ease;
-    }
-    .atlas-country.has-origin { fill: #C98A3E; stroke: rgba(255,179,71,0.5); }
-    .atlas-country.is-active { fill: #FFB347; stroke: rgba(255,209,102,0.9); }
+/* modes + atlas */
+.top{flex-wrap:wrap}
+.modes{pointer-events:auto;display:flex;border:1px solid var(--line);border-radius:999px;padding:3px;background:rgba(9,12,20,.55);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px)}
+.mode{font:500 12px/1 var(--f-mono);letter-spacing:.06em;text-transform:uppercase;color:var(--muted);background:transparent;border:0;border-radius:999px;padding:9px 14px;cursor:pointer}
+.mode[aria-pressed="true"]{background:var(--crust);color:#1a0b04}
+.mode:focus-visible{outline:2px solid var(--crust);outline-offset:2px}
+.finder{position:relative;z-index:3;display:flex;flex-wrap:wrap;align-items:center;gap:10px 16px;padding:0 24px 10px}
+.finder input{flex:0 1 280px;min-width:0;font:500 14px/1 var(--f-body);color:var(--ink);background:rgba(9,12,20,.7);border:1px solid var(--line);border-radius:999px;padding:11px 16px;outline:none}
+.finder input:focus{border-color:var(--crust)}
+.legend{display:flex;flex-wrap:wrap;gap:12px;font:500 10.5px/1 var(--f-mono);letter-spacing:.08em;text-transform:uppercase;color:var(--muted)}
+.lg{display:inline-flex;align-items:center;gap:6px}
+.lg::before{content:"";width:8px;height:8px;border-radius:50%;background:var(--crust)}
+.lg.ing::before{background:var(--gold)}
+.lg.home::before{background:var(--ink)}
+.count{font:500 11px/1 var(--f-mono);color:var(--glaze);letter-spacing:.06em}
+.sr{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0)}
+.stop.small{min-width:120px;padding:9px 12px}
+.stop.small strong{font-size:15px}
+.stop.k-ingredient small{color:var(--gold)}
+.pin.sm i{width:8px;height:8px;box-shadow:0 0 0 2px rgba(255,107,53,.25),0 0 10px rgba(255,107,53,.7)}
+.pin.sm.k-ingredient i{background:var(--gold);box-shadow:0 0 0 2px rgba(255,200,87,.25),0 0 10px rgba(255,200,87,.7)}
+.pin.sm.k-home i{background:var(--ink);box-shadow:0 0 0 2px rgba(255,255,255,.25),0 0 10px rgba(255,255,255,.7)}
+.pin.sm em{opacity:0;transition:opacity .2s;font-size:10px}
+.pin.sm:hover em,.pin.sm.active em{opacity:1}
+.pin.active i{background:#fff;box-shadow:0 0 0 4px var(--crust),0 0 26px var(--crust)}
+.atlas-list li{align-items:start;border-bottom:1px solid var(--line);padding-bottom:10px}
+.atlas-list li:last-child{border-bottom:0}
+.atlas-list strong{display:block;font-weight:600;font-size:14px;line-height:1.35}
+.atlas-list p{margin:2px 0 0;font-size:13px;color:var(--muted)}
+.atlas-list li > span{text-align:right;line-height:1.5}
 
-    .atlas-route { fill: none; stroke: var(--orange); stroke-width: 1.6; stroke-linecap: round; opacity: 0.9; vector-effect: non-scaling-stroke; }
-    .atlas-route-glow { fill: none; stroke: rgba(255,107,53,0.28); stroke-width: 6; filter: blur(2px); vector-effect: non-scaling-stroke; }
-    .atlas-route-dot { fill: #FFD166; }
+/* readable pins: the dot sits exactly on the spot, the label is a pill beside it */
+.pin{position:relative;width:0;height:0;transform:none;display:block}
+.pin::before{content:"";position:absolute;left:-20px;top:-20px;width:40px;height:40px;border-radius:50%}
+.pin i{position:absolute;left:-6px;top:-6px;width:12px;height:12px}
+.pin.sm i{left:-6px;top:-6px;width:12px;height:12px}
+.pin em,.pin.sm em{position:absolute;left:14px;top:0;transform:translateY(-50%);opacity:1;font:600 12px/1 var(--f-body);letter-spacing:.01em;text-transform:none;color:var(--ink);text-shadow:none;background:rgba(5,7,13,.8);border:1px solid var(--line);border-radius:999px;padding:6px 10px;white-space:nowrap}
+.pin em small{font:500 10.5px/1 var(--f-mono);color:var(--glaze);margin-left:4px}
+.pin.s-l em{left:auto;right:14px}
+.pin.s-t em{left:0;top:auto;bottom:14px;transform:translateX(-50%)}
+.pin.s-b em{left:0;top:14px;transform:translateX(-50%)}
+.pin:hover em,.pin.active em{border-color:var(--crust);background:rgba(40,16,6,.92)}
+.pin.stamped em::after{content:"✓";margin-left:6px;color:var(--gold)}
+.bubble{pointer-events:auto;cursor:pointer;position:relative;width:var(--s);height:var(--s);transform:none;border-radius:50%;display:grid;place-items:center;background:radial-gradient(circle at 35% 30%,rgba(255,107,53,.55),rgba(255,107,53,.18) 70%);border:1.5px solid var(--crust);box-shadow:0 0 0 6px rgba(255,107,53,.12),0 0 30px rgba(255,107,53,.45);transition:transform .2s}
+.bubble:hover{transform:scale(1.08)}
+.bubble b{font:800 18px/1 var(--f-display);color:#fff}
+.bubble span{position:absolute;top:calc(100% + 6px);left:50%;transform:translateX(-50%);font:600 12px/1 var(--f-body);color:var(--ink);background:rgba(5,7,13,.8);border:1px solid var(--line);border-radius:999px;padding:6px 10px;white-space:nowrap}
+.passport{pointer-events:auto;display:none;align-items:center;gap:10px;font:500 11px/1 var(--f-mono);letter-spacing:.08em;text-transform:uppercase;color:var(--muted);background:rgba(9,12,20,.55);border:1px solid var(--line);border-radius:999px;padding:8px 14px}
+.app.atlas .passport{display:flex}
+.passport b{color:var(--gold);font-size:13px;font-variant-numeric:tabular-nums}
+.passport i{display:block;width:60px;height:4px;border-radius:4px;background:var(--line);overflow:hidden}
+.passport u{display:block;height:100%;width:0;background:var(--gold);transition:width .6s}
+.surprise{font:600 13px/1 var(--f-body);color:var(--ink);background:transparent;border:1px solid var(--crust);border-radius:999px;padding:11px 16px;cursor:pointer}
+.surprise:hover{background:rgba(255,107,53,.18)}
+.surprise:focus-visible,.near-btn:focus-visible{outline:2px solid var(--crust);outline-offset:2px}
+.stop.region{min-width:170px}
+.stop.region small{color:var(--glaze)}
+.stop.back{min-width:130px;border-style:dashed}
+.stop.stamped strong::after{content:" ✓";color:var(--gold);font-size:13px}
+/* boarding-pass route */
+.route{display:flex;gap:18px;align-items:center;font:500 13px/1.2 var(--f-body);letter-spacing:0;text-transform:none;color:var(--ink);padding:10px 18px;border-radius:14px;top:76px}
+.route span{display:grid;gap:3px}
+.route small{font:500 9.5px/1 var(--f-mono);letter-spacing:.14em;text-transform:uppercase;color:var(--muted)}
+.route i{font-style:normal;color:var(--crust);font-size:16px}
+/* stamp */
+.stamp{justify-self:start;width:112px;height:112px;border-radius:50%;border:2.5px solid var(--crust);outline:1px solid rgba(255,107,53,.5);outline-offset:-9px;display:grid;place-content:center;text-align:center;gap:3px;color:var(--crust);transform:rotate(-9deg);font:600 9px/1.1 var(--f-mono);letter-spacing:.12em;text-transform:uppercase;padding:10px}
+.stamp b{font:800 15px/1 var(--f-display);letter-spacing:.02em;color:var(--glaze);max-width:86px;overflow-wrap:anywhere}
+.stamp.fresh{animation:stampIn .5s cubic-bezier(.3,1.6,.5,1) .3s both}
+@keyframes stampIn{from{transform:rotate(-20deg) scale(1.8);opacity:0}to{transform:rotate(-9deg) scale(1);opacity:1}}
+.near{display:grid;gap:10px;border-top:1px solid var(--line);padding-top:18px}
+.near-row{display:flex;flex-wrap:wrap;gap:8px}
+.near-btn{font:600 14px/1 var(--f-body);color:var(--ink);background:transparent;border:1px solid var(--line);border-radius:999px;padding:10px 14px;cursor:pointer;display:inline-flex;gap:8px;align-items:center}
+.near-btn:hover{border-color:var(--crust)}
+.near-btn small{font:500 11px/1 var(--f-mono);color:var(--glaze)}
+.atlas-list li > span em{display:block;font-style:normal;color:var(--glaze)}
+/* bigger, easier reading in the panel */
+.sig p,.fact p,.funfact p,.box li{font-size:16px;line-height:1.6}
+.funfact p{margin:0}
+.atlas-list strong{font-size:15.5px}
+.atlas-list p{font-size:14px}
+.label{font-size:11.5px}
+.stop small{font-size:11px}
+.stop strong{font-size:18px}
+.stop span{font-size:13px}
 
-    .atlas-star { cursor: pointer; }
-    .star-hit { fill: transparent; }
-    .star-shape { fill: #FFD166; stroke: rgba(26,12,2,0.55); stroke-width: 0.8; transition: fill 0.25s ease; }
-    .star-halo { fill: rgba(255,209,102,0.10); }
-    .star-pulse { fill: rgba(255,209,102,0.30); transform-origin: center; animation: starPulse 3.4s ease-out infinite; animation-delay: var(--delay, 0s); }
-    .atlas-star.is-home .star-shape { fill: var(--orange); }
-    .atlas-star.is-home .star-pulse { fill: rgba(255,107,53,0.35); }
-    .atlas-star:hover .star-shape, .atlas-star:focus-visible .star-shape { fill: #FFFFFF; }
-    .atlas-star:focus-visible { outline: none; }
-    .atlas-star:focus-visible .star-halo { fill: rgba(255,255,255,0.28); }
-    .atlas-star.is-active .star-shape { fill: #FFFFFF; }
-    .atlas-star.is-active .star-halo { fill: rgba(255,107,53,0.35); }
-    .atlas-star.is-visited .star-shape { fill: #7BE0A5; }
-    .atlas-star.is-dim { opacity: 0.16; pointer-events: none; }
-    .atlas-star > * { transform: scale(calc(1 / var(--star-k, 1))); }
-    @keyframes starPulse {
-      0%   { transform: scale(0.6); opacity: 0.85; }
-      70%  { transform: scale(2.6); opacity: 0; }
-      100% { transform: scale(2.6); opacity: 0; }
-    }
+@media (max-width:720px){
+  .passport{order:2}
+  .route{top:118px;gap:12px;font-size:12px;padding:8px 14px}
+  .modes{order:3;width:100%;justify-content:center}
+  .mode{flex:1}
+  .finder{padding:0 16px 8px}
+  .legend{display:none}
+  .top{padding:14px 16px}
+  .brand span{display:none}
+  .intro{padding:4px 16px 0}
+  .intro p{font-size:14px}
+  .rail{padding:0 16px 14px}
+  .stop{min-width:132px;padding:10px 12px}
+  .route{top:60px}
+  .panel{top:auto;left:8px;right:8px;bottom:8px;width:auto;height:66%;transform:translateY(calc(100% + 16px))}
+  .panel-in{padding:20px 18px 24px}
+}
+@media (prefers-reduced-motion:reduce){
+  .panel,.intro,.route{transition:none}
+}
+</style>
 
-    #atlas-tooltip {
-      position: absolute; z-index: 30; pointer-events: none; opacity: 0;
-      transform: translate(-50%, -100%); transition: opacity 0.18s ease;
-      display: flex; align-items: center; gap: 8px; white-space: nowrap;
-      padding: 8px 12px; border-radius: 10px; background: rgba(13,9,0,0.94);
-      border: 1px solid var(--rule-bright); box-shadow: var(--shadow);
-      font-family: 'Outfit', sans-serif; font-size: 0.84rem; color: var(--white);
-    }
-    #atlas-tooltip.is-on { opacity: 1; }
-    .tip-count { color: var(--orange); font-size: 0.74rem; letter-spacing: 0.08em; text-transform: uppercase; }
+<div class="app" id="app">
+  <header class="top">
+    <a class="brand" href="/" aria-label="Urban Bread Co — home" style="text-decoration:none;color:inherit"><b>Urban Bread Co</b><span>TASTE THE WORLD · THORNTON, CO</span></a>
+    <div class="modes" role="group" aria-label="View">
+      <button class="mode" type="button" data-mode="boxes" aria-pressed="true">Taste boxes</button>
+      <button class="mode" type="button" data-mode="atlas" aria-pressed="false">Full menu atlas</button>
+    </div>
+    <div class="passport" id="passport" title="Places you've visited in the atlas"><span>Bread Passport</span><b><span id="passN">0</span>/<span id="passT">50</span></b><i><u id="passBar"></u></i></div>
+    <button class="home-btn" id="homeBtn" type="button">Back to Thornton</button>
+  </header>
 
-    #atlas-hint {
-      position: absolute; left: 50%; top: 18px; transform: translateX(-50%); z-index: 25;
-      padding: 9px 16px; border-radius: 999px; background: rgba(13,9,0,0.9);
-      border: 1px solid var(--rule-bright); color: var(--cream); font-family: 'Outfit', sans-serif;
-      font-size: 0.8rem; opacity: 0; pointer-events: none; transition: opacity 0.25s ease;
-    }
-    #atlas-hint.is-on { opacity: 1; }
-    #atlas-hint kbd {
-      font-family: 'Outfit', sans-serif; font-size: 0.72rem; padding: 2px 6px; border-radius: 5px;
-      background: var(--cream-ghost); border: 1px solid var(--rule-bright);
-    }
+  <section class="intro" aria-label="Introduction">
+    <h1>Every loaf has a <em>hometown.</em></h1>
+    <p>Pick a place below. We'll fly you there, show you where the bread was born, and pack four minis that taste like it.</p>
+  </section>
 
-    .map-tools { position: absolute; right: 16px; bottom: 16px; display: flex; flex-direction: column; gap: 8px; z-index: 20; }
-    .map-tool {
-      width: 40px; height: 40px; border-radius: 10px; background: rgba(13,9,0,0.8);
-      border: 1px solid var(--rule-bright); color: var(--cream); font-size: 1.05rem;
-      display: flex; align-items: center; justify-content: center; backdrop-filter: blur(8px);
-    }
-    .map-tool:hover { border-color: var(--orange); color: var(--white); }
-    .map-legend {
-      position: absolute; left: 16px; bottom: 16px; z-index: 20;
-      display: flex; flex-wrap: wrap; gap: 14px; padding: 10px 14px; border-radius: 12px;
-      background: rgba(13,9,0,0.72); border: 1px solid var(--rule); backdrop-filter: blur(8px);
-      font-family: 'Outfit', sans-serif; font-size: 0.74rem; color: var(--muted);
-    }
-    .map-legend i { display: inline-block; width: 9px; height: 9px; border-radius: 50%; margin-right: 6px; }
-    .legend-new i { background: #FFD166; }
-    .legend-seen i { background: #7BE0A5; }
-    .legend-home i { background: var(--orange); }
-
-    /* ── Passport ── */
-    .atlas-passport {
-      display: flex; flex-wrap: wrap; align-items: center; gap: 18px;
-      padding: 16px 52px; background: var(--ink); border-bottom: 1px solid var(--rule);
-    }
-    .passport-title {
-      font-family: 'Syne', sans-serif; font-weight: 700; font-size: 0.9rem;
-      letter-spacing: 0.12em; text-transform: uppercase; color: var(--white);
-    }
-    .passport-bar { flex: 1 1 200px; max-width: 320px; height: 8px; border-radius: 999px; background: var(--card-lt); overflow: hidden; }
-    #passport-fill { height: 100%; width: 0%; border-radius: 999px; background: linear-gradient(90deg, var(--orange), #FFD166); transition: width 0.6s ease; }
-    #passport-count { font-family: 'Syne', sans-serif; font-weight: 700; color: var(--orange); font-size: 0.95rem; }
-    #passport-badges { display: flex; flex-wrap: wrap; gap: 8px; }
-    .badge {
-      display: inline-flex; align-items: center; gap: 6px; padding: 6px 12px; border-radius: 999px;
-      border: 1px dashed var(--rule-bright); font-family: 'Outfit', sans-serif; font-size: 0.74rem;
-      color: var(--muted); opacity: 0.55;
-    }
-    .badge.is-earned { opacity: 1; color: var(--cream); border-style: solid; border-color: var(--orange); background: var(--orange-dim); }
-    #passport-reset { margin-left: auto; font-size: 0.74rem; color: var(--muted); text-decoration: underline; }
-    #passport-reset:hover { color: var(--orange); }
-
-    /* ── Detail panel ── */
-    .atlas-panel {
-      position: relative; overflow: hidden; background: var(--panel);
-      border-left: 1px solid var(--rule); transform: translateX(30px); opacity: 0;
-      transition: opacity 0.4s ease, transform 0.4s ease; pointer-events: none;
-    }
-    .atlas-panel.is-open { transform: none; opacity: 1; pointer-events: auto; }
-    #atlas-panel-body { height: 100%; max-height: calc(100vh - var(--nav-h)); overflow-y: auto; padding: 26px 26px 60px; }
-    #atlas-panel-close {
-      position: absolute; top: 14px; right: 16px; z-index: 5; width: 34px; height: 34px;
-      border-radius: 50%; background: rgba(13,9,0,0.7); border: 1px solid var(--rule-bright);
-      color: var(--cream); font-size: 1rem;
-    }
-    #atlas-panel-close:hover { border-color: var(--orange); color: var(--white); }
-    .panel-head { display: flex; gap: 14px; align-items: flex-start; margin-bottom: 14px; padding-right: 40px; }
-    .panel-flag { font-size: 2.4rem; line-height: 1; }
-    .panel-kicker { font-size: 0.68rem; letter-spacing: 0.28em; text-transform: uppercase; color: var(--orange); }
-    .panel-head h2 { font-family: 'Syne', sans-serif; font-weight: 800; font-size: 1.7rem; color: var(--white); line-height: 1.1; letter-spacing: -0.5px; }
-    .panel-sub { font-size: 0.82rem; color: var(--muted); margin-top: 4px; }
-    .panel-tagline {
-      font-family: 'Playfair Display', serif; font-style: italic; font-size: 1.05rem;
-      color: var(--cream); line-height: 1.6; margin-bottom: 22px;
-    }
-    .fact-card { border-radius: 14px; padding: 18px; margin-bottom: 14px; border: 1px solid var(--rule); background: var(--card); }
-    .fact-card h3 { font-family: 'Syne', sans-serif; font-size: 1.02rem; color: var(--white); margin-bottom: 8px; }
-    .fact-card p { font-size: 0.9rem; line-height: 1.75; color: var(--dim); }
-    .fact-label {
-      display: inline-block; font-size: 0.64rem; letter-spacing: 0.2em; text-transform: uppercase;
-      color: var(--orange); margin-bottom: 8px;
-    }
-    .fact-spotlight { background: linear-gradient(150deg, rgba(255,107,53,0.13), var(--card) 60%); border-color: rgba(255,107,53,0.3); }
-    .fact-ingredient .fact-label { color: #7BE0A5; }
-    .fact-tradition .fact-label { color: #FFD166; }
-    .panel-breads-title {
-      font-family: 'Syne', sans-serif; font-size: 0.82rem; letter-spacing: 0.16em; text-transform: uppercase;
-      color: var(--cream); margin: 26px 0 14px; padding-top: 18px; border-top: 1px solid var(--rule);
-    }
-    .bread-card {
-      display: grid; grid-template-columns: 118px minmax(0,1fr); gap: 14px; align-items: center;
-      padding: 12px; margin-bottom: 10px; border-radius: 14px; background: var(--card-lt);
-      border: 1px solid var(--rule); transition: var(--transition);
-    }
-    .bread-card:hover { border-color: var(--orange); transform: translateY(-2px); }
-    .loaf-art { width: 100%; height: auto; filter: drop-shadow(0 6px 14px rgba(0,0,0,0.5)); }
-    .bread-meta h4 { font-family: 'Syne', sans-serif; font-size: 0.95rem; color: var(--white); line-height: 1.25; }
-    .bread-meta p { font-size: 0.8rem; color: var(--dim); line-height: 1.55; margin: 5px 0 8px; }
-    .bread-tags { display: flex; flex-wrap: wrap; gap: 5px; margin-bottom: 7px; }
-    .bread-tags span {
-      font-size: 0.62rem; letter-spacing: 0.08em; text-transform: uppercase; padding: 3px 8px;
-      border-radius: 999px; background: var(--cream-ghost); color: var(--cream-dim);
-    }
-    .bread-tags .bread-cat { background: var(--orange-dim); color: var(--orange-lt); }
-    .bread-price { font-family: 'Syne', sans-serif; font-size: 0.82rem; color: var(--gold); }
-    .panel-cta {
-      display: block; margin-top: 20px; padding: 14px; text-align: center; border-radius: 999px;
-      background: var(--orange); color: #1a0c02; font-family: 'Syne', sans-serif; font-weight: 700;
-      letter-spacing: 0.04em;
-    }
-    .panel-cta:hover { background: var(--orange-lt); }
-
-    /* ── Origin strip ── */
-    .atlas-strip-section { padding: 40px 52px 70px; background: var(--black); }
-    .strip-head { display: flex; align-items: baseline; gap: 14px; margin-bottom: 16px; flex-wrap: wrap; }
-    .strip-head h2 { font-family: 'Syne', sans-serif; font-weight: 800; font-size: 1.5rem; color: var(--white); }
-    .strip-head p { font-size: 0.85rem; color: var(--muted); }
-    #atlas-strip { display: flex; flex-wrap: wrap; gap: 8px; }
-    .strip-item {
-      display: inline-flex; align-items: center; gap: 8px; padding: 9px 15px; border-radius: 999px;
-      border: 1px solid var(--rule-bright); background: var(--card); color: var(--cream-dim);
-      font-family: 'Outfit', sans-serif; font-size: 0.84rem; transition: var(--transition);
-    }
-    .strip-item:hover { color: var(--white); border-color: var(--orange); background: var(--orange-dim); transform: translateY(-2px); }
-    .strip-flag { font-size: 1rem; }
-
-    /* ── How to use ── */
-    .atlas-howto { display: grid; grid-template-columns: repeat(auto-fit, minmax(230px, 1fr)); gap: 16px; margin-top: 40px; }
-    .howto-card { padding: 20px; border-radius: 14px; background: var(--card); border: 1px solid var(--rule); }
-    .howto-card strong { display: block; font-family: 'Syne', sans-serif; color: var(--white); margin-bottom: 6px; }
-    .howto-card p { font-size: 0.86rem; line-height: 1.7; color: var(--dim); }
-    .howto-num { font-family: 'Syne', sans-serif; font-size: 1.5rem; color: var(--orange); }
-
-    #atlas-toast {
-      position: fixed; left: 50%; bottom: 28px; transform: translate(-50%, 20px); z-index: 300;
-      padding: 12px 22px; border-radius: 999px; background: var(--panel); color: var(--white);
-      border: 1px solid var(--orange); box-shadow: var(--glow); font-family: 'Outfit', sans-serif;
-      font-size: 0.88rem; opacity: 0; pointer-events: none; transition: opacity 0.3s ease, transform 0.3s ease;
-    }
-    #atlas-toast.is-on { opacity: 1; transform: translate(-50%, 0); }
-
-    /* ── Responsive ── */
-    @media (max-width: 1100px) {
-      .atlas-stage.has-panel { grid-template-columns: minmax(0,1fr) 360px; }
-    }
-    @media (max-width: 900px) {
-      .atlas-hero { padding: 108px 22px 30px; }
-      .atlas-controls { padding: 12px 22px; top: var(--nav-h); }
-      .atlas-passport, .atlas-strip-section { padding-left: 22px; padding-right: 22px; }
-      .atlas-stage, .atlas-stage.has-panel { grid-template-columns: minmax(0,1fr); }
-      .atlas-panel {
-        position: fixed; left: 0; right: 0; bottom: 0; z-index: 220; max-height: 82vh;
-        border-left: none; border-top: 1px solid var(--orange);
-        border-radius: 20px 20px 0 0; transform: translateY(100%); opacity: 1;
-        transition: transform 0.45s cubic-bezier(.22,.9,.24,1);
-      }
-      .atlas-panel.is-open { transform: translateY(0); }
-      #atlas-panel-body { max-height: 82vh; padding: 22px 18px 48px; }
-      .atlas-actions { margin-left: 0; }
-      .map-legend { display: none; }
-    }
-    @media (prefers-reduced-motion: reduce) {
-      .star-pulse { animation: none; }
-      * { scroll-behavior: auto; }
-    }
-  </style>
-</head>
-<body>
-<a class="ubc-skip-link" href="#main-content">Skip to main content</a>
-
-<!-- ── TICKER ── -->
-<div class="ticker" aria-label="Site updates" role="marquee">
-  <div class="ticker-track" aria-hidden="true">
-    <span>82 loaves · 45 origins · one map</span>
-    <span>Click a star, learn a story, taste a country</span>
-    <span>Handcrafted in small batches in Thornton, Colorado</span>
-    <span>Every loaf tells its own story</span>
+  <div class="finder" id="finder" hidden>
+    <label class="sr" for="q">Find a bread</label>
+    <input id="q" type="search" placeholder="Find a bread or place" autocomplete="off">
+    <span class="legend"><span class="lg born">Born or made famous here</span><span class="lg ing">Key ingredient</span><span class="lg home">Our original</span></span>
+    <button class="surprise" id="surprise" type="button">Surprise me</button>
+    <span class="count" id="count"></span>
   </div>
+  <nav class="rail" id="rail" aria-label="Destinations"></nav>
+
+  <div id="stage" aria-label="Interactive globe. Drag to spin, scroll to zoom."></div>
+  <div class="route" id="route" aria-live="polite"></div>
+
+  <aside class="panel" id="panel" aria-label="Destination story" aria-hidden="true">
+    <div class="panel-in" id="panelIn"></div>
+  </aside>
 </div>
+
+<script src="https://cdn.jsdelivr.net/npm/globe.gl@2.46.1/dist/globe.gl.min.js"></script>
 <script>
-(function(){
-  var track = document.querySelector('.ticker-track');
-  if (track) track.innerHTML = track.innerHTML + track.innerHTML;
-})();
+const HOME = { lat: 39.868, lng: -104.972, name: "Thornton, CO" };
+const MENU = "https://urbanbreadco.com/menu#browse-menu";
+const MINI = { Classic: 8, Specialty: 10, International: 12, Premium: 12 };
+const valueOf = d => d.box.reduce((t, b) => t + MINI[b[1]], 0);
+
+const DEST = [
+  {
+    id:"colorado", name:"Colorado", place:"Thornton, Colorado, USA", lat:39.868, lng:-104.972,
+    sig:"Lemon Lavender Bread", sigLine:"Bright lemon crumb with a lavender drizzle, our mile-high signature.",
+    origin:"This is home. Every Urban Bread Co loaf starts in a small-batch kitchen in Thornton, a mile above sea level, and the Colorado box collects the flavors that taste most like here.",
+    originator:"Urban Bread Co, Thornton, CO",
+    ingredients:["Lemon zest","Culinary lavender","Buttermilk","Cane sugar","Lavender drizzle"],
+    fun:"At a mile high, water boils at about 202°F instead of 212°F. That's why our recipes are tuned for altitude: a little less leavening, a little more liquid and a hotter oven.",
+    box:[["S'mores Bread","Specialty"],["Lemon Lavender Bread","Specialty"],["Mystic Midnight Marble","Specialty"],["Honey Cornbread","Classic"]],
+    price:35
+  },
+  {
+    id:"newyork", name:"New York", place:"Chelsea, Manhattan, NY, USA", lat:40.7424, lng:-74.0061,
+    sig:"Oreo Cookies & Cream Bread", sigLine:"Chocolate sandwich cookies folded into vanilla crumb, finished with white chocolate cream.",
+    origin:"The cookie inside this loaf was born in Manhattan. Nabisco first sold the Oreo in 1912 from its bakery on Ninth Avenue in Chelsea, the building that is now Chelsea Market.",
+    originator:"Nabisco's Chelsea bakery, 1912",
+    ingredients:["Chocolate sandwich cookies","Vanilla","Buttermilk","White chocolate cream glaze"],
+    fun:"In 2002 the block of West 15th Street beside the old bakery was renamed Oreo Way.",
+    box:[["Oreo Cookies & Cream Bread","Specialty"],["Red Velvet Bread","Specialty"],["Tuxedo Bread (black & white)","Premium"],["Cookie Dough Bread","Premium"]],
+    price:40
+  },
+  {
+    id:"neworleans", name:"New Orleans", place:"French Quarter, New Orleans, LA, USA", lat:29.9566, lng:-90.0657,
+    sig:"Banana Foster Bread", sigLine:"Brown-sugar banana bread under a caramel rum glaze (alcohol-free).",
+    origin:"Bananas Foster was created in 1951 at Brennan's restaurant on Royal Street in the French Quarter, when New Orleans was a major port for bananas arriving from Central America.",
+    originator:"Chef Paul Blangé at Brennan's, named for Richard Foster",
+    ingredients:["Ripe bananas","Brown sugar","Butter","Cinnamon","Caramel rum glaze"],
+    fun:"Lagniappe is a Louisiana word for a little something extra thrown in with a purchase. It's where our Blue Velvet Lagniappe gets its name.",
+    box:[["Banana Foster Bread","Premium"],["Blue Velvet Lagniappe","Specialty"],["Pecan Pie Bread","Specialty"],["Sweet Potato Bread","Classic"]],
+    price:37
+  },
+  {
+    id:"amsterdam", name:"Amsterdam", place:"Amsterdam, Netherlands", lat:52.3676, lng:4.9041,
+    sig:"Stroopwafel Bread", sigLine:"Chopped stroopwafels baked into spiced crumb, finished with a caramel stroop glaze.",
+    origin:"The stroopwafel was first made in Gouda, about 50 km south of Amsterdam, around 1800. Bakers pressed leftover crumbs and syrup between thin waffles, and a cheap snack became a national favorite.",
+    originator:"Gouda bakers; Gerard Kamphuisen is most often credited",
+    ingredients:["Stroopwafel pieces","Brown sugar","Cinnamon","Dutch syrup (stroop)","Butter"],
+    fun:"The Dutch way to eat one: set it on top of a hot cup of coffee for a minute so the caramel softens.",
+    box:[["Stroopwafel Bread","International"],["Hagelslag Bliss Bread","International"],["Amsterdam Pink (Roze Koeken)","International"],["Dutch Apple Rozijnen Bread","International"]],
+    price:44
+  },
+  {
+    id:"italy", name:"Italy", place:"Treviso, Veneto, Italy", lat:45.6669, lng:12.243,
+    sig:"Tiramisu Bread", sigLine:"Coffee-soaked crumb with cocoa and an espresso mascarpone drizzle.",
+    origin:"Tiramisu is most often traced to Le Beccherie, a restaurant in Treviso near Venice, where it appeared on the menu in the late 1960s and early 1970s.",
+    originator:"Le Beccherie, Treviso, and pastry chef Roberto Linguanotto",
+    ingredients:["Espresso","Mascarpone","Cocoa","Ladyfinger-style crumb","Vanilla"],
+    fun:"The name comes from the Venetian \"tireme su\", which means \"pick me up\". That's the espresso talking.",
+    box:[["Tiramisu Bread","Specialty"],["Pistachio Bread","Specialty"],["Lemon Meringue Bread","Premium"],["Italian Herb Tomato Bread","Classic"]],
+    price:37
+  },
+  {
+    id:"mexico", name:"Mexico", place:"Mexico City, Mexico", lat:19.4326, lng:-99.1332,
+    sig:"Tres Leches Bread", sigLine:"Sponge-light loaf soaked in three milks and topped with Chantilly cream.",
+    origin:"Several Latin American countries claim tres leches. It spread across Mexico in the 1940s, when a recipe printed on condensed milk cans brought it into home kitchens.",
+    originator:"Home bakers across Mexico and Central America",
+    ingredients:["Evaporated milk","Sweetened condensed milk","Heavy cream","Vanilla","Chantilly cream"],
+    fun:"The cake soaks up all three milks without falling apart because the batter is whipped full of air. The bubbles act like a sponge.",
+    box:[["Tres Leches Bread","Premium"],["Coconut & Lime Bread","Specialty"],["Pineapple Upside Down Bread","Specialty"],["Coconut Cream Pie Bread","Premium"]],
+    price:40
+  }
+];
+
+const app = document.getElementById("app");
+const stage = document.getElementById("stage");
+const rail = document.getElementById("rail");
+const panel = document.getElementById("panel");
+const panelIn = document.getElementById("panelIn");
+const route = document.getElementById("route");
+const reduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+const isPhone = () => window.innerWidth <= 720;
+
+function miles(a, b){
+  const R = 3958.8, r = Math.PI / 180;
+  const dLat = (b.lat - a.lat) * r, dLng = (b.lng - a.lng) * r;
+  const h = Math.sin(dLat/2)**2 + Math.cos(a.lat*r) * Math.cos(b.lat*r) * Math.sin(dLng/2)**2;
+  return Math.round(2 * R * Math.asin(Math.sqrt(h)));
+}
+function midpoint(a, b){
+  const r = Math.PI / 180;
+  const la1 = a.lat*r, lo1 = a.lng*r, la2 = b.lat*r, lo2 = b.lng*r;
+  const bx = Math.cos(la2) * Math.cos(lo2 - lo1), by = Math.cos(la2) * Math.sin(lo2 - lo1);
+  const lat = Math.atan2(Math.sin(la1) + Math.sin(la2), Math.sqrt((Math.cos(la1)+bx)**2 + by**2));
+  const lng = lo1 + Math.atan2(by, Math.cos(la1) + bx);
+  return { lat: lat / r, lng: lng / r };
+}
+function fmtCoord(d){
+  const ns = d.lat >= 0 ? "N" : "S", ew = d.lng >= 0 ? "E" : "W";
+  return `${Math.abs(d.lat).toFixed(4)}° ${ns} · ${Math.abs(d.lng).toFixed(4)}° ${ew}`;
+}
+
+/* ---------- full-menu atlas: every bread, tied to where it (or its key ingredient) comes from ---------- */
+const FULL = { Classic: 20, Specialty: 23, International: 25, Premium: 25 };
+const KIND = {
+  home: "Urban Bread Co original",
+  born: "Born here",
+  famous: "Made famous here",
+  ingredient: "Key ingredient comes from here"
+};
+const C = "Classic", S = "Specialty", I = "International", P = "Premium";
+
+const ATLAS = [
+  { id:"thornton", name:"Thornton", place:"Thornton, Colorado, USA", lat:39.868, lng:-104.972, kind:"home",
+    note:"These three were invented in our Thornton kitchen. You won't find them anywhere else.",
+    breads:[["Mystic Midnight Marble Bread With Galaxy Glaze",S,"Our own marble loaf under a night-sky galaxy glaze."],["Obsidian Zebra Bread With Almond Glaze",S,"Black-and-gold zebra stripes, an Urban Bread Co design."],["Rainbow Swirl Bread With Vanilla Glaze",S,"Our rainbow-swirled crowd favorite."]] },
+  { id:"kuk", name:"Kuk Swamp", place:"Western Highlands, Papua New Guinea", lat:-5.78, lng:144.33, kind:"ingredient",
+    note:"Archaeologists at Kuk found signs of banana farming about 7,000 years ago, among the earliest anywhere. Every banana loaf starts here.",
+    breads:[["Banana Bread",C,"Ripe bananas, the fruit first farmed in these highlands."],["Banana Cream Pie Bread With Vanilla Custard Glaze",P,"Banana crumb with a custard glaze."]] },
+  { id:"balsas", name:"Balsas Valley", place:"Guerrero, Mexico", lat:18.25, lng:-99.6, kind:"ingredient",
+    note:"Corn was domesticated from a wild grass called teosinte in this river valley about 9,000 years ago.",
+    breads:[["Honey Cornbread",C,"Cornmeal, from the grain first grown here, sweetened with honey."]] },
+  { id:"xalapa", name:"Xalapa", place:"Veracruz, Mexico", lat:19.54, lng:-96.91, kind:"ingredient",
+    note:"The jalapeño is named after Xalapa, the capital of Veracruz.",
+    breads:[["Cheddar Jalapeño Cornbread",C,"Jalapeño heat, named for this city, with sharp cheddar."]] },
+  { id:"papantla", name:"Papantla", place:"Veracruz, Mexico", lat:20.45, lng:-97.32, kind:"ingredient",
+    note:"The Totonac people of Papantla were the first to grow and cure vanilla. The town calls itself the city that perfumes the world.",
+    breads:[["Vanilla Almond Swirl Bread",C,"Vanilla, first cultivated here, swirled with almond."]] },
+  { id:"milan", name:"Milan", place:"Lombardy, Italy", lat:45.46, lng:9.19, kind:"ingredient",
+    note:"Squash came from the Americas, but the zucchini as we know it was developed in northern Italy in the 1800s. Zucchino means little squash.",
+    breads:[["Zucchini Bread",C,"Shredded zucchini keeps the crumb moist."],["Zucchini Bread with Lemon Drizzle",S,"Zucchini loaf brightened with lemon."]] },
+  { id:"almaty", name:"Almaty", place:"Tian Shan foothills, Kazakhstan", lat:43.24, lng:76.89, kind:"ingredient",
+    note:"Every apple traces back to wild apple forests in these mountains. The city's old name, Alma-Ata, is often translated as father of apples.",
+    breads:[["Apple Cinnamon Bread",C,"Diced apples and cinnamon."],["Apple Crisp Bread With Caramel Glaze",S,"Apple crisp topping under caramel."],["Apple Cinnamon Crumb Bread with Vanilla",S,"Apple, cinnamon crumb and vanilla."]] },
+  { id:"kabul", name:"Afghanistan", place:"Kabul region, Afghanistan", lat:34.53, lng:69.17, kind:"ingredient",
+    note:"Carrots were first farmed in this region over a thousand years ago. The first carrots were purple and yellow, not orange.",
+    breads:[["Carrot Bread",C,"Grated carrots and warm spice."]] },
+  { id:"naples", name:"Naples", place:"Campania, Italy", lat:40.85, lng:14.27, kind:"ingredient",
+    note:"Tomatoes arrived from the Americas in the 1500s, and Naples was one of the first places in Italy to cook with them every day.",
+    breads:[["Italian Herb Tomato Bread",C,"Tomato with Italian herbs, a savory loaf."]] },
+  { id:"quebec", name:"Québec", place:"Québec, Canada", lat:46.81, lng:-71.21, kind:"ingredient",
+    note:"Québec makes roughly 70% of the world's maple syrup.",
+    breads:[["Maple Bacon Bread",C,"Maple syrup sweetness with smoky bacon."]] },
+  { id:"sansalvador", name:"El Salvador", place:"San Salvador, El Salvador", lat:13.69, lng:-89.22, kind:"born",
+    note:"A Salvadoran quesadilla isn't a tortilla. It's a sweet, rich cheese pound cake topped with sesame seeds, served with coffee on Sunday afternoons.",
+    breads:[["Salvadoran Quesadilla Bread",C,"Sweet cheese cake-bread with a sesame top."]] },
+  { id:"claxton", name:"Claxton", place:"Claxton, Georgia, USA", lat:32.16, lng:-81.9, kind:"famous",
+    note:"Claxton Bakery has baked fruitcake here since 1910, earning the town the title Fruitcake Capital of the World.",
+    breads:[["Fruitcake Bread",C,"Candied fruit and nuts in a tender loaf."]] },
+  { id:"northcarolina", name:"North Carolina", place:"Johnston County, North Carolina, USA", lat:35.51, lng:-78.35, kind:"ingredient",
+    note:"North Carolina grows more sweet potatoes than any other state. It's even the official state vegetable.",
+    breads:[["Sweet Potato Bread",C,"Roasted sweet potato and spice."],["Sweet Potato Bread with Brown Butter Glaze",S,"Sweet potato under nutty brown butter."]] },
+  { id:"banda", name:"Banda Islands", place:"Maluku, Indonesia", lat:-4.52, lng:129.9, kind:"ingredient",
+    note:"For centuries nutmeg grew only on these tiny islands. In 1667 the Dutch kept the nutmeg island of Run and let England keep Manhattan.",
+    breads:[["Pumpkin Spice Bread",C,"Pumpkin with cinnamon, ginger, cloves and nutmeg."],["Pumpkin Spice Bread with White Chocolate Cream",S,"Pumpkin spice under white chocolate cream."]] },
+  { id:"nuremberg", name:"Nuremberg", place:"Bavaria, Germany", lat:49.45, lng:11.08, kind:"famous",
+    note:"Nuremberg has been famous for Lebkuchen, its spiced gingerbread, since the Middle Ages. German immigrants also brought Kaffeekuchen, coffee cake, to America.",
+    breads:[["Gingerbread Bread",C,"Molasses, ginger and warm spice."],["Gingerbread with Vanilla Glaze",S,"Gingerbread finished with vanilla glaze."],["Coffee Cake Bread",C,"Cinnamon crumb cake made for coffee time."]] },
+  { id:"maine", name:"Maine", place:"Downeast Maine, USA", lat:44.71, lng:-67.46, kind:"ingredient",
+    note:"Maine harvests nearly all the wild blueberries grown in the United States.",
+    breads:[["Blueberry Bread with Lemon Glaze",S,"Blueberries with a lemon glaze."],["Banana Blueberry Bread With Blueberry Lemon Glaze",S,"Banana and blueberry together."],["Triple Berry Bread With Lemon Glaze",S,"Three berries, one lemon glaze."]] },
+  { id:"amalfi", name:"Amalfi Coast", place:"Campania, Italy", lat:40.63, lng:14.6, kind:"ingredient",
+    note:"The Amalfi Coast grows the sfusato amalfitano, a big, fragrant lemon protected by its own regional label.",
+    breads:[["Lemon Poppy Seed With Lemon Glaze",S,"Lemon crumb flecked with poppy seeds."],["Lemon Raspberry Crumble Bread With Lemon Glaze",S,"Lemon and raspberry under crumble."]] },
+  { id:"hawaii", name:"Hawaiʻi", place:"Oʻahu, Hawaiʻi, USA", lat:21.5, lng:-158.02, kind:"famous",
+    note:"Canned Hawaiian pineapple made upside-down cake a hit. A 1925 Dole recipe contest drew about 2,500 versions of it. Coconuts reached these islands with Polynesian voyagers.",
+    breads:[["Pineapple Upside Down Bread With Butter Rum Sauce",S,"Caramelized pineapple on top."],["Coconut Cream Pie Bread With Coconut Vanilla Glaze",P,"Coconut cream and toasted coconut."]] },
+  { id:"georgia", name:"Fort Valley", place:"Georgia, USA", lat:32.55, lng:-83.89, kind:"famous",
+    note:"Peaches first came from China, but Georgia made them famous. Middle Georgia's orchards gave it the name the Peach State.",
+    breads:[["Peach Cobbler Bread With Vanilla Drizzle",S,"Southern peach cobbler in loaf form."]] },
+  { id:"brittany", name:"Brittany", place:"Brittany, France", lat:48.37, lng:-4.37, kind:"ingredient",
+    note:"The garden strawberry was born here in the 1700s, after a French officer brought Chilean strawberry plants home. Brittany is also where salted butter caramel was made famous.",
+    breads:[["Strawberry Shortcake Bread With Strawberry Compote",S,"Strawberries and shortcake crumb."],["Strawberry Upside Down Bread With Strawberry Vanilla Glaze",S,"Strawberries baked on top."],["Strawberry-Banana Bread With Strawberry Banana Glaze",S,"Strawberry and banana together."],["Salted Caramel Pretzel Bread With Caramel Drizzle",S,"Salted caramel, a Breton classic, with pretzel crunch."]] },
+  { id:"giresun", name:"Giresun", place:"Black Sea coast, Türkiye", lat:40.91, lng:38.39, kind:"ingredient",
+    note:"The Latin word for cherry comes from this town's ancient name, Kerasous. Türkiye still grows more sweet cherries than any other country.",
+    breads:[["Sweet Cherry Bread With Sweet Cherry Glaze",S,"Sweet cherries and cherry glaze."],["Chocolate-Cherry Bread With Cherry Glaze",S,"Dark chocolate and cherry."]] },
+  { id:"ratnagiri", name:"Ratnagiri", place:"Maharashtra, India", lat:16.99, lng:73.31, kind:"ingredient",
+    note:"India grows more mangoes than any other country, and Ratnagiri is home to the prized Alphonso.",
+    breads:[["Mango Bread With Mango Citrus Glaze",S,"Mango with a citrus glaze."]] },
+  { id:"capecod", name:"Cape Cod", place:"Dennis, Massachusetts, USA", lat:41.73, lng:-70.19, kind:"ingredient",
+    note:"Henry Hall began farming cranberries here in 1816, the start of commercial cranberry growing.",
+    breads:[["Cranberry Buttermilk Bread With Vanilla Glaze",S,"Tart cranberries in buttermilk crumb."]] },
+  { id:"mitcham", name:"Mitcham", place:"Surrey, England", lat:51.4, lng:-0.17, kind:"ingredient",
+    note:"In the 1700s and 1800s, Mitcham's fields produced some of the most prized peppermint in the world.",
+    breads:[["Mint Chocolate Chip Bread With Mint Chocolate Glaze",S,"Cool mint and chocolate chips."],["White Chocolate Peppermint Bread With White Chocolate Glaze",S,"Peppermint and white chocolate."],["White Chocolate Peppermint Candy Cane Bread With Peppermint Glaze",S,"Crushed candy cane and peppermint glaze."]] },
+  { id:"ecuador", name:"Upper Amazon", place:"Zamora-Chinchipe, Ecuador", lat:-4.07, lng:-78.95, kind:"ingredient",
+    note:"The oldest known use of cacao, about 5,300 years ago, was found here in the Ecuadorian Amazon.",
+    breads:[["Chocolate Bread With Chocolate Glaze",S,"Rich chocolate, top to bottom."]] },
+  { id:"dallas", name:"Dallas", place:"Dallas, Texas, USA", lat:32.78, lng:-96.8, kind:"born",
+    note:"German chocolate cake isn't German. A Dallas homemaker's recipe ran in a local paper in 1957, using Baker's German's Sweet Chocolate, named for Samuel German.",
+    breads:[["German Chocolate Bread With A Coconut Pecan Fudge Glaze",S,"Chocolate with coconut-pecan fudge."]] },
+  { id:"boston", name:"Boston", place:"Boston, Massachusetts, USA", lat:42.358, lng:-71.06, kind:"born",
+    note:"Boston cream pie was created at the Parker House hotel in 1856. The first printed peanut butter and jelly recipe ran in a Boston cooking magazine in 1901.",
+    breads:[["Boston Cream Pie Bread With Dark Chocolate Ganache",P,"Custard and dark chocolate ganache."],["PB&J Bread With Peanut Butter Almond Crunch",S,"Peanut butter, jelly and almond crunch."]] },
+  { id:"kerman", name:"Rafsanjan", place:"Kerman Province, Iran", lat:30.41, lng:55.99, kind:"ingredient",
+    note:"Pistachios have grown in this region for thousands of years, and Iran is still one of the world's top pistachio growers.",
+    breads:[["Pistachio Bread With Vanilla Glaze",S,"Pistachio crumb with vanilla glaze."]] },
+  { id:"naugatuck", name:"Naugatuck", place:"Connecticut, USA", lat:41.49, lng:-73.05, kind:"born",
+    note:"Peter Paul introduced the Almond Joy bar here in 1946.",
+    breads:[["Almond Joy Bread With Coconut Chocolate Glaze",S,"Coconut, almond and chocolate."]] },
+  { id:"collegedale", name:"Collegedale", place:"Tennessee, USA", lat:35.05, lng:-85.05, kind:"born",
+    note:"Little Debbie launched in 1960 with the Oatmeal Creme Pie, named for the founders' granddaughter.",
+    breads:[["Oatmeal Cream Pie Bread With Vanilla Cream Glaze",S,"Oatmeal cookie crumb with vanilla cream."]] },
+  { id:"nola", name:"New Orleans", place:"French Quarter, New Orleans, Louisiana, USA", lat:29.9566, lng:-90.0657, kind:"born",
+    note:"Bananas Foster was created at Brennan's in 1951. Lagniappe, the Louisiana word for a little something extra, names our featured artist's loaf.",
+    breads:[["Banana Foster Bread With Caramel Rum Glaze",P,"Brown sugar banana with caramel rum glaze."],["Blue Velvet Lagniappe",S,"Almond cream, raspberry, coconut and caramel under blue velvet glaze. Inspired by Tony Exum Jr."],["Pecan Pie Bread With Caramel Pecan Glaze",S,"Southern pecan pie with caramel pecan glaze."]] },
+  { id:"barbados", name:"Barbados", place:"Barbados, Caribbean", lat:13.19, lng:-59.54, kind:"ingredient",
+    note:"Barbados is often called the birthplace of rum, and Mount Gay has made rum here since 1703.",
+    breads:[["Banana Eclipse Bread With Gold Rum Glaze",S,"Banana loaf with a gold rum glaze."],["Coconut & Lime Bread With Lime Glaze",S,"Island coconut with fresh lime."]] },
+  { id:"mountvernon", name:"Mount Vernon", place:"Virginia, USA", lat:38.71, lng:-77.09, kind:"famous",
+    note:"Eggnog grew from an old British drink, and it was a holiday staple in early America. George Washington served it at Mount Vernon.",
+    breads:[["Eggnog Bread With Egg Nog Glaze",S,"Nutmeg-spiced eggnog loaf."]] },
+  { id:"london", name:"London", place:"London, England", lat:51.507, lng:-0.128, kind:"famous",
+    note:"During World War II sugar rationing, Britain's Ministry of Food pushed carrots as a sweetener, and carrot cake took off.",
+    breads:[["Carrot Cake Bread with Cream Cheese Glaze",S,"Spiced carrot cake with cream cheese glaze."]] },
+  { id:"newyork", name:"New York", place:"Manhattan, New York, USA", lat:40.7424, lng:-74.0061, kind:"born",
+    note:"Nabisco first sold the Oreo in Chelsea in 1912. Red velvet is tied to the Waldorf-Astoria by legend, and the black-and-white cookie is a New York deli classic.",
+    breads:[["Oreo Cookies & Cream Bread With White Chocolate Cream Glaze",S,"Cookies and cream with white chocolate cream."],["Red Velvet Bread With White Chocolate Cream",S,"Cocoa-tinged red velvet."],["Tuxedo Bread With White Chocolate Glaze & Dark Chocolate Glaze",P,"Black and white, like the cookie."]] },
+  { id:"minneapolis", name:"Minneapolis", place:"Minnesota, USA", lat:44.98, lng:-93.27, kind:"born",
+    note:"Pillsbury, based in Minneapolis, introduced Funfetti confetti cake in 1989.",
+    breads:[["Birthday Confetti Bread With Cake Batter Vanilla Glaze",S,"Confetti sprinkles and cake batter glaze."]] },
+  { id:"battlecreek", name:"Battle Creek", place:"Michigan, USA", lat:42.32, lng:-85.18, kind:"born",
+    note:"Cereal City. Rice Krispies Treats were created at Kellogg's here in 1939, and Post launched Fruity Pebbles in 1971.",
+    breads:[["Rice Krispies Treat Bread With Marshmallow Glaze",S,"Crispy rice and marshmallow."],["Fruity Pebbles Bread With Vanilla Glaze",S,"Fruity cereal crunch with vanilla glaze."]] },
+  { id:"savannah", name:"Savannah", place:"Georgia, USA", lat:32.08, lng:-81.09, kind:"born",
+    note:"The Girl Scouts were founded in Savannah in 1912. Their 1927 handbook printed the first known s'mores recipe.",
+    breads:[["S'mores Bread With Marshmallow Glaze",S,"Graham, chocolate and toasted marshmallow."]] },
+  { id:"treviso", name:"Treviso", place:"Veneto, Italy", lat:45.6669, lng:12.243, kind:"born",
+    note:"Tiramisu is most often traced to Le Beccherie restaurant in Treviso around 1970.",
+    breads:[["Tiramisu Bread With Espresso Mascarpone Drizzle",S,"Espresso, cocoa and mascarpone."]] },
+  { id:"provence", name:"Provence", place:"Valensole Plateau, France", lat:43.84, lng:5.98, kind:"ingredient",
+    note:"The Valensole plateau's purple lavender fields bloom every summer and supply much of France's lavender.",
+    breads:[["Lemon Lavender Bread With Lavender Drizzle",S,"Lemon with a lavender drizzle."]] },
+  { id:"dublin", name:"Dublin", place:"Dublin, Ireland", lat:53.35, lng:-6.26, kind:"born",
+    note:"Irish cream liqueur launched in Dublin in 1974. Our version is alcohol-free.",
+    breads:[["Irish Cream Bread With Irish Cream Glaze",S,"Non-alcoholic Irish cream flavor."]] },
+  { id:"chicago", name:"Chicago", place:"Illinois, USA", lat:41.88, lng:-87.63, kind:"born",
+    note:"Curtiss Candy introduced Butterfinger in Chicago in 1923. Mars launched Snickers in 1930, named after a family horse.",
+    breads:[["Snickers Bread With Salted Caramel Peanut Drizzle",S,"Peanuts, caramel and chocolate."],["Butterfinger Bread With Peanut Butter Butterscotch Glaze",S,"Crispy peanut butter and butterscotch."]] },
+  { id:"amsterdam", name:"Amsterdam", place:"Amsterdam, Netherlands", lat:52.3676, lng:4.9041, kind:"born",
+    note:"Our International collection comes from Dutch kitchens: pink-glazed roze koeken, chocolate hagelslag on buttered bread, and advocaat, a thick egg liqueur.",
+    breads:[["Amsterdam Banana Bread With Brown Sugar Rum Glaze",I,"Banana with Dutch almond paste and rum glaze."],["Dutch Apple Rozijnen Bread With Cinnamon Vanilla Glaze",I,"Apples and rozijnen (raisins)."],["Amsterdam Pink (Roze Koeken) Bread With Pink Fondant Glaze",I,"The pink-glazed Dutch treat."],["Hagelslag Bliss Bread With Dutch Chocolate Spread Glaze",I,"Dutch chocolate sprinkles."],["Brokking Hazelnut Cream Bread With Hazelnut Praline Glaze",I,"Hazelnut and meringue."],["Advocaat Custard Bread With Advocaat Eggnog Glaze",I,"Dutch egg liqueur custard flavor."]] },
+  { id:"gouda", name:"Gouda", place:"South Holland, Netherlands", lat:52.0115, lng:4.7104, kind:"born",
+    note:"The stroopwafel was first made in Gouda around 1800.",
+    breads:[["Stroopwafel Bread With Caramel Stroop Glaze",I,"Stroopwafel pieces and caramel stroop."]] },
+  { id:"mexicocity", name:"Mexico City", place:"Mexico", lat:19.4326, lng:-99.1332, kind:"famous",
+    note:"Several countries claim tres leches. It spread across Mexico in the 1940s through a recipe printed on condensed milk cans.",
+    breads:[["Tres Leches Bread (Soaked) With Chantilly Cream",P,"Soaked in three milks."]] },
+  { id:"stockholm", name:"Stockholm", place:"Sweden", lat:59.33, lng:18.07, kind:"famous",
+    note:"Sweden's kanelbulle is so loved it has its own national day, October 4.",
+    breads:[["Cinnamon Roll Bread With Cream Cheese Glaze",P,"Cinnamon swirl with cream cheese glaze."]] },
+  { id:"whitman", name:"Whitman", place:"Massachusetts, USA", lat:42.08, lng:-70.94, kind:"born",
+    note:"Ruth Wakefield created the chocolate chip cookie at the Toll House Inn here in the late 1930s.",
+    breads:[["Cookie Dough Bread With Brown Sugar Vanilla Glaze",P,"Chocolate chip cookie dough."]] },
+  { id:"hershey", name:"Hershey", place:"Pennsylvania, USA", lat:40.29, lng:-76.65, kind:"born",
+    note:"H.B. Reese, a former Hershey dairy worker, created the peanut butter cup here in 1928.",
+    breads:[["Peanut Butter Cup Bread With Chocolate Peanut Butter Glaze",P,"Peanut butter and chocolate."]] },
+  { id:"philadelphia", name:"Philadelphia", place:"Pennsylvania, USA", lat:39.95, lng:-75.17, kind:"born",
+    note:"Philadelphia baker Elizabeth Goodfellow is credited with the first lemon meringue pie in the early 1800s.",
+    breads:[["Lemon Meringue Bread With Lemon Marshmallow Glaze",P,"Lemon with a marshmallow meringue glaze."]] },
+  { id:"chantilly", name:"Chantilly", place:"Oise, France", lat:49.19, lng:2.47, kind:"born",
+    note:"Sweet whipped Chantilly cream takes its name from the Château de Chantilly, north of Paris.",
+    breads:[["Chantilly Berry Bread With Vanilla Mascarpone Drizzle",P,"Berries and Chantilly-style mascarpone."]] }
+];
+ATLAS.forEach(a => a.atlas = true);
+
+/* ---------- regions: the world view shows these; tapping one zooms in and splits it into places ---------- */
+const REGIONS = [
+  { id:"r-northeast", name:"Northeast US & Canada", lat:42.2, lng:-73.2, alt:0.62, places:["quebec","maine","boston","whitman","capecod","naugatuck","newyork","philadelphia","hershey","mountvernon"] },
+  { id:"r-midwest", name:"Midwest", lat:43.4, lng:-89.5, alt:0.6, places:["minneapolis","chicago","battlecreek"] },
+  { id:"r-south", name:"The American South", lat:32.2, lng:-86.5, alt:0.62, places:["dallas","nola","collegedale","savannah","claxton","georgia","northcarolina"] },
+  { id:"r-home", name:"Colorado", lat:39.868, lng:-104.972, alt:0.5, places:["thornton"] },
+  { id:"r-hawaii", name:"Hawaiʻi", lat:21.5, lng:-158.02, alt:0.5, places:["hawaii"] },
+  { id:"r-mexico", name:"Mexico & Central America", lat:17.6, lng:-95.2, alt:0.55, places:["mexicocity","balsas","xalapa","papantla","sansalvador"] },
+  { id:"r-latam", name:"Caribbean & Amazon", lat:5, lng:-69, alt:0.95, places:["barbados","ecuador"] },
+  { id:"r-north-eu", name:"Northern Europe", lat:52.5, lng:5.5, alt:0.72, places:["dublin","london","mitcham","brittany","chantilly","amsterdam","gouda","nuremberg","stockholm"] },
+  { id:"r-italy", name:"Italy & Provence", lat:43.2, lng:11.2, alt:0.5, places:["provence","milan","treviso","naples","amalfi"] },
+  { id:"r-silk", name:"The Silk Road", lat:38.5, lng:58, alt:0.95, places:["giresun","kerman","kabul","almaty"] },
+  { id:"r-india", name:"India", lat:16.99, lng:73.31, alt:0.5, places:["ratnagiri"] },
+  { id:"r-pacific", name:"Spice Islands & New Guinea", lat:-5.2, lng:137, alt:0.62, places:["banda","kuk"] }
+];
+const byId = Object.fromEntries(ATLAS.map(a => [a.id, a]));
+REGIONS.forEach(r => {
+  r.region = true;
+  r.items = r.places.map(id => byId[id]);
+  r.breadCount = r.items.reduce((t, a) => t + a.breads.length, 0);
+  r.items.forEach(a => a.regionId = r.id);
+});
+const regionOf = id => REGIONS.find(r => r.id === byId[id].regionId);
+
+/* label side for neighbours that would collide when zoomed in */
+const SIDE = { gouda:"l", naples:"l", mitcham:"b", london:"t", whitman:"l", boston:"t", capecod:"r", papantla:"t", mexicocity:"l", balsas:"b", hershey:"l", philadelphia:"b", mountvernon:"l", newyork:"b", naugatuck:"t", claxton:"l", treviso:"t", milan:"l", chantilly:"b", amsterdam:"t", xalapa:"r", savannah:"r", georgia:"l" };
+
+/* ---------- passport: stamps live only in this viewer's browser ---------- */
+const STAMP_KEY = "ubc-passport-v1";
+let stamps = new Set();
+try { stamps = new Set(JSON.parse(localStorage.getItem(STAMP_KEY) || "[]")); } catch (e) {}
+function stamp(id){
+  const fresh = !stamps.has(id);
+  stamps.add(id);
+  try { localStorage.setItem(STAMP_KEY, JSON.stringify([...stamps])); } catch (e) {}
+  updatePassport();
+  return fresh;
+}
+function updatePassport(){
+  const n = ATLAS.filter(a => stamps.has(a.id)).length;
+  document.getElementById("passN").textContent = n;
+  document.getElementById("passT").textContent = ATLAS.length;
+  document.getElementById("passBar").style.width = (n / ATLAS.length * 100) + "%";
+}
+const today = new Date().toLocaleDateString("en-US", { day:"2-digit", month:"short", year:"numeric" }).toUpperCase();
+
+/* ---------- modes, rail, finder ---------- */
+let mode = "boxes", region = null, current = null, timers = [];
+const finder = document.getElementById("finder");
+const q = document.getElementById("q");
+const countEl = document.getElementById("count");
+
+function card(d){
+  const b = document.createElement("button");
+  b.type = "button"; b.id = "stop-" + d.id;
+  b.setAttribute("aria-pressed", String(current === d));
+  if (d.region){
+    b.className = "stop region";
+    b.innerHTML = `<small>${d.items.length} place${d.items.length > 1 ? "s" : ""}</small><strong>${d.name}</strong><span>${d.breadCount} bread${d.breadCount > 1 ? "s" : ""}</span>`;
+    b.addEventListener("click", () => openRegion(d));
+  } else if (d.atlas){
+    b.className = "stop small k-" + d.kind + (stamps.has(d.id) ? " stamped" : "");
+    b.innerHTML = `<small>${d.kind === "ingredient" ? "Ingredient" : d.kind === "home" ? "Our original" : "Birthplace"}</small><strong>${d.name}</strong><span>${d.breads.length} bread${d.breads.length > 1 ? "s" : ""}</span>`;
+    b.addEventListener("click", () => select(d));
+  } else {
+    b.className = "stop";
+    b.innerHTML = `<small>Taste of</small><strong>${d.name}</strong><span>4 minis · $${d.price} <s>$${valueOf(d)}</s></span>`;
+    b.addEventListener("click", () => select(d));
+  }
+  return b;
+}
+
+function renderRail(){
+  rail.innerHTML = "";
+  const f = q.value.trim().toLowerCase();
+  if (mode === "boxes"){ DEST.forEach(d => rail.appendChild(card(d))); return; }
+  let list;
+  if (f){
+    list = ATLAS.filter(a => a.name.toLowerCase().includes(f) || a.place.toLowerCase().includes(f) || a.breads.some(b => b[0].toLowerCase().includes(f)));
+    countEl.textContent = list.length ? `${list.length} place${list.length > 1 ? "s" : ""} match` : "Nothing matches. Try “banana” or “Italy”.";
+  } else if (region){
+    const back = document.createElement("button");
+    back.type = "button"; back.className = "stop back"; back.id = "stop-back";
+    back.innerHTML = `<small>Back</small><strong>← All regions</strong><span>${REGIONS.length} regions</span>`;
+    back.addEventListener("click", worldView);
+    rail.appendChild(back);
+    list = region.items;
+    countEl.textContent = `${region.name} · ${region.items.length} places · ${region.breadCount} breads`;
+  } else {
+    list = REGIONS;
+    countEl.textContent = `${ATLAS.reduce((t, a) => t + a.breads.length, 0)} breads · ${ATLAS.length} places · tap a region or anywhere on the globe`;
+  }
+  list.forEach(d => rail.appendChild(card(d)));
+}
+
+function setMode(m){
+  if (m === mode) return;
+  mode = m;
+  document.querySelectorAll(".mode").forEach(b => b.setAttribute("aria-pressed", String(b.dataset.mode === m)));
+  finder.hidden = m !== "atlas";
+  app.classList.toggle("atlas", m === "atlas");
+  q.value = ""; region = null;
+  goHome();
+  renderRail();
+}
+document.querySelectorAll(".mode").forEach(b => b.addEventListener("click", () => setMode(b.dataset.mode)));
+q.addEventListener("input", () => { renderRail(); updateLayer(true); });
+document.getElementById("surprise").addEventListener("click", () => {
+  const pool = ATLAS.filter(a => !stamps.has(a.id));
+  const pick = (pool.length ? pool : ATLAS)[Math.floor(Math.random() * (pool.length || ATLAS.length))];
+  select(pick);
+});
+
+/* ---------- globe ---------- */
+const CLUSTER_ALT = 1.15;
+const globe = new Globe(stage, { animateIn: !reduced })
+  .globeImageUrl("img/earth-blue-marble.jpg")
+  .bumpImageUrl("img/earth-topology.png")
+  .backgroundImageUrl("img/night-sky.png")
+  .showAtmosphere(true)
+  .atmosphereColor("#8db8ff")
+  .atmosphereAltitude(0.17)
+  .htmlLat(d => d.lat).htmlLng(d => d.lng).htmlAltitude(0.005)
+  .htmlElement(d => {
+    const el = document.createElement("div");
+    if (d.region){
+      el.className = "bubble";
+      el.style.setProperty("--s", Math.round(48 + d.breadCount * 1.8) + "px");
+      el.innerHTML = `<b>${d.breadCount}</b><span>${d.name}</span>`;
+      el.title = `Zoom into ${d.name}`;
+      el.addEventListener("click", e => { e.stopPropagation(); openRegion(d); });
+    } else {
+      el.className = "pin" + (d.atlas ? " sm k-" + d.kind + " s-" + (SIDE[d.id] || "r") : "") + (current === d ? " active" : "") + (d.atlas && stamps.has(d.id) ? " stamped" : "");
+      el.id = "pin-" + d.id;
+      el.innerHTML = `<i></i><em>${d.name}${d.atlas ? ` <small>${d.breads.length}</small>` : ""}</em>`;
+      el.addEventListener("click", e => { e.stopPropagation(); select(d); });
+    }
+    return el;
+  })
+  .ringColor(() => t => `rgba(255,107,53,${1 - t})`)
+  .ringMaxRadius(3.2).ringPropagationSpeed(2.4).ringRepeatPeriod(900)
+  .arcColor(() => ["rgba(255,207,179,0.15)", "rgba(255,107,53,1)"])
+  .arcStroke(0.55)
+  .arcDashLength(0.45).arcDashGap(1.2).arcDashInitialGap(1).arcDashAnimateTime(2600)
+  .arcAltitudeAutoScale(0.42)
+  .onGlobeClick(({ lat, lng }) => {
+    if (mode !== "atlas" || current) return;
+    if (globe.pointOfView().altitude > CLUSTER_ALT){
+      // tap anywhere: dive toward that spot, then pins take over from bubbles
+      controls.autoRotate = false;
+      globe.pointOfView({ lat, lng, altitude: 0.8 }, reduced ? 0 : 1400);
+    }
+  });
+
+const controls = globe.controls();
+controls.autoRotate = !reduced;
+controls.autoRotateSpeed = 0.35;
+controls.enableDamping = true;
+controls.minDistance = 112;
+
+let layerKey = "";
+function updateLayer(force){
+  let key, data;
+  if (mode === "boxes"){ key = "boxes"; data = DEST; }
+  else {
+    const f = q.value.trim().toLowerCase();
+    const zoomedOut = globe.pointOfView().altitude > CLUSTER_ALT;
+    if (f){
+      data = ATLAS.filter(a => a.name.toLowerCase().includes(f) || a.place.toLowerCase().includes(f) || a.breads.some(b => b[0].toLowerCase().includes(f)));
+      key = "q:" + f;
+    } else if (zoomedOut && !current){ key = "regions"; data = REGIONS; }
+    else { key = "places"; data = ATLAS; }
+  }
+  if (!force && key === layerKey) return;
+  layerKey = key;
+  globe.htmlElementsData(data.slice());
+}
+if (globe.onZoom) globe.onZoom(() => updateLayer());
+else setInterval(() => updateLayer(), 300);
+
+function size(){ globe.width(stage.clientWidth).height(stage.clientHeight); }
+size();
+window.addEventListener("resize", size);
+globe.pointOfView({ lat: 32, lng: -60, altitude: isPhone() ? 3.2 : 2.5 }, 0);
+updateLayer(true);
+renderRail();
+updatePassport();
+
+function clearTimers(){ timers.forEach(clearTimeout); timers = []; }
+
+function landingView(d, alt = 0.42){
+  if (isPhone()) return { lat: d.lat - alt * 16, lng: d.lng, altitude: alt };
+  return { lat: d.lat, lng: d.lng + alt * 30, altitude: alt };
+}
+
+function openRegion(r){
+  if (r.items.length === 1) return select(r.items[0]);
+  clearTimers();
+  current = null; region = r;
+  controls.autoRotate = false;
+  app.classList.remove("open", "flying");
+  panel.setAttribute("aria-hidden", "true");
+  globe.arcsData([]).ringsData([]);
+  q.value = "";
+  renderRail();
+  globe.pointOfView({ lat: r.lat, lng: r.lng, altitude: r.alt }, reduced ? 0 : 1600);
+}
+
+function worldView(){
+  region = null;
+  goHome();
+  renderRail();
+}
+
+function select(d){
+  clearTimers();
+  current = d;
+  if (d.atlas && !q.value) region = regionOf(d.id);
+  controls.autoRotate = false;
+  renderRail();
+  updateLayer(true);
+  const stop = document.getElementById("stop-" + d.id);
+  if (stop) stop.scrollIntoView({ block: "nearest", inline: "center", behavior: reduced ? "auto" : "smooth" });
+
+  app.classList.remove("open");
+  panel.setAttribute("aria-hidden", "true");
+  app.classList.add("flying");
+
+  const home = Math.abs(d.lat - HOME.lat) < 0.01 && Math.abs(d.lng - HOME.lng) < 0.01;
+  route.innerHTML = home
+    ? `<span><small>You're home</small>Thornton, CO</span>`
+    : `<span><small>From</small>Thornton, CO</span><i aria-hidden="true">✈</i><span><small>To</small>${d.name}</span><span><small>Distance</small>${miles(HOME, d).toLocaleString()} mi</span>`;
+
+  globe.ringsData([d]).ringLat(r => r.lat).ringLng(r => r.lng);
+  globe.arcsData(home ? [] : [{ startLat: HOME.lat, startLng: HOME.lng, endLat: d.lat, endLng: d.lng }]);
+
+  const pov = globe.pointOfView();
+  const dist = miles({ lat: pov.lat, lng: pov.lng }, d);
+  const t1 = reduced ? 0 : (dist < 600 && pov.altitude < 1 ? 0 : 1300), t2 = reduced ? 0 : 2000;
+  if (t1){
+    const mid = midpoint({ lat: pov.lat, lng: pov.lng }, d);
+    globe.pointOfView({ lat: mid.lat, lng: mid.lng, altitude: Math.max(1.9, Math.min(3, dist / 2600)) }, t1);
+  }
+  timers.push(setTimeout(() => globe.pointOfView(landingView(d, d.atlas ? 0.3 : 0.42), t2), t1));
+  timers.push(setTimeout(() => d.atlas ? openAtlas(d, home) : openPanel(d), t1 + t2 * 0.75));
+}
+
+function head(eyebrow, d, home){
+  return `<div class="p-head">
+      <div>
+        <div class="eyebrow">${eyebrow}</div>
+        <h2>${d.name}</h2>
+        <div class="coords">${d.place}<br>${fmtCoord(d)}${home ? "" : ` · ${miles(HOME, d).toLocaleString()} mi from Thornton`}</div>
+      </div>
+      <button class="close" id="closeBtn" type="button" aria-label="Close and return to the globe">×</button>
+    </div>`;
+}
+function stampHtml(d, fresh){
+  return `<div class="stamp${fresh ? " fresh" : ""}" aria-hidden="true"><span>Urban Bread Co</span><b>${d.name}</b><span>${today}</span></div>`;
+}
+function show(){
+  document.getElementById("closeBtn").addEventListener("click", goHome);
+  panel.scrollTop = 0;
+  app.classList.remove("flying");
+  app.classList.add("open");
+  panel.setAttribute("aria-hidden", "false");
+}
+
+function openPanel(d){
+  const value = valueOf(d), save = value - d.price;
+  panelIn.innerHTML = `
+    ${head("Taste of", d, d.id === "colorado")}
+    <div class="sig">
+      <div class="label">Signature bread</div>
+      <h3>${d.sig}</h3>
+      <p>${d.sigLine}</p>
+    </div>
+    <div class="facts">
+      <div class="fact"><div class="label">Where it was born</div><p>${d.origin}</p></div>
+      <div class="fact"><div class="label">The originator</div><p>${d.originator}</p></div>
+      <div class="fact"><div class="label">What's in it</div><div class="chips">${d.ingredients.map(i => `<span>${i}</span>`).join("")}</div></div>
+    </div>
+    <div class="funfact"><div class="label">Fun fact</div><p>${d.fun}</p></div>
+    <div class="box">
+      <div class="label">The ${d.name} box · 4 minis</div>
+      <ul>${d.box.map(b => `<li><span>${b[0]}</span><span>${b[1]} · $${MINI[b[1]]}</span></li>`).join("")}</ul>
+      <div class="price"><b>$${d.price}</b><s>$${value} separately</s><em>You save $${save}</em></div>
+      <a class="cta" href="${MENU}" target="_blank" rel="noopener">Order the ${d.name} box</a>
+      <p class="note">Baked fresh to order in Thornton. Pickup or Denver metro delivery.</p>
+    </div>`;
+  show();
+}
+
+function openAtlas(d, home){
+  const fresh = stamp(d.id);
+  const r = regionOf(d.id);
+  const neighbours = r.items.filter(a => a !== d);
+  panelIn.innerHTML = `
+    ${head(KIND[d.kind], d, home)}
+    ${stampHtml(d, fresh)}
+    <div class="funfact"><div class="label">The story</div><p>${d.note}</p></div>
+    <div class="box">
+      <div class="label">From here to your table · ${d.breads.length} bread${d.breads.length > 1 ? "s" : ""}</div>
+      <ul class="atlas-list">${d.breads.map(b => `<li><div><strong>${b[0]}</strong><p>${b[2]}</p></div><span><em>${b[1]}</em>$${MINI[b[1]]} mini<br>$${FULL[b[1]]} full</span></li>`).join("")}</ul>
+      <a class="cta" href="${MENU}" target="_blank" rel="noopener">Order from the menu</a>
+    </div>
+    ${neighbours.length ? `<div class="near"><div class="label">Nearby in ${r.name}</div><div class="near-row">${neighbours.map(a => `<button type="button" class="near-btn" data-id="${a.id}">${a.name}<small>${a.breads.length}</small></button>`).join("")}</div></div>` : ""}`;
+  panelIn.querySelectorAll(".near-btn").forEach(b => b.addEventListener("click", () => select(byId[b.dataset.id])));
+  show();
+  const pin = document.getElementById("pin-" + d.id);
+  if (pin) pin.classList.add("stamped");
+}
+
+function goHome(){
+  clearTimers();
+  current = null;
+  app.classList.remove("open", "flying");
+  panel.setAttribute("aria-hidden", "true");
+  globe.arcsData([]).ringsData([]);
+  if (mode === "atlas" && region){
+    renderRail();
+    updateLayer(true);
+    globe.pointOfView({ lat: region.lat, lng: region.lng, altitude: region.alt }, reduced ? 0 : 1200);
+    return;
+  }
+  renderRail();
+  updateLayer(true);
+  globe.pointOfView({ lat: HOME.lat - 8, lng: HOME.lng, altitude: isPhone() ? 3.2 : 2.5 }, reduced ? 0 : 1800);
+  timers.push(setTimeout(() => { controls.autoRotate = !reduced; updateLayer(); }, 1900));
+}
+
+document.getElementById("homeBtn").addEventListener("click", () => { region = null; goHome(); });
+document.addEventListener("keydown", e => { if (e.key === "Escape" && current) goHome(); });
 </script>
 
-<!-- ── NAV ── -->
-<header>
-  <nav class="ubc-site-nav" id="ubc-nav" role="navigation" aria-label="Main navigation">
-    <a href="/" class="ubc-nav-logo" aria-label="Urban Bread Co — home">
-      <img src="images/2025/10/Urban-Bread-Co-2026-Logo-whitetext-300x300.png" alt="Urban Bread Co" class="ubc-nav-logo-img" fetchpriority="high">
-    </a>
-    <ul class="ubc-nav-links" role="list">
-      <li><a href="/">Home</a></li>
-      <li><a href="menu">Menu</a></li>
-      <li><a href="atlas" class="active">Atlas</a></li>
-      <li><a href="about">About</a></li>
-      <li><a href="gallery">Gallery</a></li>
-      <li><a href="catering">Catering</a></li>
-      <li><a href="events">Events</a></li>
-      <li><a href="reviews">Reviews</a></li>
-      <li><a href="game">Game</a></li>
-      <li><a href="contact">Contact</a></li>
-    </ul>
-    <a href="menu#browse-menu" class="ubc-nav-cta">Order Now</a>
-    <button class="ubc-hamburger" id="ubc-hamburger" aria-label="Open menu" aria-expanded="false">
-      <span></span><span></span><span></span>
-    </button>
-  </nav>
-  <nav class="ubc-mobile-nav" id="ubc-mobile-nav" aria-label="Mobile navigation">
-    <a href="/">Home</a>
-    <a href="menu">Menu</a>
-    <a href="atlas" class="active">Atlas</a>
-    <a href="about">About</a>
-    <a href="gallery">Gallery</a>
-    <a href="catering">Catering</a>
-    <a href="events">Events</a>
-    <a href="reviews">Reviews</a>
-    <a href="game">Game</a>
-    <a href="contact">Contact</a>
-    <a href="menu#browse-menu" class="ubc-nav-cta">Order Now</a>
-  </nav>
-</header>
-
-<main id="main-content" class="atlas-wrap">
-
-  <!-- ── HERO ── -->
-  <section class="atlas-hero">
-    <div class="atlas-hero-inner">
-      <p class="atlas-kicker">Interactive · Educational · Delicious</p>
-      <h1 class="atlas-title">The Bread <em>Atlas</em></h1>
-      <p class="atlas-lede">
-        Every loaf we bake came from somewhere. Spin the map, click a glowing star, and you land in the
-        place that invented the flavour — the history nobody tells you, the science hiding in the
-        ingredient, and the Urban Bread Co loaves that carry it back to Colorado.
-      </p>
-      <div class="atlas-stats">
-        <div class="atlas-stat"><strong id="atlas-total">45</strong><span>Origins mapped</span></div>
-        <div class="atlas-stat"><strong id="atlas-bread-total">82</strong><span>Loaves placed</span></div>
-        <div class="atlas-stat"><strong>6</strong><span>Continents</span></div>
-        <div class="atlas-stat"><strong>1</strong><span>Bakery in Thornton</span></div>
-      </div>
-    </div>
-  </section>
-
-  <!-- ── CONTROLS ── -->
-  <div class="atlas-controls">
-    <div class="atlas-search-wrap">
-      <span class="search-icon" aria-hidden="true">🔍</span>
-      <input id="atlas-search" type="search" aria-label="Search origins, ingredients or breads" placeholder="Search a bread, spice or country…" autocomplete="off">
-      <div id="atlas-results" role="listbox" aria-label="Search results"></div>
-    </div>
-    <div class="region-chips" role="group" aria-label="Filter by region">
-      <button type="button" class="region-chip is-on" data-region="all">All</button>
-      <button type="button" class="region-chip" data-region="North America">North America</button>
-      <button type="button" class="region-chip" data-region="Latin America">Latin America</button>
-      <button type="button" class="region-chip" data-region="Europe">Europe</button>
-      <button type="button" class="region-chip" data-region="Africa">Africa</button>
-      <button type="button" class="region-chip" data-region="Asia">Asia</button>
-      <button type="button" class="region-chip" data-region="Oceania">Oceania</button>
-    </div>
-    <div class="atlas-actions">
-      <span class="atlas-btn" aria-live="polite"><strong id="atlas-shown">45</strong> stars shown</span>
-      <button type="button" class="atlas-btn is-primary" id="atlas-surprise">✦ Surprise me</button>
-    </div>
-  </div>
-
-  <!-- ── PASSPORT ── -->
-  <div class="atlas-passport">
-    <span class="passport-title">Flavour Passport</span>
-    <div class="passport-bar"><div id="passport-fill"></div></div>
-    <span id="passport-count">0 / 45</span>
-    <div id="passport-badges"></div>
-    <button type="button" id="passport-reset">Reset passport</button>
-  </div>
-
-  <!-- ── MAP + PANEL ── -->
-  <div class="atlas-stage" id="atlas-stage">
-    <div class="atlas-map-shell">
-      <svg id="atlas-svg" role="application" aria-label="Interactive world map of bread origins. Use tab to move between stars and Enter to open one.">
-        <g id="atlas-world">
-          <g id="atlas-graticule"></g>
-          <g id="atlas-land"></g>
-          <g id="atlas-routes"></g>
-          <g id="atlas-stars"></g>
-        </g>
-      </svg>
-      <div id="atlas-tooltip" aria-hidden="true"></div>
-      <div id="atlas-hint" aria-hidden="true">Hold <kbd>Ctrl</kbd> and scroll to zoom · drag to pan</div>
-      <div class="map-tools">
-        <button type="button" class="map-tool" id="atlas-zoom-in" aria-label="Zoom in">+</button>
-        <button type="button" class="map-tool" id="atlas-zoom-out" aria-label="Zoom out">−</button>
-        <button type="button" class="map-tool" id="atlas-reset" aria-label="Reset view">⟲</button>
-      </div>
-      <div class="map-legend">
-        <span class="legend-new"><i></i>Unexplored star</span>
-        <span class="legend-seen"><i></i>Already tasted</span>
-        <span class="legend-home"><i></i>Our bakery</span>
-      </div>
-    </div>
-
-    <aside class="atlas-panel" id="atlas-panel" aria-hidden="true" aria-label="Origin details">
-      <button type="button" id="atlas-panel-close" aria-label="Close origin details">✕</button>
-      <div id="atlas-panel-body"></div>
-    </aside>
-  </div>
-
-  <!-- ── STRIP + HOW TO ── -->
-  <section class="atlas-strip-section">
-    <div class="strip-head">
-      <h2>Every origin on the map</h2>
-      <p>Prefer a list? Jump straight to a region.</p>
-    </div>
-    <div id="atlas-strip"></div>
-
-    <div class="atlas-howto">
-      <div class="howto-card">
-        <span class="howto-num">01</span>
-        <strong>Find a star</strong>
-        <p>Gold stars mark places that gave us a flavour. Drag to pan, scroll to zoom, or search for a spice like nutmeg or vanilla.</p>
-      </div>
-      <div class="howto-card">
-        <span class="howto-num">02</span>
-        <strong>Learn something</strong>
-        <p>Each origin opens with a fun food fact, the science behind its signature ingredient, and the local baking tradition it belongs to.</p>
-      </div>
-      <div class="howto-card">
-        <span class="howto-num">03</span>
-        <strong>Follow the route</strong>
-        <p>A glowing arc traces the flavour from its homeland to our ovens in Thornton, Colorado — the journey every loaf makes.</p>
-      </div>
-      <div class="howto-card">
-        <span class="howto-num">04</span>
-        <strong>Stamp your passport</strong>
-        <p>Visited stars turn green and fill your Flavour Passport. Collect all 45 origins to earn Master of the Atlas.</p>
-      </div>
-    </div>
-  </section>
-</main>
-
-<div id="atlas-toast" role="status" aria-live="polite"></div>
-
-<footer class="ubc-site-footer">
-  <div class="ubc-footer-grid">
-    <div class="ubc-footer-brand">
-      <div class="ubc-footer-logo"><img src="images/2025/10/Urban-Bread-Co-2026-Logo-whitetext-150x150.png" alt="Urban Bread Co" class="ubc-footer-logo-img">Urban <span>Bread</span> Co</div>
-      <p class="ubc-footer-tagline">"Bread that tells a story."</p>
-      <p style="font-size:0.88rem;line-height:1.7;margin-bottom:20px;">Small-batch artisan bakery in Thornton, CO. 82+ unique loaves baked fresh daily.</p>
-      <div class="ubc-footer-social">
-        <a href="https://instagram.com/urbanbreadco" target="_blank" rel="noopener" aria-label="Instagram">ig</a>
-        <a href="https://facebook.com/itsurbanbreadco" target="_blank" rel="noopener" aria-label="Facebook">fb</a>
-        <a href="https://linktr.ee/urbanbreadco" target="_blank" rel="noopener" aria-label="Linktree">lt</a>
-      </div>
-    </div>
-    <div class="ubc-footer-col">
-      <h4>Explore</h4>
-      <ul>
-        <li><a href="atlas">Bread Atlas</a></li>
-        <li><a href="menu#browse-menu">Full Menu</a></li>
-        <li><a href="menu#build-bread">Build Custom</a></li>
-        <li><a href="menu#bread-club">Bread Club</a></li>
-        <li><a href="game">Win a Discount</a></li>
-      </ul>
-    </div>
-    <div class="ubc-footer-col">
-      <h4>Company</h4>
-      <ul>
-        <li><a href="about">About Us</a></li>
-        <li><a href="gallery">Gallery</a></li>
-        <li><a href="artist-feature">Artist Feature</a></li>
-        <li><a href="events">Events</a></li>
-        <li><a href="reviews">Reviews</a></li>
-      </ul>
-    </div>
-    <div class="ubc-footer-col">
-      <h4>Visit Us</h4>
-      <p class="ubc-footer-info">
-        <strong>Thornton, CO</strong><br>
-        Mon–Fri 8am–8pm<br>Sat 9am–7pm · Sun 10am–6pm<br><br>
-        <a href="tel:7202668231" style="color:var(--orange);">720-266-8231</a><br><br>
-        <a href="contact" style="color:var(--orange);">Contact Us →</a>
-      </p>
-    </div>
-  </div>
-  <div class="ubc-footer-bottom">
-    <span>© 2026 Urban Bread Co. All rights reserved.</span>
-    <span><a href="menu#browse-menu">Menu</a> · <a href="contact">Contact</a> · <a href="sitemap">Sitemap</a> · <a href="faq">FAQ</a> · <a href="privacy">Privacy</a></span>
-    <span class="ubc-footer-credit">Website by <a href="https://www.sparkthebuzz.com" target="_blank" rel="noopener">Spark the Buzz</a></span>
-  </div>
-</footer>
-
-<script src="js/main.js"></script>
-<script src="atlas-map.js"></script>
-<script src="atlas-data.js"></script>
-<script src="atlas.js"></script>
-</body>
-</html>
+</body></html>
