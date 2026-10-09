@@ -27,7 +27,7 @@
     /* ============================================================
        BREAD ATLAS
        ============================================================ */
-    .atlas-wrap { --atlas-sea: #0A0703; --atlas-land: #2A1A0C; --atlas-land-lit: #4A2E12; }
+    .atlas-wrap { --atlas-sea: #0A1626; --atlas-land: #5A3C1F; --atlas-land-lit: #C98A3E; }
 
     /* ── Hero ── */
     .atlas-hero {
@@ -133,22 +133,22 @@
     .atlas-map-shell {
       position: relative; overflow: hidden;
       background:
-        radial-gradient(1200px 700px at 50% 42%, rgba(255,107,53,0.09), transparent 70%),
-        linear-gradient(180deg, #0A0703, #140C04);
+        radial-gradient(1200px 700px at 50% 42%, rgba(90,160,255,0.10), transparent 70%),
+        linear-gradient(180deg, #0A1626, #050A14);
       border-bottom: 1px solid var(--rule);
     }
     #atlas-svg { display: block; width: 100%; height: auto; cursor: grab; touch-action: none; }
     #atlas-svg.is-dragging { cursor: grabbing; }
     #atlas-world { transform-origin: 0 0; }
 
-    .atlas-sphere { fill: #0B0803; stroke: rgba(242,228,196,0.10); stroke-width: 1; vector-effect: non-scaling-stroke; }
-    .atlas-grat { fill: none; stroke: rgba(242,228,196,0.045); stroke-width: 0.6; vector-effect: non-scaling-stroke; }
+    .atlas-sphere { fill: #0A1626; stroke: rgba(144,195,255,0.14); stroke-width: 1; vector-effect: non-scaling-stroke; }
+    .atlas-grat { fill: none; stroke: rgba(144,195,255,0.07); stroke-width: 0.6; vector-effect: non-scaling-stroke; }
     .atlas-country {
-      fill: #241708; stroke: rgba(242,228,196,0.10); stroke-width: 0.45;
+      fill: #5A3C1F; stroke: rgba(10,22,38,0.4); stroke-width: 0.45;
       vector-effect: non-scaling-stroke; transition: fill 0.35s ease;
     }
-    .atlas-country.has-origin { fill: #3C2510; stroke: rgba(255,107,53,0.28); }
-    .atlas-country.is-active { fill: #6A3C13; stroke: rgba(255,107,53,0.85); }
+    .atlas-country.has-origin { fill: #C98A3E; stroke: rgba(255,179,71,0.5); }
+    .atlas-country.is-active { fill: #FFB347; stroke: rgba(255,209,102,0.9); }
 
     .atlas-route { fill: none; stroke: var(--orange); stroke-width: 1.6; stroke-linecap: round; opacity: 0.9; vector-effect: non-scaling-stroke; }
     .atlas-route-glow { fill: none; stroke: rgba(255,107,53,0.28); stroke-width: 6; filter: blur(2px); vector-effect: non-scaling-stroke; }
